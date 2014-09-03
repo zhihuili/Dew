@@ -1,0 +1,8 @@
+.classpath
+.project
+target
+.idea
+.settings
+*.log
+null
+conf.properties
