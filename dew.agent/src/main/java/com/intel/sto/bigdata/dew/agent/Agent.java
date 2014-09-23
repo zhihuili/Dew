@@ -11,10 +11,13 @@ import akka.actor.UntypedActor;
 import akka.japi.Procedure;
 
 import com.intel.sto.bigdata.dew.message.AgentInfo;
+import com.intel.sto.bigdata.dew.message.ServiceRequest;
+import com.intel.sto.bigdata.dew.service.Service;
 
 public class Agent extends UntypedActor {
   String masterUrl;
   ActorRef master;
+  ServiceManager serviceManager;
 
   public Agent(String masterUrl) {
     this.masterUrl = masterUrl;
@@ -41,6 +44,8 @@ public class Agent extends UntypedActor {
         getContext().watch(master);
         getContext().become(active, true);
         master.tell(new AgentInfo(), getSelf());
+        serviceManager = new ServiceManager();
+
         ActorRef sample = getContext().actorOf(Props.create(SampleService.class, master), "sample");
         sample.tell("OK", getSelf());
         getContext().stop(sample);
@@ -56,7 +61,14 @@ public class Agent extends UntypedActor {
   Procedure<Object> active = new Procedure<Object>() {
     @Override
     public void apply(Object message) {
-      
+      if (message instanceof ServiceRequest) {
+        ServiceRequest serviceRequest = (ServiceRequest) message;
+        Service service = serviceManager.getService(serviceRequest.getServiceName());
+        if (serviceRequest.getServiceMethod().equals("get")) {
+          getSender().tell(service.get(message), getSelf());
+        }
+
+      }
     }
   };
 }

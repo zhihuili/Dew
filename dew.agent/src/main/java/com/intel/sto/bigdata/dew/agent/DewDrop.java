@@ -13,7 +13,7 @@ public class DewDrop {
       System.err.println("Please input master ip and port.");
       System.exit(1);
     }
-    startAgent(args[0], args[1], Integer.valueOf(args[2]));
+    startAgent(args[0], args[1], 0);
   }
 
   private static void startAgent(String masterIp, String masterPort, int port) {
