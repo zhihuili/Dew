@@ -12,6 +12,7 @@ import akka.japi.Procedure;
 
 import com.intel.sto.bigdata.dew.message.AgentInfo;
 import com.intel.sto.bigdata.dew.message.ServiceRequest;
+import com.intel.sto.bigdata.dew.message.StartService;
 import com.intel.sto.bigdata.dew.service.Service;
 
 public class Agent extends UntypedActor {
@@ -68,6 +69,9 @@ public class Agent extends UntypedActor {
           getSender().tell(service.get(message), getSelf());
         }
 
+      }
+      if(message instanceof StartService){
+        
       }
     }
   };

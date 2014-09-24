@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 public class Agents implements Serializable {
 
+  private static final long serialVersionUID = 1L;
+
   private String requestHosts;
   private String responseUrls;
 

@@ -38,5 +38,23 @@
     <module>dew.master</module>
     <module>dew.agent</module>
     <module>service.sysmetrics</module>
+    <module>dew.assembly</module>
   </modules>
+<build>  
+  
+        <plugins>  
+      
+            <plugin>  
+                <artifactId>maven-compiler-plugin</artifactId>  
+                <configuration>  
+                    <compilerVersion>1.6</compilerVersion>  
+                    <fork>true</fork>  
+                    <source>1.6</source>  
+                    <target>1.6</target>  
+                </configuration>  
+            </plugin>  
+    
+        </plugins>  
+  
+    </build>  
 </project>
