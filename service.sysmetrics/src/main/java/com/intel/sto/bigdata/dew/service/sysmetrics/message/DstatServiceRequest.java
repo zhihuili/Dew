@@ -1,14 +1,16 @@
-package com.intel.sto.bigdata.dew.service.sysmetrics;
+package com.intel.sto.bigdata.dew.service.sysmetrics.message;
 
 import com.intel.sto.bigdata.dew.message.ServiceRequest;
 
 public class DstatServiceRequest extends ServiceRequest {
 
-  private long startTime;
-  private long endTime;
+  long startTime;
+  long endTime;
 
   public DstatServiceRequest(long startTime, long endTime) {
-    super("dstatService", "get");
+    super("DstatService", "get");
+    this.startTime = startTime;
+    this.endTime = endTime;
   }
 
   public long getStartTime() {

@@ -11,10 +11,10 @@ import akka.actor.Props;
 import akka.actor.ReceiveTimeout;
 import akka.actor.UntypedActor;
 
-import com.intel.sto.bigdata.dew.message.Agents;
+import com.intel.sto.bigdata.dew.message.AgentList;
 import com.intel.sto.bigdata.dew.message.ServiceComplete;
-import com.intel.sto.bigdata.dew.message.ServiceRequest;
 import com.intel.sto.bigdata.dew.message.ServiceResponse;
+import com.intel.sto.bigdata.dew.message.ServiceRequest;
 
 public class App extends UntypedActor {
 
@@ -50,7 +50,7 @@ public class App extends UntypedActor {
 
   private void init() {
     try {
-      Agents agents = (Agents) ask(actor, new Agents(), 3000).result(duration, null);
+      AgentList agents = (AgentList) ask(actor, new AgentList(), 3000).result(duration, null);
       agentUrls = agents.getResponseUrls().split(";");
     } catch (Exception e) {
       e.printStackTrace();
@@ -59,7 +59,6 @@ public class App extends UntypedActor {
 
   @Override
   public void onReceive(Object message) throws Exception {
-
     if (message instanceof ServiceRequest) {
       for (String agentUrl : agentUrls) {
         getContext().actorSelection(agentUrl).tell(message, getSelf());
@@ -67,7 +66,7 @@ public class App extends UntypedActor {
     }
     if (message instanceof ServiceResponse) {
       listener.tell(message, null);
-      if (resultNum++ >= agentUrls.length) {
+      if (++resultNum >= agentUrls.length) {
         listener.tell(new ServiceComplete(), null);
       }
     }

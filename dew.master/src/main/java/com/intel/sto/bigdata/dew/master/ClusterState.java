@@ -4,13 +4,13 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import com.intel.sto.bigdata.dew.message.AgentInfo;
+import com.intel.sto.bigdata.dew.message.AgentRegister;
 
 public class ClusterState {
 
-  private static Map<String, AgentInfo> agents = new HashMap<String, AgentInfo>();
+  private static Map<String, AgentRegister> agents = new HashMap<String, AgentRegister>();
 
-  public static void addAgent(String id, AgentInfo agent) {
+  public static void addAgent(String id, AgentRegister agent) {
     agents.put(id, agent);
   }
 
@@ -19,7 +19,7 @@ public class ClusterState {
       return "";
     }
     StringBuilder sb = new StringBuilder();
-    for (Entry<String, AgentInfo> entry : agents.entrySet()) {
+    for (Entry<String, AgentRegister> entry : agents.entrySet()) {
       sb.append(entry.getValue().getUrl());
       sb.append(";");
     }

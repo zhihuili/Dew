@@ -20,4 +20,8 @@ public class ServiceManager {
   public Service getService(String serviceName) {
     return serviceMap.get(serviceName);
   }
+
+  public void putService(String serviceName, Service service) {
+    serviceMap.put(serviceName, service);
+  }
 }

@@ -10,7 +10,7 @@ import akka.actor.ReceiveTimeout;
 import akka.actor.UntypedActor;
 import akka.japi.Procedure;
 
-import com.intel.sto.bigdata.dew.message.AgentInfo;
+import com.intel.sto.bigdata.dew.message.AgentRegister;
 import com.intel.sto.bigdata.dew.message.ServiceRequest;
 import com.intel.sto.bigdata.dew.message.StartService;
 import com.intel.sto.bigdata.dew.service.Service;
@@ -44,7 +44,7 @@ public class Agent extends UntypedActor {
       } else {
         getContext().watch(master);
         getContext().become(active, true);
-        master.tell(new AgentInfo(), getSelf());
+        master.tell(new AgentRegister(), getSelf());
         serviceManager = new ServiceManager();
 
         ActorRef sample = getContext().actorOf(Props.create(SampleService.class, master), "sample");
@@ -68,10 +68,17 @@ public class Agent extends UntypedActor {
         if (serviceRequest.getServiceMethod().equals("get")) {
           getSender().tell(service.get(message), getSelf());
         }
-
       }
-      if(message instanceof StartService){
-        
+      if (message instanceof StartService) {
+        ClassLoader cl = this.getClass().getClassLoader();
+        StartService ss = (StartService) message;
+        try {
+          Service service = (Service) cl.loadClass(ss.getServiceUri()).newInstance();
+          serviceManager.putService(ss.getServiceName(), service);
+          new Thread(service).start();
+        } catch (Exception e) {
+          e.printStackTrace();
+        }
       }
     }
   };

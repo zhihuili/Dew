@@ -2,7 +2,7 @@ package com.intel.sto.bigdata.dew.message;
 
 import java.io.Serializable;
 
-public class AgentInfo implements Serializable {
+public class AgentRegister implements Serializable {
 
   private static final long serialVersionUID = 1L;
 
@@ -11,10 +11,10 @@ public class AgentInfo implements Serializable {
   private int port;
   private String url;
 
-  public AgentInfo() {
+  public AgentRegister() {
   }
 
-  public AgentInfo(String ip, String hostName, int port) {
+  public AgentRegister(String ip, String hostName, int port) {
     this.ip = ip;
     this.hostName = hostName;
     this.port = port;

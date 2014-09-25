@@ -5,6 +5,9 @@ public class ServiceRequest {
   private String serviceName;
   private String serviceMethod;
 
+  public ServiceRequest() {
+  }
+
   public ServiceRequest(String serviceName, String serviceMethod) {
     this.serviceMethod = serviceMethod;
     this.serviceName = serviceName;
