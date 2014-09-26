@@ -2,6 +2,7 @@ package com.intel.sto.bigdata.dew.agent;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import com.intel.sto.bigdata.dew.service.Service;
 
@@ -23,5 +24,11 @@ public class ServiceManager {
 
   public void putService(String serviceName, Service service) {
     serviceMap.put(serviceName, service);
+  }
+
+  public void stopAllService() {
+    for (Entry<String, Service> entry : serviceMap.entrySet()) {
+      entry.getValue().stop();
+    }
   }
 }

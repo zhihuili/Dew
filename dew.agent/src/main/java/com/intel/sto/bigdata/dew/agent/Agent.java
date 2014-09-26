@@ -5,9 +5,10 @@ import scala.concurrent.duration.Duration;
 import akka.actor.ActorIdentity;
 import akka.actor.ActorRef;
 import akka.actor.Identify;
-import akka.actor.Props;
 import akka.actor.ReceiveTimeout;
 import akka.actor.UntypedActor;
+import akka.event.Logging;
+import akka.event.LoggingAdapter;
 import akka.japi.Procedure;
 
 import com.intel.sto.bigdata.dew.message.AgentRegister;
@@ -16,17 +17,19 @@ import com.intel.sto.bigdata.dew.message.StartService;
 import com.intel.sto.bigdata.dew.service.Service;
 
 public class Agent extends UntypedActor {
-  String masterUrl;
-  ActorRef master;
-  ServiceManager serviceManager;
+  private String masterUrl;
+  private ActorRef master;
+  private ServiceManager serviceManager;
+  private LoggingAdapter log = Logging.getLogger(this);
 
-  public Agent(String masterUrl) {
+  public Agent(String masterUrl, ServiceManager serviceManager) {
+    this.serviceManager = serviceManager;
     this.masterUrl = masterUrl;
     sendIdentifyRequest();
   }
 
   private void sendIdentifyRequest() {
-    System.out.println(masterUrl);
+    log.info("Connect master:" + masterUrl);
     getContext().actorSelection(masterUrl).tell(new Identify(masterUrl), getSelf());
     getContext()
         .system()
@@ -40,22 +43,16 @@ public class Agent extends UntypedActor {
     if (message instanceof ActorIdentity) {
       master = ((ActorIdentity) message).getRef();
       if (master == null) {
-        System.err.println("Master not available: " + masterUrl);
+        log.error("Master not available: " + masterUrl);
       } else {
         getContext().watch(master);
         getContext().become(active, true);
         master.tell(new AgentRegister(), getSelf());
-        serviceManager = new ServiceManager();
-
-        ActorRef sample = getContext().actorOf(Props.create(SampleService.class, master), "sample");
-        sample.tell("OK", getSelf());
-        getContext().stop(sample);
-        sample.tell("aa", null);
       }
     } else if (message instanceof ReceiveTimeout) {
       sendIdentifyRequest();
     } else {
-      System.out.println("Master not ready yet");
+      log.warning("Master not ready yet");
     }
   }
 
@@ -68,17 +65,20 @@ public class Agent extends UntypedActor {
         if (serviceRequest.getServiceMethod().equals("get")) {
           getSender().tell(service.get(message), getSelf());
         }
-      }
-      if (message instanceof StartService) {
+      } else if (message instanceof StartService) {
         ClassLoader cl = this.getClass().getClassLoader();
         StartService ss = (StartService) message;
         try {
           Service service = (Service) cl.loadClass(ss.getServiceUri()).newInstance();
           serviceManager.putService(ss.getServiceName(), service);
           new Thread(service).start();
+          getSender().tell(ss, null);
         } catch (Exception e) {
           e.printStackTrace();
         }
+      } else {
+        log.warning("Unhandle message:" + message);
+        unhandled(message);
       }
     }
   };

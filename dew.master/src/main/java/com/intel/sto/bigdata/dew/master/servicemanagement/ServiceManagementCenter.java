@@ -1,6 +1,6 @@
-package com.intel.sto.bigdata.dew.master;
+package com.intel.sto.bigdata.dew.master.servicemanagement;
 
-public class ServiceCenter {
+public class ServiceManagementCenter {
 
   /**
    * @param args

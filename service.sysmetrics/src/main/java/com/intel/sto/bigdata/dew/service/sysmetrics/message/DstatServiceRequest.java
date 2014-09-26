@@ -4,11 +4,12 @@ import com.intel.sto.bigdata.dew.message.ServiceRequest;
 
 public class DstatServiceRequest extends ServiceRequest {
 
+  private static final long serialVersionUID = -135746986457132032L;
   long startTime;
   long endTime;
 
   public DstatServiceRequest(long startTime, long endTime) {
-    super("DstatService", "get");
+    super("dstat", "get");
     this.startTime = startTime;
     this.endTime = endTime;
   }

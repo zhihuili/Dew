@@ -4,6 +4,7 @@ import static akka.pattern.Patterns.ask;
 import static java.util.concurrent.TimeUnit.SECONDS;
 import scala.concurrent.duration.Duration;
 import scala.concurrent.duration.FiniteDuration;
+import sun.rmi.runtime.Log;
 import akka.actor.ActorIdentity;
 import akka.actor.ActorRef;
 import akka.actor.Identify;
@@ -63,11 +64,14 @@ public class App extends UntypedActor {
       for (String agentUrl : agentUrls) {
         getContext().actorSelection(agentUrl).tell(message, getSelf());
       }
-    }
-    if (message instanceof ServiceResponse) {
-      listener.tell(message, null);
-      if (++resultNum >= agentUrls.length) {
-        listener.tell(new ServiceComplete(), null);
+    } else if (message instanceof ServiceResponse) {
+      if (((ServiceResponse) message).getEm() == null) {
+        listener.tell(message, null);
+        if (++resultNum >= agentUrls.length) {
+          listener.tell(new ServiceComplete(), null);
+        }
+      } else {
+        // TODO
       }
     }
   }

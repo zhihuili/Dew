@@ -1,6 +1,10 @@
 package com.intel.sto.bigdata.dew.message;
 
-public class ErrorMessage {
+import java.io.Serializable;
+
+public class ErrorMessage implements Serializable {
+
+  private static final long serialVersionUID = -8743369152490548542L;
   private String error;
 
   public ErrorMessage(String error) {

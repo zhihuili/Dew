@@ -33,7 +33,6 @@ public class DstatProcessor extends Thread {
             continue;
           }
           sb.append("|" + String.valueOf(System.currentTimeMillis()));
-          System.out.println(sb);
           lock.lock();
           stats.add(sb.toString());
           lock.unlock();
@@ -66,7 +65,7 @@ public class DstatProcessor extends Thread {
       throw new ServiceException("No dstat data!");
     }
     String first = stats.get(0);
-    long firstTime = Long.valueOf(first.split("|")[4]);
+    long firstTime = Long.valueOf(first.split("\\|")[4]);
     if (firstTime > startTime) {
       throw new ServiceException("Service start time is later than your query time about"
           + (firstTime - startTime) / 1000 + "s");

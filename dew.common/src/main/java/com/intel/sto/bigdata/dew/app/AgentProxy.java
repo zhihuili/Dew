@@ -12,7 +12,7 @@ public class AgentProxy {
 
   ActorRef app;
 
-  public AgentProxy(String masterUrl, Class<AppListener> listener) {
+  public AgentProxy(String masterUrl, Class<? extends AppListener> listener) {
 
     ActorSystem system =
         ActorSystem.create(

@@ -1,7 +1,10 @@
 package com.intel.sto.bigdata.dew.master;
 
+import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
 import akka.actor.Props;
+import akka.event.Logging;
+import akka.event.LoggingAdapter;
 
 import com.typesafe.config.ConfigFactory;
 import com.typesafe.config.ConfigValueFactory;
@@ -14,6 +17,7 @@ public class Heres {
       System.exit(1);
     }
     startMaster(Integer.valueOf(args[0]));
+
   }
 
   private static void startMaster(int port) {
@@ -22,8 +26,9 @@ public class Heres {
             "Master",
             ConfigFactory.load("common").withValue("akka.remote.netty.tcp.port",
                 ConfigValueFactory.fromAnyRef(port)));
-    system.actorOf(Props.create(Master.class), "master");
-    System.out.println("Master started in " + port);
+    ActorRef master = system.actorOf(Props.create(Master.class), "master");
+    LoggingAdapter log = Logging.getLogger(system, master);
+    log.info("Master started in " + port);
   }
 
 }
