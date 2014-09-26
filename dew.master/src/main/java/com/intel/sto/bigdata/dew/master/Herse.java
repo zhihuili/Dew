@@ -9,7 +9,7 @@ import akka.event.LoggingAdapter;
 import com.typesafe.config.ConfigFactory;
 import com.typesafe.config.ConfigValueFactory;
 
-public class Heres {
+public class Herse {
 
   public static void main(String[] args) {
     if (args.length < 1) {
@@ -24,7 +24,7 @@ public class Heres {
     ActorSystem system =
         ActorSystem.create(
             "Master",
-            ConfigFactory.load("common").withValue("akka.remote.netty.tcp.port",
+            ConfigFactory.load("master").withValue("akka.remote.netty.tcp.port",
                 ConfigValueFactory.fromAnyRef(port)));
     ActorRef master = system.actorOf(Props.create(Master.class), "master");
     LoggingAdapter log = Logging.getLogger(system, master);
