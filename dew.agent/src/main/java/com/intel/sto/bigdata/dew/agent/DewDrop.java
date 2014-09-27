@@ -24,7 +24,7 @@ public class DewDrop {
     ActorSystem system =
         ActorSystem.create(
             "Agent",
-            ConfigFactory.load("agent").withValue("akka.remote.netty.tcp.port",
+            ConfigFactory.load("common").withValue("akka.remote.netty.tcp.port",
                 ConfigValueFactory.fromAnyRef(port)));
     system.actorOf(Props.create(Agent.class, url, serviceManager), "agent");
 
