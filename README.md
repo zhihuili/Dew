@@ -1,4 +1,4 @@
-#dew#
+#Dew#
 A lightweight distributed computation framework
 
 ##Quick Start##
@@ -12,4 +12,4 @@ A lightweight distributed computation framework
 -- sbin/agent.sh 127.0.0.1:2052
 
 - Run system metrics sample
--- service.sysmetrics/bin/runSample.sh
+-- service.sysmetrics/bin/runSample.sh 127.0.0.1:2052
