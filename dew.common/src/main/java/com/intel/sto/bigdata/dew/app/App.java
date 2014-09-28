@@ -65,7 +65,9 @@ public class App extends UntypedActor {
         getContext().actorSelection(agentUrl).tell(message, getSelf());
       }
     } else if (message instanceof ServiceResponse) {
-      if (((ServiceResponse) message).getEm() == null) {
+      ServiceResponse response = ((ServiceResponse) message);
+      if (!response.hasException()) {
+        buildNodeName(response, getSender());
         listener.tell(message, null);
         if (++resultNum >= agentUrls.length) {
           listener.tell(new ServiceComplete(), null);
@@ -74,6 +76,10 @@ public class App extends UntypedActor {
         // TODO
       }
     }
+  }
+
+  private void buildNodeName(ServiceResponse response, ActorRef agent) {
+    response.setNodeName(agent.path().toString());
   }
 
 }
