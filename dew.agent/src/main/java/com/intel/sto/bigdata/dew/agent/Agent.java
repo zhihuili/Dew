@@ -15,6 +15,7 @@ import com.intel.sto.bigdata.dew.message.AgentRegister;
 import com.intel.sto.bigdata.dew.message.ServiceRequest;
 import com.intel.sto.bigdata.dew.message.StartService;
 import com.intel.sto.bigdata.dew.service.Service;
+import com.intel.sto.bigdata.dew.utils.Host;
 
 public class Agent extends UntypedActor {
   private String masterUrl;
@@ -47,7 +48,7 @@ public class Agent extends UntypedActor {
       } else {
         getContext().watch(master);
         getContext().become(active, true);
-        master.tell(new AgentRegister(), getSelf());
+        master.tell(new AgentRegister(Host.getIp(),Host.getName(),0), getSelf());
       }
     } else if (message instanceof ReceiveTimeout) {
       sendIdentifyRequest();
@@ -77,7 +78,7 @@ public class Agent extends UntypedActor {
           e.printStackTrace();
         }
       } else {
-        log.warning("Unhandle message:" + message);
+        log.warning("Unhandled message:" + message);
         unhandled(message);
       }
     }

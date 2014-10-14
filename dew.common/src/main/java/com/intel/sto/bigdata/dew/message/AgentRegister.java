@@ -9,7 +9,7 @@ public class AgentRegister implements Serializable {
   private String ip;
   private String hostName;
   private int port;
-  private String url;
+  private String url = "";
 
   public AgentRegister() {
   }
@@ -52,4 +52,17 @@ public class AgentRegister implements Serializable {
     this.url = url;
   }
 
+  @Override
+  public boolean equals(Object o) {
+    if (o instanceof AgentRegister) {
+      AgentRegister ar = (AgentRegister) o;
+      return url.equals(ar.getUrl());
+    }
+    return false;
+  }
+
+  @Override
+  public int hashCode() {
+    return url.hashCode();
+  }
 }

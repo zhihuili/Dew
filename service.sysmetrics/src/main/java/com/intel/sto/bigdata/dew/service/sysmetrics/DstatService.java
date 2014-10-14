@@ -4,6 +4,7 @@ import com.intel.sto.bigdata.dew.exception.ServiceException;
 import com.intel.sto.bigdata.dew.message.ErrorMessage;
 import com.intel.sto.bigdata.dew.message.ServiceResponse;
 import com.intel.sto.bigdata.dew.service.Service;
+import com.intel.sto.bigdata.dew.service.sysmetrics.message.DstatServiceRequest;
 
 public class DstatService extends Service {
 

@@ -1,7 +1,6 @@
 package com.intel.sto.bigdata.dew.master;
 
 import java.util.Map.Entry;
-import java.util.UUID;
 
 import akka.actor.UntypedActor;
 import akka.event.Logging;
@@ -21,18 +20,18 @@ public class Master extends UntypedActor {
   @Override
   public void onReceive(Object message) throws Exception {
     if (message instanceof AgentRegister) {
-
       AgentRegister ai = (AgentRegister) message;
       ai.setUrl(getSender().path().toString());
-      ClusterState.addAgent(UUID.randomUUID().toString(), ai);
-      log.info("Agent registered." + getSender().path());
+      ClusterState.addAgent(ai);
+      log.info("Agent registered." + ai.getUrl());
       for (Entry<String, String> entry : ClusterState.getServiceMap().entrySet()) {
         StartService ss = new StartService(entry.getKey(), entry.getValue());
         getSender().tell(ss, getSelf());
       }
     } else if (message instanceof AgentList) {
-      ((AgentList) message).setResponseUrls(ClusterState.buildAgentsString());
-      getSender().tell(message, getSelf());
+      AgentList al = (AgentList) message;
+      al.setResponseUrls(ClusterState.buildAgentString(al.getRequestHosts()));
+      getSender().tell(al, getSelf());
     } else {
       log.info("Unhandle message:" + message.getClass().getName());
       unhandled(message);

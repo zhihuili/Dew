@@ -1,35 +1,37 @@
 package com.intel.sto.bigdata.dew.master;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
-import java.util.Map.Entry;
+import java.util.Set;
 
 import com.intel.sto.bigdata.dew.master.servicemanagement.DefaultServiceManager;
 import com.intel.sto.bigdata.dew.message.AgentRegister;
 
 public class ClusterState {
 
-  private static Map<String, AgentRegister> agents = new HashMap<String, AgentRegister>();
+  private static Set<AgentRegister> agents = new HashSet<AgentRegister>();
   private static Map<String, String> serviceMap = new HashMap<String, String>();
 
   public static void initService() {
     serviceMap.putAll(DefaultServiceManager.getServiceMap());
   }
 
-  public static void addAgent(String id, AgentRegister agent) {
-    agents.put(id, agent);
+  public static void addAgent(AgentRegister agent) {
+    agents.add(agent);
   }
 
-  public static String buildAgentsString() {
-    if (agents.size() <= 0) {
-      return "";
+  public static Set<AgentRegister> buildAgentString(Set<String> hosts) {
+    if (hosts == null || hosts.size() == 0) {
+      return agents;
     }
-    StringBuilder sb = new StringBuilder();
-    for (Entry<String, AgentRegister> entry : agents.entrySet()) {
-      sb.append(entry.getValue().getUrl());
-      sb.append(";");
+    Set<AgentRegister> urls = new HashSet<AgentRegister>();
+    for (AgentRegister ar : agents) {
+      if (hosts.contains(ar.getHostName()) || hosts.contains(ar.getIp())) {
+        urls.add(ar);
+      }
     }
-    return sb.toString().substring(0, sb.length() - 1);
+    return urls;
   }
 
   public static Map<String, String> getServiceMap() {

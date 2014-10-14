@@ -19,7 +19,7 @@ public class AgentProxy {
             "Agent",
             ConfigFactory.load("common").withValue("akka.remote.netty.tcp.port",
                 ConfigValueFactory.fromAnyRef(0)));
-    app = system.actorOf(Props.create(App.class, masterUrl, listener), "app");
+    app = system.actorOf(Props.create(AppDriver.class, masterUrl, listener), "app");
 
   }
 
