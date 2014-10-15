@@ -1,6 +1,8 @@
 package com.intel.sto.bigdata.dew.service.sysmetrics.cli;
 
 import com.intel.sto.bigdata.dew.app.AgentProxy;
+import com.intel.sto.bigdata.dew.app.AppDes;
+import com.intel.sto.bigdata.dew.service.sysmetrics.listener.PrintDstatProcessor;
 import com.intel.sto.bigdata.dew.service.sysmetrics.message.DstatServiceRequest;
 
 public class ExampleMain {
@@ -13,7 +15,7 @@ public class ExampleMain {
       System.err.println("Please input master url.");
       System.exit(1);
     }
-    new AgentProxy("akka.tcp://Master@" + args[0] + "/user/master", PrintDstatListener.class)
+    new AgentProxy(args[0], new PrintDstatProcessor(), new AppDes())
         .requestService(new DstatServiceRequest(System.currentTimeMillis() - 3000, System
             .currentTimeMillis() - 1000));
   }

@@ -1,12 +1,14 @@
-package com.intel.sto.bigdata.dew.service.sysmetrics.cli;
+package com.intel.sto.bigdata.dew.service.sysmetrics.listener;
 
-import com.intel.sto.bigdata.dew.app.AppListener;
+import java.util.List;
+
+import com.intel.sto.bigdata.dew.app.AppProcessor;
 import com.intel.sto.bigdata.dew.message.ServiceResponse;
 
-public class PrintDstatListener extends AppListener {
+public class PrintDstatProcessor implements AppProcessor {
 
   @Override
-  public void process() {
+  public void process(List<ServiceResponse> responseList) {
     System.out.println("===============================================================");
     for (ServiceResponse response : responseList) {
       System.out.println(response.getNodeName() + "----" + response.getContent());
@@ -14,5 +16,4 @@ public class PrintDstatListener extends AppListener {
     }
 
   }
-
 }

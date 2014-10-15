@@ -16,7 +16,8 @@ import akka.actor.UntypedActor;
 
 import com.intel.sto.bigdata.dew.message.AgentList;
 import com.intel.sto.bigdata.dew.message.AgentRegister;
-import com.intel.sto.bigdata.dew.message.ServiceComplete;
+import com.intel.sto.bigdata.dew.message.ProcessCompletion;
+import com.intel.sto.bigdata.dew.message.ServiceCompletion;
 import com.intel.sto.bigdata.dew.message.ServiceRequest;
 import com.intel.sto.bigdata.dew.message.ServiceResponse;
 
@@ -28,10 +29,13 @@ public class AppDriver extends UntypedActor {
   ActorRef listener;
   FiniteDuration duration = Duration.create(3, SECONDS);
   int resultNum = 0;
+  AppDes appDes;
+  ActorRef proxy;
 
-  public AppDriver(String url, Class<AppListener> listener) {
+  public AppDriver(String url, AppProcessor processor, AppDes appDes) {
     this.url = url;
-    this.listener = getContext().actorOf(Props.create(listener), "listener");
+    this.appDes = appDes;
+    this.listener = getContext().actorOf(Props.create(AppListener.class, processor), "listener");
     sendIdentifyRequest();
     init();
   }
@@ -54,7 +58,9 @@ public class AppDriver extends UntypedActor {
 
   private void init() {
     try {
-      AgentList agentList = (AgentList) ask(actor, new AgentList(), 3000).result(duration, null);
+      AgentList al = new AgentList();
+      al.setRequestHosts(appDes.getHosts());
+      AgentList agentList = (AgentList) ask(actor, al, 3000).result(duration, null);
       agents = agentList.getResponseUrls();
     } catch (Exception e) {
       e.printStackTrace();
@@ -66,23 +72,21 @@ public class AppDriver extends UntypedActor {
     if (message instanceof ServiceRequest) {
       for (AgentRegister agent : agents) {
         getContext().actorSelection(agent.getUrl()).tell(message, getSelf());
+        proxy = getSender();
       }
     } else if (message instanceof ServiceResponse) {
       ServiceResponse response = ((ServiceResponse) message);
       if (!response.hasException()) {
-        buildNodeName(response, getSender());
-        listener.tell(message, null);
+        listener.tell(message, getSelf());
         if (++resultNum >= agents.size()) {
-          listener.tell(new ServiceComplete(), null);
+          listener.tell(new ServiceCompletion(), getSelf());
         }
       } else {
-        // TODO
+        ++resultNum;
       }
+    } else if (message instanceof ProcessCompletion) {
+      proxy.tell(message, getSelf());
     }
-  }
-
-  private void buildNodeName(ServiceResponse response, ActorRef agent) {
-    response.setNodeName(agent.path().toString());
   }
 
 }

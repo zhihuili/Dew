@@ -13,6 +13,7 @@ import akka.japi.Procedure;
 
 import com.intel.sto.bigdata.dew.message.AgentRegister;
 import com.intel.sto.bigdata.dew.message.ServiceRequest;
+import com.intel.sto.bigdata.dew.message.ServiceResponse;
 import com.intel.sto.bigdata.dew.message.StartService;
 import com.intel.sto.bigdata.dew.service.Service;
 import com.intel.sto.bigdata.dew.utils.Host;
@@ -48,7 +49,7 @@ public class Agent extends UntypedActor {
       } else {
         getContext().watch(master);
         getContext().become(active, true);
-        master.tell(new AgentRegister(Host.getIp(),Host.getName(),0), getSelf());
+        master.tell(new AgentRegister(Host.getIp(), Host.getName(), 0), getSelf());
       }
     } else if (message instanceof ReceiveTimeout) {
       sendIdentifyRequest();
@@ -64,7 +65,10 @@ public class Agent extends UntypedActor {
         ServiceRequest serviceRequest = (ServiceRequest) message;
         Service service = serviceManager.getService(serviceRequest.getServiceName());
         if (serviceRequest.getServiceMethod().equals("get")) {
-          getSender().tell(service.get(message), getSelf());
+          ServiceResponse sr = service.get(message);
+          sr.setNodeName(Host.getName());
+          sr.setIp(Host.getIp());
+          getSender().tell(sr, getSelf());
         }
       } else if (message instanceof StartService) {
         ClassLoader cl = this.getClass().getClassLoader();

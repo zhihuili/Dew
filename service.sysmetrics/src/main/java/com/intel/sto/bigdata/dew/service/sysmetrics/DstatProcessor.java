@@ -1,6 +1,7 @@
 package com.intel.sto.bigdata.dew.service.sysmetrics;
 
 import java.io.BufferedInputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
@@ -18,17 +19,29 @@ public class DstatProcessor extends Thread {
   @Override
   public void run() {
     try {
-      Process process = Runtime.getRuntime().exec("dstat -c -d -m -n");
+      String tmpFilePath = "/tmp/dew.dstat";
+      File tmpFile = new File(tmpFilePath);
+      if (tmpFile.exists()) {
+        tmpFile.delete();
+      }
+      tmpFile.createNewFile();
+      String[] cmd =
+          {
+              "/bin/sh",
+              "-c",
+              "dstat --mem --io --cpu --net -N eth0,eth1,total --disk --output " + tmpFilePath
+                  + " | tail -f " + tmpFilePath };
+      Process process = Runtime.getRuntime().exec(cmd);
       InputStreamReader isr =
           new InputStreamReader(new BufferedInputStream(process.getInputStream()));
       int c;
       StringBuilder sb = new StringBuilder();
       int rowNum = 0;
       while ((c = isr.read()) != -1 && go) {
-        if (c != '\n') {
+        if (c != System.getProperty("line.separator").charAt(0)) {
           sb.append((char) c);
         } else {
-          if (rowNum++ < 3) {
+          if (rowNum++ < 7) {
             sb = new StringBuilder();
             continue;
           }
@@ -65,7 +78,7 @@ public class DstatProcessor extends Thread {
       throw new ServiceException("No dstat data!");
     }
     String first = stats.get(0);
-    long firstTime = Long.valueOf(first.split("\\|")[4]);
+    long firstTime = Long.valueOf(first.split("\\|")[1]);
     if (firstTime > startTime) {
       throw new ServiceException("Service start time is later than your query time about"
           + (firstTime - startTime) / 1000 + "s");
@@ -78,9 +91,9 @@ public class DstatProcessor extends Thread {
     lock.unlock();
     StringBuilder sb = new StringBuilder();
     for (int i = (int) skip; i < skip + duration; i++) {
-      sb.append(stats.get(i) + ";");
+      sb.append(stats.get(i).split("\\|")[0] + ";");
     }
-    sb.append(stats.get((int) (skip + duration)));
+    sb.append(stats.get((int) (skip + duration)).split("\\|")[0]);
     return sb.toString();
   }
 
@@ -96,7 +109,8 @@ public class DstatProcessor extends Thread {
 
     DstatProcessor dp = new DstatProcessor();
     dp.startThread();
-    Thread.sleep(10000);
+    Thread.sleep(5000);
+    System.out.println(dp.getStats());
     dp.kill();
   }
 

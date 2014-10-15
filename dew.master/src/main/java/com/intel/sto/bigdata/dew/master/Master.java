@@ -30,7 +30,7 @@ public class Master extends UntypedActor {
       }
     } else if (message instanceof AgentList) {
       AgentList al = (AgentList) message;
-      al.setResponseUrls(ClusterState.buildAgentString(al.getRequestHosts()));
+      al.setResponseUrls(ClusterState.findAgent(al.getRequestHosts()));
       getSender().tell(al, getSelf());
     } else {
       log.info("Unhandle message:" + message.getClass().getName());

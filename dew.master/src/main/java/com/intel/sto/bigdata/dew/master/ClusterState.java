@@ -21,8 +21,8 @@ public class ClusterState {
     agents.add(agent);
   }
 
-  public static Set<AgentRegister> buildAgentString(Set<String> hosts) {
-    if (hosts == null || hosts.size() == 0) {
+  public static Set<AgentRegister> findAgent(Set<String> hosts) {
+    if (hosts == null) {
       return agents;
     }
     Set<AgentRegister> urls = new HashSet<AgentRegister>();

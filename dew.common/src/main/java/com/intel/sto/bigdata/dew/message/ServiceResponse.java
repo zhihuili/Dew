@@ -6,6 +6,7 @@ public class ServiceResponse implements Serializable {
 
   private static final long serialVersionUID = 6547146362222187075L;
   private String nodeName;
+  private String ip;
   private String content;
   private ErrorMessage em;
 
@@ -42,6 +43,14 @@ public class ServiceResponse implements Serializable {
 
   public boolean hasException() {
     return this.em != null;
+  }
+
+  public String getIp() {
+    return ip;
+  }
+
+  public void setIp(String ip) {
+    this.ip = ip;
   }
 
 }
