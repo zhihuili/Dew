@@ -10,6 +10,7 @@ import akka.pattern.Patterns;
 import akka.util.Timeout;
 
 import com.intel.sto.bigdata.dew.message.ServiceRequest;
+import com.intel.sto.bigdata.dew.utils.Host;
 import com.typesafe.config.ConfigFactory;
 import com.typesafe.config.ConfigValueFactory;
 
@@ -22,9 +23,12 @@ public class AgentProxy {
     String url = "akka.tcp://Master@" + masterUrl + "/user/master";
     system =
         ActorSystem.create(
-            "Agent",
-            ConfigFactory.load("common").withValue("akka.remote.netty.tcp.port",
-                ConfigValueFactory.fromAnyRef(0)));
+            "App",
+            ConfigFactory
+                .load("common")
+                .withValue("akka.remote.netty.tcp.port", ConfigValueFactory.fromAnyRef(0))
+                .withValue("akka.remote.netty.tcp.hostname",
+                    ConfigValueFactory.fromAnyRef(Host.getName())));
     app = system.actorOf(Props.create(AppDriver.class, url, appProcessor, appDes), "app");
 
   }
