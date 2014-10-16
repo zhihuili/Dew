@@ -6,6 +6,7 @@ import akka.actor.Props;
 import akka.event.Logging;
 import akka.event.LoggingAdapter;
 
+import com.intel.sto.bigdata.dew.utils.Host;
 import com.typesafe.config.ConfigFactory;
 import com.typesafe.config.ConfigValueFactory;
 
@@ -24,8 +25,11 @@ public class Herse {
     ActorSystem system =
         ActorSystem.create(
             "Master",
-            ConfigFactory.load("common").withValue("akka.remote.netty.tcp.port",
-                ConfigValueFactory.fromAnyRef(port)));
+            ConfigFactory
+                .load("common")
+                .withValue("akka.remote.netty.tcp.port", ConfigValueFactory.fromAnyRef(port))
+                .withValue("remote.netty.tcp.hostname",
+                    ConfigValueFactory.fromAnyRef(Host.getName())));
     ActorRef master = system.actorOf(Props.create(Master.class), "master");
     LoggingAdapter log = Logging.getLogger(system, master);
     log.info("Master started in " + port);
