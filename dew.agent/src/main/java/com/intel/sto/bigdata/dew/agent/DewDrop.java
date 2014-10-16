@@ -3,6 +3,7 @@ package com.intel.sto.bigdata.dew.agent;
 import akka.actor.ActorSystem;
 import akka.actor.Props;
 
+import com.intel.sto.bigdata.dew.utils.Host;
 import com.typesafe.config.ConfigFactory;
 import com.typesafe.config.ConfigValueFactory;
 
@@ -24,8 +25,11 @@ public class DewDrop {
     ActorSystem system =
         ActorSystem.create(
             "Agent",
-            ConfigFactory.load("common").withValue("akka.remote.netty.tcp.port",
-                ConfigValueFactory.fromAnyRef(port)));
+            ConfigFactory
+                .load("common")
+                .withValue("akka.remote.netty.tcp.port", ConfigValueFactory.fromAnyRef(port))
+                .withValue("akka.remote.netty.tcp.hostname",
+                    ConfigValueFactory.fromAnyRef(Host.getName())));
     system.actorOf(Props.create(Agent.class, url, serviceManager), "agent");
 
   }

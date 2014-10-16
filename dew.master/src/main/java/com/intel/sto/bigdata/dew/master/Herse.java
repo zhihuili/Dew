@@ -28,7 +28,7 @@ public class Herse {
             ConfigFactory
                 .load("common")
                 .withValue("akka.remote.netty.tcp.port", ConfigValueFactory.fromAnyRef(port))
-                .withValue("remote.netty.tcp.hostname",
+                .withValue("akka.remote.netty.tcp.hostname",
                     ConfigValueFactory.fromAnyRef(Host.getName())));
     ActorRef master = system.actorOf(Props.create(Master.class), "master");
     LoggingAdapter log = Logging.getLogger(system, master);
