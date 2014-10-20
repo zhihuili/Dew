@@ -13,6 +13,8 @@ import akka.actor.Identify;
 import akka.actor.Props;
 import akka.actor.ReceiveTimeout;
 import akka.actor.UntypedActor;
+import akka.event.Logging;
+import akka.event.LoggingAdapter;
 
 import com.intel.sto.bigdata.dew.message.AgentList;
 import com.intel.sto.bigdata.dew.message.AgentRegister;
@@ -22,6 +24,8 @@ import com.intel.sto.bigdata.dew.message.ServiceRequest;
 import com.intel.sto.bigdata.dew.message.ServiceResponse;
 
 public class AppDriver extends UntypedActor {
+
+  private LoggingAdapter log = Logging.getLogger(this);
 
   Set<AgentRegister> agents;
   String url;
@@ -70,22 +74,24 @@ public class AppDriver extends UntypedActor {
   @Override
   public void onReceive(Object message) throws Exception {
     if (message instanceof ServiceRequest) {
+      proxy = getSender();
       for (AgentRegister agent : agents) {
         getContext().actorSelection(agent.getUrl()).tell(message, getSelf());
-        proxy = getSender();
       }
     } else if (message instanceof ServiceResponse) {
       ServiceResponse response = ((ServiceResponse) message);
       if (!response.hasException()) {
         listener.tell(message, getSelf());
-        if (++resultNum >= agents.size()) {
-          listener.tell(new ServiceCompletion(), getSelf());
-        }
       } else {
-        ++resultNum;
+        log.error("service error:" + response.getEm().getError());
+      }
+      if (++resultNum >= agents.size()) {
+        listener.tell(new ServiceCompletion(), getSelf());
       }
     } else if (message instanceof ProcessCompletion) {
       proxy.tell(message, getSelf());
+    } else {
+      log.error("unhandled message:" + message);
     }
   }
 

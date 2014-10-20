@@ -43,7 +43,7 @@ public class DstatService extends Service {
     String content;
     try {
       content = sdp.findWorkloadMetrics(request.getStartTime(), request.getEndTime());
-    } catch (ServiceException e) {
+    } catch (Exception e) {
       result.setEm(new ErrorMessage(e.getMessage()));
       return result;
     }
