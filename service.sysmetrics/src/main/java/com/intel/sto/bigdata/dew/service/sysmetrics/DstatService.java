@@ -1,6 +1,5 @@
 package com.intel.sto.bigdata.dew.service.sysmetrics;
 
-import com.intel.sto.bigdata.dew.exception.ServiceException;
 import com.intel.sto.bigdata.dew.message.ErrorMessage;
 import com.intel.sto.bigdata.dew.message.ServiceResponse;
 import com.intel.sto.bigdata.dew.service.Service;

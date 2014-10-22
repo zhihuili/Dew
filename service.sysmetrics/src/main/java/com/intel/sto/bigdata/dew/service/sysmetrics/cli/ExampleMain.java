@@ -17,6 +17,6 @@ public class ExampleMain {
     }
     new AgentProxy(args[0], new PrintDstatProcessor(), new AppDes())
         .requestService(new DstatServiceRequest(System.currentTimeMillis() - 3000, System
-            .currentTimeMillis() + 10000));
+            .currentTimeMillis() - 1000));
   }
 }

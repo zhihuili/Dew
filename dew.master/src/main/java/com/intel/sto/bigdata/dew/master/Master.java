@@ -33,7 +33,7 @@ public class Master extends UntypedActor {
       al.setResponseUrls(ClusterState.findAgent(al.getRequestHosts()));
       getSender().tell(al, getSelf());
     } else {
-      log.info("Unhandle message:" + message.getClass().getName());
+      log.info("Unhandle message:" + message);
       unhandled(message);
     }
 

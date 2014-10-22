@@ -33,11 +33,11 @@ public class Agent extends UntypedActor {
   private void sendIdentifyRequest() {
     log.info("Connect master:" + masterUrl);
     getContext().actorSelection(masterUrl).tell(new Identify(masterUrl), getSelf());
-    getContext()
-        .system()
-        .scheduler()
-        .scheduleOnce(Duration.create(3, SECONDS), getSelf(), ReceiveTimeout.getInstance(),
-            getContext().dispatcher(), getSelf());
+    // getContext()
+    // .system()
+    // .scheduler()
+    // .scheduleOnce(Duration.create(5, SECONDS), getSelf(), ReceiveTimeout.getInstance(),
+    // getContext().dispatcher(), getSelf());
   }
 
   @Override
@@ -47,14 +47,33 @@ public class Agent extends UntypedActor {
       if (master == null) {
         log.error("Master not available: " + masterUrl);
       } else {
-        getContext().watch(master);
-        getContext().become(active, true);
+        // getContext().watch(master);
+        // getContext().become(active, true);
         master.tell(new AgentRegister(Host.getIp(), Host.getName(), 0), getSelf());
       }
-    } else if (message instanceof ReceiveTimeout) {
-      sendIdentifyRequest();
+    } else if (message instanceof ServiceRequest) {
+      ServiceRequest serviceRequest = (ServiceRequest) message;
+      Service service = serviceManager.getService(serviceRequest.getServiceName());
+      if (serviceRequest.getServiceMethod().equals("get")) {
+        ServiceResponse sr = service.get(message);
+        sr.setNodeName(Host.getName());
+        sr.setIp(Host.getIp());
+        getSender().tell(sr, getSelf());
+      }
+    } else if (message instanceof StartService) {
+      ClassLoader cl = this.getClass().getClassLoader();
+      StartService ss = (StartService) message;
+      try {
+        Service service = (Service) cl.loadClass(ss.getServiceUri()).newInstance();
+        serviceManager.putService(ss.getServiceName(), service);
+        new Thread(service).start();
+//        getSender().tell(ss, null);
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
     } else {
-      log.warning("Master not ready yet");
+      log.warning("Unhandled message:" + message);
+      unhandled(message);
     }
   }
 

@@ -65,4 +65,9 @@ public class AgentRegister implements Serializable {
   public int hashCode() {
     return url.hashCode();
   }
+
+  @Override
+  public String toString() {
+    return url;
+  }
 }

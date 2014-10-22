@@ -3,6 +3,7 @@ package com.intel.sto.bigdata.dew.app;
 import static akka.pattern.Patterns.ask;
 import static java.util.concurrent.TimeUnit.SECONDS;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import scala.concurrent.duration.Duration;
@@ -29,12 +30,13 @@ public class AppDriver extends UntypedActor {
 
   Set<AgentRegister> agents;
   String url;
-  ActorRef actor;
+  ActorRef master;
   ActorRef listener;
   FiniteDuration duration = Duration.create(3, SECONDS);
   int resultNum = 0;
   AppDes appDes;
   ActorRef proxy;
+  Set<ActorRef> agentActors = new HashSet<ActorRef>();
 
   public AppDriver(String url, AppProcessor processor, AppDes appDes) {
     this.url = url;
@@ -46,26 +48,31 @@ public class AppDriver extends UntypedActor {
 
   private void sendIdentifyRequest() {
     try {
-      actor =
+      master =
           ((ActorIdentity) ask(getContext().actorSelection(url), new Identify(url), 3000).result(
               duration, null)).getRef();
-      getContext().watch(actor);
+//      getContext().watch(master);
     } catch (Exception e) {
       e.printStackTrace();
     }
-    getContext()
-        .system()
-        .scheduler()
-        .scheduleOnce(duration, getSelf(), ReceiveTimeout.getInstance(), getContext().dispatcher(),
-            getSelf());
+//    getContext()
+//        .system()
+//        .scheduler()
+//        .scheduleOnce(duration, getSelf(), ReceiveTimeout.getInstance(), getContext().dispatcher(),
+//            getSelf());
   }
 
   private void init() {
     try {
       AgentList al = new AgentList();
       al.setRequestHosts(appDes.getHosts());
-      AgentList agentList = (AgentList) ask(actor, al, 3000).result(duration, null);
+      AgentList agentList = (AgentList) ask(master, al, 3000).result(duration, null);
       agents = agentList.getResponseUrls();
+      log.debug("=========target agent=========" + agents.toString());
+      for (AgentRegister agent : agents) {
+        agentActors.add(((ActorIdentity) ask(getContext().actorSelection(agent.getUrl()),
+            new Identify(agent.getUrl()), 3000).result(duration, null)).getRef());
+      }
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -73,10 +80,11 @@ public class AppDriver extends UntypedActor {
 
   @Override
   public void onReceive(Object message) throws Exception {
+    log.debug("=========app receive=========" + message);
     if (message instanceof ServiceRequest) {
       proxy = getSender();
-      for (AgentRegister agent : agents) {
-        getContext().actorSelection(agent.getUrl()).tell(message, getSelf());
+      for (ActorRef agent : agentActors) {
+        agent.tell(message, getSelf());
       }
     } else if (message instanceof ServiceResponse) {
       ServiceResponse response = ((ServiceResponse) message);
