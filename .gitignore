@@ -7,3 +7,4 @@ target
 *.jar
 null
 conf.properties
+data

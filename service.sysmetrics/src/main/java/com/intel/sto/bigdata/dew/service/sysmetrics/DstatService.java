@@ -21,8 +21,6 @@ public class DstatService extends Service {
         e.printStackTrace();
       }
     }
-    dp.kill();
-    dp = null;
   }
 
   @Override
@@ -53,6 +51,8 @@ public class DstatService extends Service {
   @Override
   public void stop() {
     run = false;
+    dp.kill();
+    dp = null;
   }
 
 }

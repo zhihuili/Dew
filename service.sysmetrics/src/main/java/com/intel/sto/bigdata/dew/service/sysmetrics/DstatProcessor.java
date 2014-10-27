@@ -1,26 +1,25 @@
 package com.intel.sto.bigdata.dew.service.sysmetrics;
 
-import java.io.BufferedInputStream;
+import java.io.BufferedReader;
 import java.io.File;
-import java.io.IOException;
+import java.io.FileReader;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
 
 import com.intel.sto.bigdata.dew.exception.ServiceException;
+import com.intel.sto.bigdata.dew.utils.Files;
 
 public class DstatProcessor extends Thread {
-  private List<String> stats = new ArrayList<String>();
-  private boolean go = true;
-  private Lock lock = new ReentrantLock();// maybe needn't
+  private Process process;
+  private File basePath = Files.getDstatDataPath();
 
   @Override
   public void run() {
+
     try {
-      String tmpFilePath = "/tmp/dew.dstat";
-      File tmpFile = new File(tmpFilePath);
+      File tmpFile = new File(basePath, String.valueOf(System.currentTimeMillis()));
       if (tmpFile.exists()) {
         tmpFile.delete();
       }
@@ -29,32 +28,16 @@ public class DstatProcessor extends Thread {
           {
               "/bin/sh",
               "-c",
-              "dstat --mem --io --cpu --net -N eth0,eth1,total --disk --output " + tmpFilePath
-                  + " | tail -f " + tmpFilePath };
-      Process process = Runtime.getRuntime().exec(cmd);
-      InputStreamReader isr =
-          new InputStreamReader(new BufferedInputStream(process.getInputStream()));
-      int c;
-      StringBuilder sb = new StringBuilder();
-      int rowNum = 0;
-      while ((c = isr.read()) != -1 && go) {
-        if (c != System.getProperty("line.separator").charAt(0)) {
-          sb.append((char) c);
-        } else {
-          if (rowNum++ < 7) {
-            sb = new StringBuilder();
-            continue;
-          }
-          sb.append("|" + String.valueOf(System.currentTimeMillis()));
-          lock.lock();
-          stats.add(sb.toString());
-          lock.unlock();
-          sb = new StringBuilder();
-        }
+              "dstat --mem --io --cpu --net -N eth0,eth1,total --disk --output "
+                  + tmpFile.getAbsolutePath()};
+      process = Runtime.getRuntime().exec(cmd);
+      BufferedReader br = new BufferedReader(new InputStreamReader(process.getInputStream()));
+      String line;
+      while((line = br.readLine())!=null){
+        // do nothing.
+        // only output 671 line data if not read process.inputStream. 
       }
-      isr.close();
-      process.destroy();
-    } catch (IOException e) {
+    } catch (Exception e) {
       e.printStackTrace();
     }
   }
@@ -64,41 +47,95 @@ public class DstatProcessor extends Thread {
     this.start();
   }
 
-  public List<String> getStats() {
-    return stats;
-  }
-
-  public void setStats(List<String> stats) {
-    this.stats = stats;
-  }
-
   public String findWorkloadMetrics(long startTime, long endTime) throws ServiceException {
-    lock.lock();
-    if (stats.isEmpty()) {
+    long firstTime = findQueryFile(startTime);
+
+    if (firstTime == -1) {
       throw new ServiceException("No dstat data!");
     }
-    String first = stats.get(0);
-    long firstTime = Long.valueOf(first.split("\\|")[1]);
-    if (firstTime > startTime) {
-      throw new ServiceException("Service start time is later than your query time about"
-          + (firstTime - startTime) / 1000 + "s");
+
+    if (firstTime == -2) {
+      throw new ServiceException("Service start time is later than your query time.");
     }
-    long skip = (startTime - firstTime) / 1000;
-    long duration = (endTime - startTime) / 1000;
-    if (stats.size() <= (skip + duration)) {
-      throw new ServiceException("No enough dstat data!");
-    }
-    lock.unlock();
+
     StringBuilder sb = new StringBuilder();
-    for (int i = (int) skip; i < skip + duration; i++) {
-      sb.append(stats.get(i).split("\\|")[0] + ";");
+    try {
+      FileReader fr = new FileReader(new File(basePath, String.valueOf(firstTime)));
+      BufferedReader br = new BufferedReader(fr);
+      String line;
+      int headStep = 0;
+      int timeStep = 0;
+      long timeSkip = (startTime - firstTime) / 1000;
+      int dataSize = 0;
+      long duration = (endTime - startTime) / 1000;
+      while ((line = br.readLine()) != null) {
+        if (headStep++ < 7) { // skip 7 line head data
+          continue;
+        }
+        if (timeStep++ < timeSkip) {
+          continue;
+        }
+        sb.append(line + ";");
+        if (dataSize++ == duration) {
+          break;
+        }
+      }
+      fr.close();
+
+      if (dataSize < duration) {
+        throw new ServiceException("No enough dstat data!");
+      }
+    } catch (Exception e) {
+      throw new ServiceException(e.getMessage());
     }
-    sb.append(stats.get((int) (skip + duration)).split("\\|")[0]);
     return sb.toString();
   }
 
   public void kill() {
-    go = false;
+    if (process != null) {
+      process.destroy();
+      process = null;
+    }
+  }
+
+  private long findQueryFile(long startTime) {
+    List<Long> files = getDstatFileArray();
+    if (files.isEmpty()) {
+      return -1; // no dstat data.
+    }
+    if ((new File(basePath, String.valueOf(startTime))).exists()) {
+      return startTime;
+    }
+    files.add(startTime);
+    Collections.sort(files);
+    int j = 0;
+    for (int i = 0; i < files.size(); i++) {
+      j = i;
+      if (files.get(i) == startTime) {
+        break;
+      }
+    }
+    if (j == 0) {
+      return -2;// query start time more early than dstat time.
+    } else {
+      return files.get(j - 1);
+    }
+  }
+
+  private List<Long> getDstatFileArray() {
+    String[] files = basePath.list();
+    List<Long> result = new ArrayList<Long>();
+    if (files != null && files.length > 0) {
+      for (String file : files) {
+        try {
+          result.add(Long.valueOf(file));
+        } catch (Exception e) {
+          // do nothing.
+        }
+      }
+    }
+
+    return result;
   }
 
   /**
@@ -110,7 +147,6 @@ public class DstatProcessor extends Thread {
     DstatProcessor dp = new DstatProcessor();
     dp.startThread();
     Thread.sleep(5000);
-    System.out.println(dp.getStats());
     dp.kill();
   }
 
