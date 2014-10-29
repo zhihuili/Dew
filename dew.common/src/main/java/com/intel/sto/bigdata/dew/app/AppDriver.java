@@ -12,7 +12,6 @@ import akka.actor.ActorIdentity;
 import akka.actor.ActorRef;
 import akka.actor.Identify;
 import akka.actor.Props;
-import akka.actor.ReceiveTimeout;
 import akka.actor.UntypedActor;
 import akka.event.Logging;
 import akka.event.LoggingAdapter;
@@ -23,6 +22,7 @@ import com.intel.sto.bigdata.dew.message.ProcessCompletion;
 import com.intel.sto.bigdata.dew.message.ServiceCompletion;
 import com.intel.sto.bigdata.dew.message.ServiceRequest;
 import com.intel.sto.bigdata.dew.message.ServiceResponse;
+import com.intel.sto.bigdata.dew.message.ServiceTimeout;
 
 public class AppDriver extends UntypedActor {
 
@@ -51,15 +51,16 @@ public class AppDriver extends UntypedActor {
       master =
           ((ActorIdentity) ask(getContext().actorSelection(url), new Identify(url), 3000).result(
               duration, null)).getRef();
-//      getContext().watch(master);
-    } catch (Exception e) {
-      e.printStackTrace();
+      // getContext().watch(master);
+    } catch (Throwable e) {
+      log.error("Can't connect dew master:" + url);
+      throw new RuntimeException(e);
     }
-//    getContext()
-//        .system()
-//        .scheduler()
-//        .scheduleOnce(duration, getSelf(), ReceiveTimeout.getInstance(), getContext().dispatcher(),
-//            getSelf());
+    // getContext()
+    // .system()
+    // .scheduler()
+    // .scheduleOnce(duration, getSelf(), ReceiveTimeout.getInstance(), getContext().dispatcher(),
+    // getSelf());
   }
 
   private void init() {
@@ -70,10 +71,18 @@ public class AppDriver extends UntypedActor {
       agents = agentList.getResponseUrls();
       log.debug("=========target agent=========" + agents.toString());
       for (AgentRegister agent : agents) {
-        agentActors.add(((ActorIdentity) ask(getContext().actorSelection(agent.getUrl()),
-            new Identify(agent.getUrl()), 3000).result(duration, null)).getRef());
+        try {
+          ActorRef actorRef =
+              ((ActorIdentity) ask(getContext().actorSelection(agent.getUrl()),
+                  new Identify(agent.getUrl()), 3000).result(duration, null)).getRef();
+          if (actorRef != null) {
+            agentActors.add(actorRef);
+          }
+        } catch (Throwable e) {
+          log.error("Can't connect agent:" + agent.getUrl());
+        }
       }
-    } catch (Exception e) {
+    } catch (Throwable e) {
       e.printStackTrace();
     }
   }
@@ -93,9 +102,14 @@ public class AppDriver extends UntypedActor {
       } else {
         log.error("service error:" + response.getEm().getError());
       }
-      if (++resultNum >= agents.size()) {
-        listener.tell(new ServiceCompletion(), getSelf());
+      if (++resultNum >= agentActors.size()) {
+        getSelf().tell(new ServiceCompletion(), getSelf());
       }
+    } else if (message instanceof ServiceCompletion) {
+      listener.tell(message, getSelf());
+    } else if (message instanceof ServiceTimeout) {
+      listener.tell(new ServiceCompletion(), getSelf());
+      proxy = getSender();
     } else if (message instanceof ProcessCompletion) {
       proxy.tell(message, getSelf());
     } else {

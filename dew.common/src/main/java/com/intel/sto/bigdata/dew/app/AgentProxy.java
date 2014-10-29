@@ -10,6 +10,7 @@ import akka.pattern.Patterns;
 import akka.util.Timeout;
 
 import com.intel.sto.bigdata.dew.message.ServiceRequest;
+import com.intel.sto.bigdata.dew.message.ServiceTimeout;
 import com.intel.sto.bigdata.dew.utils.Host;
 import com.typesafe.config.ConfigFactory;
 import com.typesafe.config.ConfigValueFactory;
@@ -18,6 +19,8 @@ public class AgentProxy {
 
   private ActorRef app;
   private ActorSystem system;
+  private int serviceTimeout = 30;
+  private int processTimeout = 30;
 
   public AgentProxy(String masterUrl, AppProcessor appProcessor, AppDes appDes) {
     String url = "akka.tcp://Master@" + masterUrl + "/user/master";
@@ -37,19 +40,19 @@ public class AgentProxy {
     system.shutdown();
   }
 
-  public void requestService(ServiceRequest request) {
-    Timeout timeout = new Timeout(Duration.create(60, "seconds"));
+  public void requestService(ServiceRequest request) throws Exception {
+    Timeout timeout = new Timeout(Duration.create(serviceTimeout, "seconds"));
     Future<Object> future = Patterns.ask(app, request, timeout);
     try {
       Await.result(future, timeout.duration());
     } catch (Exception e) {
-      e.printStackTrace();
+      // get agent service timeout, send ServiceCompletion message forcedly.
+      timeout = new Timeout(Duration.create(processTimeout, "seconds"));
+      future = Patterns.ask(app, new ServiceTimeout(), timeout);
+      Await.result(future, timeout.duration());
     } finally {
       shutDown();
     }
   }
 
-  public static void main(String[] args) {
-    new AgentProxy("akka.tcp://Master@127.0.0.1:2052/user/master", null, null);
-  }
 }

@@ -4,6 +4,7 @@ import java.util.Set;
 
 public class AppDes {
 
+  // agents' host name
   private Set<String> hosts;
 
   public AppDes() {
