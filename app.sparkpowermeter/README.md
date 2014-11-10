@@ -16,11 +16,5 @@ OR
     ./analyze.sh startTime(yy/MM/dd HH:mm:ss) endTime(yy/MM/dd HH:mm:ss)
 (Just analyze the cluster performance during the time without data flow model.)
 
-##### Check performance analysis result
-Analysis result will be output to $workload.output.path(analyze.sh will print the path in console.)
-
-OR
-
-You can review it by Web browser.(TODO)
 
 good luck
