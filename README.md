@@ -5,8 +5,8 @@ A lightweight distributed computation framework
 - Build
 -- mvn install
 
-- Start dew in local mode
+- Set conf/slaves include your cluster's all nodes
+
+- Start dew
 -- sbin/start-all.sh
 
-- Run system metrics sample
--- ./service.sysmetrics/bin/runSample.sh
