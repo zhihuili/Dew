@@ -7,5 +7,6 @@ target
 *.jar
 null
 conf.properties
+conf/slaves
 data
 logs
