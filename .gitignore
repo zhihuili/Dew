@@ -8,5 +8,5 @@ target
 null
 conf.properties
 conf/slaves
-data
+dew-collected-data
 logs

@@ -10,7 +10,7 @@ public class Files {
   public static File getDstatDataPath() {
     File dir = new File(".");
     try {
-      File result = new File(dir.getCanonicalFile(), "data/dstat");
+      File result = new File(dir.getCanonicalFile(), "dew-collected-data/dstat");
       if (!result.exists()) {
         result.mkdirs();
       }
