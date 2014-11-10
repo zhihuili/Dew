@@ -1,0 +1,29 @@
+spark.cluster.slave=C:/Users/qianyunz/Documents/GitHub/sotc_cloud-sparkpowermeter/workload.spark/src/test/slaves
+workload.path.root=/
+
+
+workload.nweight.path=/home/frank/liye/workload/youku/nweight/
+workload.nweight.run=run.sh
+
+workload.billboard.path=/home/frank/workload/billboard/
+workload.billboard.run=run.sh
+
+workload.output.path=/tmp/workload/
+workload.backup.path=/tmp/
+
+workload.step.runner=XRunner
+workload.step.parser=XParser
+workload.step.loader=XLoader
+workload.step.cleaner=XCleaner
+workload.step.chart=XChart
+workload.execute.backup=true
+workload.step.report=false
+workload.log=true
+
+workload.runner.command=dstat
+#second in unit
+workload.runner.sleeptime=40
+workload.runner.frequency=2
+workload.chart.xmax = 300
+workload.chart.width = 800
+workload.chart.height = 300

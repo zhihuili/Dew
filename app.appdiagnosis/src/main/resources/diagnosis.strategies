@@ -1,0 +1,3 @@
+com.intel.sto.bigdata.diagnosis.strategy.CpuUtilityDiagnosisStrategy
+com.intel.sto.bigdata.diagnosis.strategy.LoadBalanceDiagnosisStrategy
+com.intel.sto.bigdata.diagnosis.strategy.ResourcesWasteDiagnosisStrategy

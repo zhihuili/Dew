@@ -1,0 +1,55 @@
+vmstat.command=vmstat -n
+vmstat.startSkip=2
+vmstat.datagroup=null
+vmstat.datagroup.split=\ 
+vmstat.datagroup.head=run,block,swap,free,buffer,cache,si,so,bi,bo,in,cs,us,sy,id,wa
+vmstat.chart.list=proc,memory,swap,io,system,cpu
+vmstat.chart.proc=line:run,block
+vmstat.chart.memory=stack:swap,free,buffer,cache
+vmstat.chart.swap=line:si,so
+vmstat.chart.io=line:bi,bo
+vmstat.chart.system=line:in,cs
+vmstat.chart.cpu=stack:us,sy,id,wa
+
+
+
+dstat.command=dstat --mem --io --cpu --net -N eth0,eth1,total --disk --output
+dstat.startSkip=7
+dstat.datagroup=null
+dstat.datagroup.split=,
+dstat.datagroup.head=used,buffer,cached,free,ioread,iowrit,usr,idl,wai,hiq,siq,eth0recv,eth0send,eth1recv,eth1send,totalrecv,totalsend,diskread,diskwrit
+dstat.chart.list=memory,io,cpu,network0,network1,networkt,disk
+dstat.chart.memory=stack:used,buffer,cached,free
+dstat.chart.io=line:ioread,iowrit
+dstat.chart.cpu=stack:usr,idl,wai,hiq,siq
+dstat.chart.network0=line:eth0recv,eth0send
+dstat.chart.network1=line:eth1recv,eth1send
+dstat.chart.networkt=line:totalrecv,totalsend
+dstat.chart.disk=line:diskread,diskwrit
+
+iostat.command=iostat 
+iostat.startSkip=1
+iostat.datagroup=[cpu,startWith:avg-cpu][device,startWith:Device;groupBy device]
+iostat.datagroup.cpu.head=user,nice,system,iowait,steal,idle
+iostat.datagroup.cpu.split=\ 
+iostat.datagroup.device.head=device,tps,kB_read/s,kB_wrtn/s,kB_read,kB_wrtn
+iostat.datagroup.device.split=\ 
+iostat.chart.list=cpu,devicesdb,devicesdd,devicesdc,devicesde,devicesda,tps
+iostat.chart.cpu=yname:byte;group:cpu;select cpu:;stack:user,nice,system,iowait,steal,idle
+iostat.chart.devicesdb=select device:sdb;line:tps,kB_read/s,kB_wrtn/s,kB_read,kB_wrtn
+iostat.chart.devicesdd=groupByRow device:sdd;line:tps,kB_read/s,kB_wrtn/s,kB_read,kB_wrtn
+iostat.chart.devicesdc=groupByRow device:sdc;line:tps,kB_read/s,kB_wrtn/s,kB_read,kB_wrtn
+iostat.chart.devicesde=groupByRow device:sde;line:tps,kB_read/s,kB_wrtn/s,kB_read,kB_wrtn
+iostat.chart.devicesda=groupByRow device:sda;line:tps,kB_read/s,kB_wrtn/s,kB_read,kB_wrtn
+iostat.chart.tps=yname:byte;group:device;aggregate;line:tps
+
+sar.command=sar -P -ALL
+sar.startSkip=1
+sar.datagroup=[cpu,indexOf:CPU]
+sar.datagroup.cpu.split=\ 
+sar.datagroup.cpu.head=time,timeflag,cpu,user,nice,system,iowait,steal,idle
+sar.chart.list=cpuall,cpu0,user
+sar.chart.cpuall=groupByRow cpu:all;line:user,nice,system,iowait,steal,idle
+sar.chart.cpu0=groupByRow cpu:0;line:user,nice,system,iowait,steal,idle
+sar.chart.user=groupByCol user:user;line:cpu
+

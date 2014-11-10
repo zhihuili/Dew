@@ -100,7 +100,7 @@ public class AppDriver extends UntypedActor {
       if (!response.hasException()) {
         listener.tell(message, getSelf());
       } else {
-        log.error("service error:" + response.getEm().getError());
+        log.error("service error:" + response.getEm().getError() + " from:" + getSender());
       }
       if (++resultNum >= agentActors.size()) {
         getSelf().tell(new ServiceCompletion(), getSelf());

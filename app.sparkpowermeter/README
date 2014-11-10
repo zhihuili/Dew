@@ -1,0 +1,42 @@
+SparkPowerMeter offline model is a tool which analyze spark application performance base on spark data flow.
+
+Quick start
+
+1 Deploy Dew in cluster
+https://github.com/Intel-bigdata/Dew.git
+(Please set your slave nodes in conf/slaves)
+
+2 Build SparkPowerMeter
+http://you_name@git-ccr-1.devtools.intel.com/gerrit/p/sotc_cloud-sparkpowermeter.git
+cd sotc_cloud-sparkpowermeter/
+mvn install
+
+3 Build SparkPowerMeter offline model
+cd sotc_cloud-sparkpowermeter/workload.offline
+mvn install
+
+4 Run SparkPowerMeter offline analyzer
+(Please set ./conf.properties firstly.)
+
+./analyze.sh [spark driver log file path]
+(How to get spark driver log? eg. ./run.sh > driver.log 2>&1)
+
+OR
+
+./analyze.sh startTime(yy/MM/dd HH:mm:ss) endTime(yy/MM/dd HH:mm:ss)
+(Just analyze the cluster performance during the time without data flow model.)
+
+5 Check performance analysis result
+Analysis result will be output to $workload.output.path(analyze.sh will print the path in console.)
+
+OR
+
+You can review it by Web browser.
+(
+sotc_cloud-sparkpowermeter/start-web.sh
+(Please use same path between sotc_cloud-sparkpowermeter/conf.properties/workload.backup.path and sotc_cloud-sparkpowermeter/workload.offline/conf.properties/workload.output.path)
+http://your_SparkPowerMeter_hostName:8099/SparkPowerMeter/test/showHistoryPic
+Click your appId or startTimestamp.
+)
+
+good luck

@@ -1,0 +1,14 @@
+# It will be overwrite in analysis log file mode
+spark.cluster.slave=$HADOOP_HOME/conf/slaves
+
+workload.output.path=/tmp/
+dew.master.url=Dew_Master_Host_Name:6066
+
+workload.step.parser=XParser
+workload.step.chart=XChart
+workload.step.report=false
+workload.runner.command=dstat
+workload.runner.frequency=1
+workload.chart.xmax = 300
+workload.chart.width = 800
+workload.chart.height = 300

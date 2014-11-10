@@ -9,7 +9,7 @@ if [ -f $DEW_AGENTS ]; then
   AGENTS_LIST=`cat $DEW_AGENTS`
 fi
 
-if [ $AGENTS_LIST = "" ]; then
+if [ "$AGENTS_LIST" = "" ]; then
   AGENTS_LIST=localhost
 fi
 

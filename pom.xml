@@ -38,6 +38,10 @@
     <module>dew.master</module>
     <module>dew.agent</module>
     <module>service.sysmetrics</module>
+    <module>app.sparklogparser</module>
+    <module>app.appdiagnosis</module>
+    <module>app.sparkperformance</module>
+    <module>app.sparkpowermeter</module>
     <module>dew.assembly</module>
   </modules>
 <build>  

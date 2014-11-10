@@ -1,0 +1,14 @@
+dstat.command=dstat --mem --io --cpu --net -N eth0,eth1,total --disk --output
+dstat.startSkip=0
+dstat.datagroup=null
+dstat.datagroup.split=,
+dstat.datagroup.head=used,buffer,cached,free,ioread,iowrit,usr,sys,idl,wai,hiq,siq,eth0recv,eth0send,eth1recv,eth1send,totalrecv,totalsend,diskread,diskwrit
+dstat.chart.list=memory,io,cpu,network0,network1,networkt,disk
+dstat.chart.memory=yname:byte;stack:used,buffer,cached,free
+dstat.chart.io=yname:byte;line:ioread,iowrit
+dstat.chart.cpu=yname:percentage;stack:usr,sys,idl,wai,hiq,siq
+dstat.chart.network0=yname:byte;line:eth0recv,eth0send
+dstat.chart.network1=yname:byte;line:eth1recv,eth1send
+dstat.chart.networkt=yname:byte;line:totalrecv,totalsend
+dstat.chart.disk=yname:byte;line:diskread,diskwrit
+dstat.frequency=1
