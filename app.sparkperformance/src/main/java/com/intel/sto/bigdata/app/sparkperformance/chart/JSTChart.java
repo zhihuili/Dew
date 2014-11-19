@@ -142,14 +142,14 @@ public class JSTChart extends SparkChart implements JobChart {
                 + "-TIME", "time(s)", Constants.TASK_NAME.toUpperCase(), marker));
         outputGraph(Constants.TASK_NAME, chart, width, height);
       } catch (Exception e) {
-        e.printStackTrace();
+        System.err.print(e.getMessage());
       }
     }
   }
 
   /**
-   * // * sort filename.csv according to the column indexed at sortCriteria // * // * @param
-   * filename // * @param sortCriteria // * @throws Exception //
+   * sort filename.csv according to the column indexed at sortCriteria
+   * 
    */
   public void sortCSVFile(String filename, int sortCriteria) throws Exception {
     String taskSort =
