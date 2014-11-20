@@ -32,8 +32,7 @@ public class LoadBalanceDiagnosisStrategy implements DiagnosisStrategy {
     loadMetrics.put("diskread", "load-Disk-Read");
     loadMetrics.put("diskwrit", "load-Disk-Writ");
 
-    String metricsHead = DstatUtil.metricsHead;
-    String metricsArray[] = metricsHead.split(",");
+    String metricsArray[] = DstatUtil.metricsHead;
     for (String metrics : loadMetrics.keySet()) {
       if (Arrays.asList(metricsArray).contains(metrics)) {
         ArrayList<DiagnosisResult> tmpResult =
@@ -62,37 +61,37 @@ public class LoadBalanceDiagnosisStrategy implements DiagnosisStrategy {
         sumLoad += parseResult.get(loadName);
       }
       avgLoad.put(hostName, sumLoad / hostDataSet.size());
+    }
 
-      double avgLoadNum = 0.0;
-      for (String nodeName : avgLoad.keySet()) {
-        avgLoadNum += avgLoad.get(nodeName);
-      }
-      avgLoadNum = avgLoadNum / avgLoad.size();
+    double avgLoadNum = 0.0;
+    for (String nodeName : avgLoad.keySet()) {
+      avgLoadNum += avgLoad.get(nodeName);
+    }
+    avgLoadNum = avgLoadNum / avgLoad.size();
 
-      for (String host : avgLoad.keySet()) {
-        if (avgLoad.get(host) - avgLoadNum < 0) {
-          DiagnosisResult tmpResult = new DiagnosisResult();
-          tmpResult.setDiagnosisName(diagnosisName);
-          tmpResult.setHostName(host);
-          double percent = (avgLoadNum - avgLoad.get(host)) / avgLoadNum;
-          if (percent >= 0.5) {
-            tmpResult.setLevel(Level.high);
-            tmpResult.setDescribe(diagnosisName + " is low than avg by " + df.format(percent * 100)
-                + "%");
-            tmpResult.setAdvice("add task more on " + diagnosisName);
-          } else if (percent >= 0.35) {
-            tmpResult.setLevel(Level.middle);
-            tmpResult.setDescribe(diagnosisName + " is low than avg by " + df.format(percent * 100)
-                + "%");
-            tmpResult.setAdvice("add task on " + diagnosisName);
-          } else {
-            tmpResult.setLevel(Level.low);
-            tmpResult.setDescribe(diagnosisName + " is low than avg by " + df.format(percent * 100)
-                + "%");
-            tmpResult.setAdvice("add task less on " + diagnosisName);
-          }
-          result.add(tmpResult);
+    for (String host : avgLoad.keySet()) {
+      if (avgLoad.get(host) - avgLoadNum < 0) {
+        DiagnosisResult tmpResult = new DiagnosisResult();
+        tmpResult.setDiagnosisName(diagnosisName);
+        tmpResult.setHostName(host);
+        double percent = (avgLoadNum - avgLoad.get(host)) / avgLoadNum;
+        if (percent >= 0.5) {
+          tmpResult.setLevel(Level.high);
+          tmpResult.setDescribe(diagnosisName + " is low than avg by " + df.format(percent * 100)
+              + "%");
+          tmpResult.setAdvice("add task more on " + diagnosisName);
+        } else if (percent >= 0.35) {
+          tmpResult.setLevel(Level.middle);
+          tmpResult.setDescribe(diagnosisName + " is low than avg by " + df.format(percent * 100)
+              + "%");
+          tmpResult.setAdvice("add task on " + diagnosisName);
+        } else {
+          tmpResult.setLevel(Level.low);
+          tmpResult.setDescribe(diagnosisName + " is low than avg by " + df.format(percent * 100)
+              + "%");
+          tmpResult.setAdvice("add task less on " + diagnosisName);
         }
+        result.add(tmpResult);
       }
     }
 

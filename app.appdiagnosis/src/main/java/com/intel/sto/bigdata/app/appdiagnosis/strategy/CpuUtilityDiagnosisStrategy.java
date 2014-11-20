@@ -10,8 +10,6 @@ import com.intel.sto.bigdata.app.appdiagnosis.DiagnosisResult;
 import com.intel.sto.bigdata.app.appdiagnosis.DiagnosisResult.Level;
 import com.intel.sto.bigdata.app.appdiagnosis.util.DstatUtil;
 
-;
-
 /**
  * Which nodes' max cpu utility (user + sys) is low? 50% high, 70% middle, 90$ low
  * 
@@ -20,6 +18,7 @@ public class CpuUtilityDiagnosisStrategy implements DiagnosisStrategy {
 
   @Override
   public List<DiagnosisResult> diagnose(DiagnosisContext context) {
+    // TODO Eliminate CPU sample glitch
     List<DiagnosisResult> cpuDiagnosisResult = new ArrayList<DiagnosisResult>();
     Map<String, List<Map<String, List<List<String>>>>> dataSet = context.getPerformanceData();
     for (String hostName : dataSet.keySet()) {
@@ -37,17 +36,17 @@ public class CpuUtilityDiagnosisStrategy implements DiagnosisStrategy {
         maxCpuUtility = (maxCpuUtility < cpuUtility) ? cpuUtility : maxCpuUtility;
       }
 
-      if (maxCpuUtility > 0.9) {
-        tmpResult.setLevel(Level.high);
-        tmpResult.setDescribe("cpu utility is high");
-        tmpResult.setAdvice("null");
-      } else if (maxCpuUtility > 0.7) {
+      if (maxCpuUtility > 90) {
+        tmpResult.setLevel(Level.low);
+        tmpResult.setDescribe("cpu utility problem is low");
+        tmpResult.setAdvice("keep the state");
+      } else if (maxCpuUtility > 70) {
         tmpResult.setLevel(Level.middle);
-        tmpResult.setDescribe("cpu utility is middle");
+        tmpResult.setDescribe("cpu utility problem is middle");
         tmpResult.setAdvice("allocate more task on cpu properly");
       } else {
-        tmpResult.setLevel(Level.low);
-        tmpResult.setDescribe("cpu utility is low");
+        tmpResult.setLevel(Level.high);
+        tmpResult.setDescribe("cpu utility problem is high");
         tmpResult.setAdvice("check the calculate process");
       }
 
