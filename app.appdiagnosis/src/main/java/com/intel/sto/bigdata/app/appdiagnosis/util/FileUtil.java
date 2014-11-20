@@ -45,8 +45,10 @@ public class FileUtil {
       throws Exception {
     FileOutputStream fos = new FileOutputStream(analysisFile);
     fos.write(DiagnosisResult.getHead().getBytes());
+    fos.write("\r\n".getBytes());
     for (DiagnosisResult ar : ars) {
       fos.write(ar.toString().getBytes());
+      fos.write("\r\n".getBytes());
     }
     fos.flush();
     fos.close();
