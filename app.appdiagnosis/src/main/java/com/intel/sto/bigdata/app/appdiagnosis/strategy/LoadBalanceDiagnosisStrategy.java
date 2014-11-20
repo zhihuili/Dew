@@ -73,13 +73,12 @@ public class LoadBalanceDiagnosisStrategy implements DiagnosisStrategy {
     avgLoadNum = avgLoadNum / avgLoad.size();
 
     for (String host : avgLoad.keySet()) {
-      double percent = (avgLoadNum - avgLoad.get(host)) / avgLoadNum;
+      double percent = Double.valueOf(df.format((avgLoadNum - avgLoad.get(host)) / avgLoadNum * 100));
       if (percent > LOW) {
         DiagnosisResult tmpResult = new DiagnosisResult();
         tmpResult.setDiagnosisName(performanceIndex);
         tmpResult.setHostName(host);
 
-        percent = Double.valueOf(df.format(percent * 100));
         tmpResult.setDescribe(performanceIndex + " is lower than cluster average by " + percent
             + "%");
         tmpResult.setAdvice("Check the node or your application algorism.");
