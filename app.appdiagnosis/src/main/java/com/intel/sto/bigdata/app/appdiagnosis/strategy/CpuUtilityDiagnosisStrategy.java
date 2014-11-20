@@ -11,7 +11,7 @@ import com.intel.sto.bigdata.app.appdiagnosis.DiagnosisResult.Level;
 import com.intel.sto.bigdata.app.appdiagnosis.util.DstatUtil;
 
 /**
- * Which nodes' max cpu utility (user + sys) is low? 50% high, 70% middle, 90$ low
+ * Which nodes' max cpu utility (user + sys) is low? 50% high, 70% middle, 90% low
  * 
  */
 public class CpuUtilityDiagnosisStrategy implements DiagnosisStrategy {
@@ -42,19 +42,22 @@ public class CpuUtilityDiagnosisStrategy implements DiagnosisStrategy {
 
       if (maxCpuUtility < CPU_LOW) {
         tmpResult.setLevel(Level.high);
-        tmpResult.setDescribe("Max CPU utility has some problems.");
+        tmpResult.setDescribe("Max CPU utility " + maxCpuUtility + " less than " + CPU_LOW + " %");
         tmpResult
             .setAdvice("Increase executors number or max core number for the application, or increase RDD's partition number.");
         cpuDiagnosisResult.add(tmpResult);
       } else if (maxCpuUtility > CPU_LOW && maxCpuUtility < CPU_MIDDLE) {
         tmpResult.setLevel(Level.middle);
-        tmpResult.setDescribe("Max CPU utility is more less than average.");
-        tmpResult.setAdvice("allocate more task on cpu properly");
+        tmpResult.setDescribe("Max CPU utility " + maxCpuUtility + " less than " + CPU_MIDDLE
+            + " %");
+        tmpResult
+            .setAdvice("Increase executors number or max core number for the application, or increase RDD's partition number.");
         cpuDiagnosisResult.add(tmpResult);
       } else if (maxCpuUtility > CPU_MIDDLE && maxCpuUtility < CPU_HIGH) {
         tmpResult.setLevel(Level.low);
-        tmpResult.setDescribe("Max CPU utility is less than normal.");
-        tmpResult.setAdvice("keep CPU calcucate process.");
+        tmpResult.setDescribe("Max CPU utility " + maxCpuUtility + " less than " + CPU_HIGH + " %");
+        tmpResult
+            .setAdvice("Increase executors number or max core number for the application, or increase RDD's partition number.");
         cpuDiagnosisResult.add(tmpResult);
       }
     }

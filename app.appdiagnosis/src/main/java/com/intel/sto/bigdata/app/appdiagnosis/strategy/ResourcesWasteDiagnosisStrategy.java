@@ -37,26 +37,24 @@ public class ResourcesWasteDiagnosisStrategy implements DiagnosisStrategy {
         sumCpuUtility += (parseResult.get("usr") + parseResult.get("sys"));
       }
 
-      double percent = (100 * hostDataSet.size() - sumCpuUtility) / (100 * hostDataSet.size());
+      double percent = 1 - sumCpuUtility / (100 * hostDataSet.size());
 
       DecimalFormat df = new DecimalFormat("######0.00");
       DiagnosisResult tmpResult = new DiagnosisResult();
       tmpResult.setDiagnosisName("waste-CPU");
       tmpResult.setHostName(hostName);
-      percent = Double.valueOf(df.format(percent * 100));
-      tmpResult.setDescribe("cpu resources waste percent is " + percent + "%");
-
-      if (percent > CPU_HIGH) {
+      double percentage = Double.valueOf(df.format(percent * 100));
+      tmpResult.setDescribe("Cpu resources waste percent is " + percentage
+          + "%. More time on non-computation task.");
+      tmpResult.setAdvice("Improve node's disk and network performance.");
+      if (percentage > CPU_HIGH) {
         tmpResult.setLevel(Level.high);
-        tmpResult.setAdvice("check the cpu resources utility");
         wasteDiagnosisResult.add(tmpResult);
-      } else if (percent > CPU_MIDDLE && percent < CPU_HIGH) {
+      } else if (percentage > CPU_MIDDLE && percentage < CPU_HIGH) {
         tmpResult.setLevel(Level.middle);
-        tmpResult.setAdvice("add more cpu calcucate task");
         wasteDiagnosisResult.add(tmpResult);
-      } else if (percent > CPU_LOW && percent < CPU_MIDDLE) {
+      } else if (percentage > CPU_LOW && percentage < CPU_MIDDLE) {
         tmpResult.setLevel(Level.low);
-        tmpResult.setAdvice("keep the cpu task allocate");
         wasteDiagnosisResult.add(tmpResult);
       }
     }
