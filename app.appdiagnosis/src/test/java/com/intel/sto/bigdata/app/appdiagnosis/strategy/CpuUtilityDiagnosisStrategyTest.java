@@ -24,11 +24,11 @@ public class CpuUtilityDiagnosisStrategyTest extends DiagnosisStrategyTestCase {
     result = cpuDiagnosis.diagnose(ac);
 
     Map<String, Level> predict = new HashMap<String, Level>();
-    predict.put("sr161", Level.middle);
-    predict.put("sr162", Level.high);
+    predict.put("sr161", Level.low);
+    predict.put("sr162", Level.middle);
     predict.put("sr163", Level.low);
     predict.put("sr164", Level.low);
-    predict.put("sr165", Level.middle);
+    predict.put("sr165", Level.low);
 
     for (int i = 0; i < result.size(); i++) {
       String hostName = result.get(i).getHostName();

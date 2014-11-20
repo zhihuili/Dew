@@ -17,6 +17,9 @@ import com.intel.sto.bigdata.app.appdiagnosis.util.DstatUtil;
  * 
  */
 public class LoadBalanceDiagnosisStrategy implements DiagnosisStrategy {
+  private static final double CPU_LOW = 20;
+  private static final double CPU_MIDDLE = 35;
+  private static final double CPU_HIGH = 50;
 
   @Override
   public List<DiagnosisResult> diagnose(DiagnosisContext context) {
@@ -75,23 +78,21 @@ public class LoadBalanceDiagnosisStrategy implements DiagnosisStrategy {
         tmpResult.setDiagnosisName(diagnosisName);
         tmpResult.setHostName(host);
         double percent = (avgLoadNum - avgLoad.get(host)) / avgLoadNum;
-        if (percent >= 0.5) {
+        percent = Double.valueOf(df.format(percent * 100));
+        tmpResult.setDescribe(diagnosisName + " is lower than avg by " + percent + "%");
+        if (percent > CPU_HIGH) {
           tmpResult.setLevel(Level.high);
-          tmpResult.setDescribe(diagnosisName + " is low than avg by " + df.format(percent * 100)
-              + "%");
-          tmpResult.setAdvice("add task more on " + diagnosisName);
-        } else if (percent >= 0.35) {
+          tmpResult.setAdvice("add more " + diagnosisName + " task.");
+          result.add(tmpResult);
+        } else if (percent > CPU_MIDDLE && percent < CPU_HIGH) {
           tmpResult.setLevel(Level.middle);
-          tmpResult.setDescribe(diagnosisName + " is low than avg by " + df.format(percent * 100)
-              + "%");
-          tmpResult.setAdvice("add task on " + diagnosisName);
-        } else {
+          tmpResult.setAdvice("add appropriate " + diagnosisName + " task.");
+          result.add(tmpResult);
+        } else if (percent > CPU_LOW && percent < CPU_MIDDLE) {
           tmpResult.setLevel(Level.low);
-          tmpResult.setDescribe(diagnosisName + " is low than avg by " + df.format(percent * 100)
-              + "%");
-          tmpResult.setAdvice("add task less on " + diagnosisName);
+          tmpResult.setAdvice("add task allocate on " + diagnosisName + ".");
+          result.add(tmpResult);
         }
-        result.add(tmpResult);
       }
     }
 

@@ -15,6 +15,9 @@ import com.intel.sto.bigdata.app.appdiagnosis.util.DstatUtil;
  * 
  */
 public class CpuUtilityDiagnosisStrategy implements DiagnosisStrategy {
+  private static final double CPU_LOW = 50;
+  private static final double CPU_MIDDLE = 70;
+  private static final double CPU_HIGH = 90;
 
   @Override
   public List<DiagnosisResult> diagnose(DiagnosisContext context) {
@@ -22,10 +25,7 @@ public class CpuUtilityDiagnosisStrategy implements DiagnosisStrategy {
     List<DiagnosisResult> cpuDiagnosisResult = new ArrayList<DiagnosisResult>();
     Map<String, List<Map<String, List<List<String>>>>> dataSet = context.getPerformanceData();
     for (String hostName : dataSet.keySet()) {
-      DiagnosisResult tmpResult = new DiagnosisResult();
 
-      tmpResult.setDiagnosisName("CPU");
-      tmpResult.setHostName(hostName);
       List<Map<String, List<List<String>>>> hostDataSet = dataSet.get(hostName);
       double maxCpuUtility = 0.0;
       for (int i = 0; i < hostDataSet.size(); i++) {
@@ -36,21 +36,27 @@ public class CpuUtilityDiagnosisStrategy implements DiagnosisStrategy {
         maxCpuUtility = (maxCpuUtility < cpuUtility) ? cpuUtility : maxCpuUtility;
       }
 
-      if (maxCpuUtility > 90) {
-        tmpResult.setLevel(Level.low);
-        tmpResult.setDescribe("cpu utility problem is low");
-        tmpResult.setAdvice("keep the state");
-      } else if (maxCpuUtility > 70) {
-        tmpResult.setLevel(Level.middle);
-        tmpResult.setDescribe("cpu utility problem is middle");
-        tmpResult.setAdvice("allocate more task on cpu properly");
-      } else {
-        tmpResult.setLevel(Level.high);
-        tmpResult.setDescribe("cpu utility problem is high");
-        tmpResult.setAdvice("check the calculate process");
-      }
+      DiagnosisResult tmpResult = new DiagnosisResult();
+      tmpResult.setDiagnosisName("CPU-utility");
+      tmpResult.setHostName(hostName);
 
-      cpuDiagnosisResult.add(tmpResult);
+      if (maxCpuUtility < CPU_LOW) {
+        tmpResult.setLevel(Level.high);
+        tmpResult.setDescribe("Max CPU utility has some problems.");
+        tmpResult
+            .setAdvice("Increase executors number or max core number for the application, or increase RDD's partition number.");
+        cpuDiagnosisResult.add(tmpResult);
+      } else if (maxCpuUtility > CPU_LOW && maxCpuUtility < CPU_MIDDLE) {
+        tmpResult.setLevel(Level.middle);
+        tmpResult.setDescribe("Max CPU utility is more less than average.");
+        tmpResult.setAdvice("allocate more task on cpu properly");
+        cpuDiagnosisResult.add(tmpResult);
+      } else if (maxCpuUtility > CPU_MIDDLE && maxCpuUtility < CPU_HIGH) {
+        tmpResult.setLevel(Level.low);
+        tmpResult.setDescribe("Max CPU utility is less than normal.");
+        tmpResult.setAdvice("keep CPU calcucate process.");
+        cpuDiagnosisResult.add(tmpResult);
+      }
     }
     return cpuDiagnosisResult;
   }
