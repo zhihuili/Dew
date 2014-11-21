@@ -17,9 +17,9 @@ import com.intel.sto.bigdata.app.appdiagnosis.util.DstatUtil;
  * 
  */
 public class LoadBalanceDiagnosisStrategy implements DiagnosisStrategy {
-  private static final double CPU_LOW = 20;
-  private static final double CPU_MIDDLE = 35;
-  private static final double CPU_HIGH = 50;
+  private static final double LOW = 20;
+  private static final double MIDDLE = 35;
+  private static final double HIGH = 50;
 
   @Override
   public List<DiagnosisResult> diagnose(DiagnosisContext context) {
@@ -49,7 +49,7 @@ public class LoadBalanceDiagnosisStrategy implements DiagnosisStrategy {
 
   public static ArrayList<DiagnosisResult> diagnosisForEachLoad(
       Map<String, List<Map<String, List<List<String>>>>> dataSet, String loadName,
-      String diagnosisName) {
+      String performanceIndex) {
     DecimalFormat df = new DecimalFormat("######0.00");
     ArrayList<DiagnosisResult> result = new ArrayList<DiagnosisResult>();
 
@@ -73,26 +73,23 @@ public class LoadBalanceDiagnosisStrategy implements DiagnosisStrategy {
     avgLoadNum = avgLoadNum / avgLoad.size();
 
     for (String host : avgLoad.keySet()) {
-      if (avgLoad.get(host) - avgLoadNum < 0) {
+      double percent = Double.valueOf(df.format((avgLoadNum - avgLoad.get(host)) / avgLoadNum * 100));
+      if (percent > LOW) {
         DiagnosisResult tmpResult = new DiagnosisResult();
-        tmpResult.setDiagnosisName(diagnosisName);
+        tmpResult.setDiagnosisName(performanceIndex);
         tmpResult.setHostName(host);
-        double percent = (avgLoadNum - avgLoad.get(host)) / avgLoadNum;
-        percent = Double.valueOf(df.format(percent * 100));
-        tmpResult.setDescribe(diagnosisName + " is lower than avg by " + percent + "%");
-        if (percent > CPU_HIGH) {
+
+        tmpResult.setDescribe(performanceIndex + " is lower than cluster average by " + percent
+            + "%");
+        tmpResult.setAdvice("Check the node or your application algorism.");
+        if (percent > HIGH) {
           tmpResult.setLevel(Level.high);
-          tmpResult.setAdvice("add more " + diagnosisName + " task.");
-          result.add(tmpResult);
-        } else if (percent > CPU_MIDDLE && percent < CPU_HIGH) {
+        } else if (percent > MIDDLE && percent < HIGH) {
           tmpResult.setLevel(Level.middle);
-          tmpResult.setAdvice("add appropriate " + diagnosisName + " task.");
-          result.add(tmpResult);
-        } else if (percent > CPU_LOW && percent < CPU_MIDDLE) {
+        } else if (percent < MIDDLE) {
           tmpResult.setLevel(Level.low);
-          tmpResult.setAdvice("add task allocate on " + diagnosisName + ".");
-          result.add(tmpResult);
         }
+        result.add(tmpResult);
       }
     }
 
