@@ -10,7 +10,7 @@ import com.intel.sto.bigdata.app.appdiagnosis.DiagnosisResult;
 
 import junit.framework.TestCase;
 
-public class DiagnosisStrategyTestCase extends TestCase {
+public abstract class DiagnosisStrategyTestCase extends TestCase {
   List<DiagnosisResult> result;
   DiagnosisContext ac;
 
