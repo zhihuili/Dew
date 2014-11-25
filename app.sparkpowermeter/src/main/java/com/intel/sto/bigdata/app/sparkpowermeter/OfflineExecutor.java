@@ -129,5 +129,6 @@ public class OfflineExecutor {
     new AgentProxy(master, processor, new AppDes(hosts))
         .requestService(new HttpDstatServiceRequest(httpUrl, startTime, endTime));
     System.out.println("Load performance data file completely.");
+    server.shutDown();
   }
 }

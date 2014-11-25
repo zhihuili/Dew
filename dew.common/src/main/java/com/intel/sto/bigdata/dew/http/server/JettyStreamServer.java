@@ -29,6 +29,14 @@ public class JettyStreamServer {
     return port;
   }
 
+  public void shutDown() {
+    try {
+      server.stop();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
+
   // for test
   public static void main(String[] args) throws Exception {
 
