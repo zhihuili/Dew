@@ -1,6 +1,6 @@
 package com.intel.sto.bigdata.app.webcenter.logic.ui;
 
-import com.intel.sto.bigdata.dew.jetty.JettyCustomServer;
+import com.intel.sto.bigdata.dew.http.server.JettyCustomServer;
 
 public class JettyServerStart {
 

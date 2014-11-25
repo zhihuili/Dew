@@ -1,4 +1,4 @@
-package com.intel.sto.bigdata.app.sparkpowermeter;
+package com.intel.sto.bigdata.dew.service.sysmetrics.listener;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -11,6 +11,7 @@ import com.intel.sto.bigdata.dew.app.AgentProxy;
 import com.intel.sto.bigdata.dew.app.AppDes;
 import com.intel.sto.bigdata.dew.app.AppProcessor;
 import com.intel.sto.bigdata.dew.message.ServiceResponse;
+import com.intel.sto.bigdata.dew.service.sysmetrics.SaveDstatFile;
 import com.intel.sto.bigdata.dew.service.sysmetrics.message.DstatServiceRequest;
 
 public class SaveDstatListener implements AppProcessor {
@@ -28,24 +29,7 @@ public class SaveDstatListener implements AppProcessor {
     for (ServiceResponse response : list) {
       String hostName =
           hosts.contains(response.getNodeName()) ? response.getNodeName() : response.getIp();
-      FileOutputStream fos = null;
-      try {
-        fos = new FileOutputStream(new File(path + "dstat_" + hostName + ".dat"));
-        String[] contents = response.getContent().split(";");
-        for (String line : contents) {
-          fos.write((line + System.getProperty("line.separator")).getBytes());
-        }
-      } catch (Exception e) {
-        e.printStackTrace();
-      } finally {
-        if (fos != null) {
-          try {
-            fos.close();
-          } catch (IOException e) {
-            e.printStackTrace();
-          }
-        }
-      }
+          SaveDstatFile.save(path, hostName, response.getContent());
     }
   }
 
