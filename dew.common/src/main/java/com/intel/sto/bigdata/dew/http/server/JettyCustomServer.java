@@ -1,4 +1,4 @@
-package com.intel.sto.bigdata.dew.jetty;
+package com.intel.sto.bigdata.dew.http.server;
 
 import java.io.FileInputStream;
 

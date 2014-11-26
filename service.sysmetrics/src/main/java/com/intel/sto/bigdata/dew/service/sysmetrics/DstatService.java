@@ -1,9 +1,17 @@
 package com.intel.sto.bigdata.dew.service.sysmetrics;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Map;
+
+import com.intel.sto.bigdata.dew.http.client.HttpStreamClient;
 import com.intel.sto.bigdata.dew.message.ErrorMessage;
 import com.intel.sto.bigdata.dew.message.ServiceResponse;
 import com.intel.sto.bigdata.dew.service.Service;
 import com.intel.sto.bigdata.dew.service.sysmetrics.message.DstatServiceRequest;
+import com.intel.sto.bigdata.dew.service.sysmetrics.message.HttpDstatServiceRequest;
+import com.intel.sto.bigdata.dew.utils.Host;
 
 public class DstatService extends Service {
 
@@ -44,7 +52,21 @@ public class DstatService extends Service {
       result.setEm(new ErrorMessage(e.getMessage()));
       return result;
     }
-    result.setContent(content);
+    if (message instanceof HttpDstatServiceRequest) {
+      HttpDstatServiceRequest httpRequest = (HttpDstatServiceRequest) message;
+      Map<String, String> parameters = new HashMap<String, String>();
+      parameters.put(Constants.HOST_NAME, Host.getName());
+      // TODO use FileInputStream or other InputStream to avoid build large String.
+      InputStream is =
+          new ByteArrayInputStream((content + System.getProperty("line.separator")).getBytes());
+      try {
+        HttpStreamClient.post(httpRequest.getHttpUrl(), parameters, is);
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
+    } else {
+      result.setContent(content);
+    }
     return result;
   }
 

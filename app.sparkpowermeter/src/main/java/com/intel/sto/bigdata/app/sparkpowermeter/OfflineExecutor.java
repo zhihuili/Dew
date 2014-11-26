@@ -24,7 +24,14 @@ import com.intel.sto.bigdata.app.sparkperformance.chart.preprocessor.XChartPrepr
 import com.intel.sto.bigdata.app.sparkperformance.des.CommandDes;
 import com.intel.sto.bigdata.dew.app.AgentProxy;
 import com.intel.sto.bigdata.dew.app.AppDes;
+import com.intel.sto.bigdata.dew.app.AppProcessor;
+import com.intel.sto.bigdata.dew.app.DoNothingAppProcessor;
+import com.intel.sto.bigdata.dew.http.server.JettyStreamServer;
+import com.intel.sto.bigdata.dew.service.sysmetrics.callback.DstatHttpCallback;
+import com.intel.sto.bigdata.dew.service.sysmetrics.listener.SaveDstatListener;
 import com.intel.sto.bigdata.dew.service.sysmetrics.message.DstatServiceRequest;
+import com.intel.sto.bigdata.dew.service.sysmetrics.message.HttpDstatServiceRequest;
+import com.intel.sto.bigdata.dew.utils.Host;
 
 public class OfflineExecutor {
 
@@ -46,8 +53,8 @@ public class OfflineExecutor {
     String workPath = baseWorkPath + appId + "/";
     File workDir = new File(workPath);
     if (workDir.exists()) {
-      throw new Exception(workPath + " exists. If you want to re-analyze it, please remove "
-          + workPath + " firstly.");
+      System.err.println(workPath + " exists. delete it.");
+      workDir.delete();
     }
     workDir.mkdir();
     WorkloadConf.set(Constants.WORKLOAD_OUTPUT_PATH, workPath);
@@ -59,7 +66,7 @@ public class OfflineExecutor {
     // create performance file.
     WorkloadContext.put(Constants.WORKLOAD_RUNTIME, startTime);
     String master = WorkloadConf.get("dew.master.url");
-    createPerformanceFile(workPath, hosts, master, startTime, endTime);
+    createPerformanceFileByHttp(workPath, hosts, master, startTime, endTime);
 
     // create performance chart.
     Util.prepareDes(desPath);
@@ -114,4 +121,14 @@ public class OfflineExecutor {
     System.out.println("Load performance data file completely.");
   }
 
+  private static void createPerformanceFileByHttp(String path, Set<String> hosts, String master,
+      long startTime, long endTime) throws Exception {
+    AppProcessor processor = new DoNothingAppProcessor();
+    JettyStreamServer server = new JettyStreamServer(new DstatHttpCallback(path));
+    String httpUrl = "http://" + Host.getName() + ":" + server.getPort();
+    new AgentProxy(master, processor, new AppDes(hosts))
+        .requestService(new HttpDstatServiceRequest(httpUrl, startTime, endTime));
+    System.out.println("Load performance data file completely.");
+    server.shutDown();
+  }
 }

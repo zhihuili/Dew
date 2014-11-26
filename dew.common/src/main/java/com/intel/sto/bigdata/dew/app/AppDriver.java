@@ -89,7 +89,7 @@ public class AppDriver extends UntypedActor {
 
   @Override
   public void onReceive(Object message) throws Exception {
-    log.debug("=========app receive=========" + message);
+    log.debug("=========app received=========" + message);
     if (message instanceof ServiceRequest) {
       proxy = getSender();
       for (ActorRef agent : agentActors) {
