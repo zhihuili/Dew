@@ -22,7 +22,6 @@ public class JettyStreamServer {
     server.setHandler(new JettyStreamHandler(cb));
     server.start();
     port = server.getConnectors()[0].getLocalPort();
-    // server.join();
   }
 
   public int getPort() {
