@@ -42,7 +42,7 @@ public class OfflineExecutor {
     Set<String> hosts = FileUtil.loadFile(is);
     analyzePerformance(workPath, desPath, hosts, startTime, endTime);
 
-    // diagnose(workPath, hosts); Do you need it?
+    diagnose(workPath, hosts); // Do you need it?
   }
 
   private static String init(String confPath, String appId) throws Exception {
