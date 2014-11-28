@@ -30,7 +30,7 @@ public class CpuUtilityDiagnosisStrategy implements DiagnosisStrategy {
       double maxCpuUtility = 0.0;
       for (int i = 0; i < hostDataSet.size(); i++) {
         List<String> dataRecord = new ArrayList<String>();
-        dataRecord = hostDataSet.get(i).get(null).get(0);
+        dataRecord = hostDataSet.get(i).get("null").get(0);
         Map<String, Double> parseResult = DstatUtil.parseDstat(dataRecord);
         double cpuUtility = parseResult.get("usr") + parseResult.get("sys");
         maxCpuUtility = (maxCpuUtility < cpuUtility) ? cpuUtility : maxCpuUtility;

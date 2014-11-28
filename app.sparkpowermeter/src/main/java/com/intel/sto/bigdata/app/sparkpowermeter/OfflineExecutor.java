@@ -99,12 +99,12 @@ public class OfflineExecutor {
 
   private static DiagnosisContext buildDiagnosisContext(String workPath, Set<String> hosts)
       throws Exception {
-    XChartPreprocessor xcp = new XChartPreprocessor();
-    xcp.setCSVFolder(workPath);
     CommandDes cd = (CommandDes) WorkloadContext.get("dstat");
     Map<String, List<Map<String, List<List<String>>>>> map =
         new HashMap<String, List<Map<String, List<List<String>>>>>();
     for (String host : hosts) {
+      XChartPreprocessor xcp = new XChartPreprocessor();
+      xcp.setCSVFolder(workPath);
       map.put(host, xcp.getDataList(cd, host));
 
     }

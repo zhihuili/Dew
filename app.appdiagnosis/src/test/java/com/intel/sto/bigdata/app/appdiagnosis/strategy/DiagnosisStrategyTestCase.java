@@ -131,7 +131,7 @@ public abstract class DiagnosisStrategyTestCase extends TestCase {
     List<List<String>> dataTable = new ArrayList<List<String>>();
     dataTable.add(record);
     Map<String, List<List<String>>> dataMap = new HashMap<String, List<List<String>>>();
-    dataMap.put(null, dataTable);
+    dataMap.put("null", dataTable);
     return dataMap;
   }
 }
