@@ -9,6 +9,7 @@ import com.intel.sto.bigdata.app.appdiagnosis.DiagnosisContext;
 import com.intel.sto.bigdata.app.appdiagnosis.DiagnosisResult;
 import com.intel.sto.bigdata.app.appdiagnosis.DiagnosisResult.Level;
 import com.intel.sto.bigdata.app.appdiagnosis.util.DstatUtil;
+import com.intel.sto.bigdata.app.appdiagnosis.util.Constants;
 
 /**
  * Which nodes' max cpu utility (user + sys) is low? 50% high, 70% middle, 90% low
@@ -30,9 +31,10 @@ public class CpuUtilityDiagnosisStrategy implements DiagnosisStrategy {
       double maxCpuUtility = 0.0;
       for (int i = 0; i < hostDataSet.size(); i++) {
         List<String> dataRecord = new ArrayList<String>();
-        dataRecord = hostDataSet.get(i).get("null").get(0);
+        dataRecord = hostDataSet.get(i).get(Constants.NULL).get(0);
         Map<String, Double> parseResult = DstatUtil.parseDstat(dataRecord);
-        double cpuUtility = parseResult.get("usr") + parseResult.get("sys");
+        double cpuUtility =
+            parseResult.get(Constants.DSTAT_USR) + parseResult.get(Constants.DSTAT_SYS);
         maxCpuUtility = (maxCpuUtility < cpuUtility) ? cpuUtility : maxCpuUtility;
       }
 

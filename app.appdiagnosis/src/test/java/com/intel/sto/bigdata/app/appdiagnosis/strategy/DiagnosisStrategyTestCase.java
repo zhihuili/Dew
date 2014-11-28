@@ -7,7 +7,7 @@ import java.util.Map;
 
 import com.intel.sto.bigdata.app.appdiagnosis.DiagnosisContext;
 import com.intel.sto.bigdata.app.appdiagnosis.DiagnosisResult;
-
+import com.intel.sto.bigdata.app.appdiagnosis.util.Constants;
 import junit.framework.TestCase;
 
 public abstract class DiagnosisStrategyTestCase extends TestCase {
@@ -131,7 +131,7 @@ public abstract class DiagnosisStrategyTestCase extends TestCase {
     List<List<String>> dataTable = new ArrayList<List<String>>();
     dataTable.add(record);
     Map<String, List<List<String>>> dataMap = new HashMap<String, List<List<String>>>();
-    dataMap.put("null", dataTable);
+    dataMap.put(Constants.NULL, dataTable);
     return dataMap;
   }
 }
