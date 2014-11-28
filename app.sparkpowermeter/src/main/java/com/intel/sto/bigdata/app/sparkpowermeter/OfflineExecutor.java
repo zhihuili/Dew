@@ -114,6 +114,7 @@ public class OfflineExecutor {
     return ac;
   }
 
+  @Deprecated
   private static void createPerformanceFile(String path, Set<String> hosts, String master,
       long startTime, long endTime) throws Exception {
     SaveDstatListener sdl = new SaveDstatListener(path, hosts);
