@@ -11,6 +11,7 @@ import com.intel.sto.bigdata.app.appdiagnosis.DiagnosisContext;
 import com.intel.sto.bigdata.app.appdiagnosis.DiagnosisResult;
 import com.intel.sto.bigdata.app.appdiagnosis.DiagnosisResult.Level;
 import com.intel.sto.bigdata.app.appdiagnosis.util.DstatUtil;
+import com.intel.sto.bigdata.app.appdiagnosis.util.Constants;
 
 /**
  * Which nodes' load is lower than average? 50% high, 35% middle, 20%
@@ -28,12 +29,12 @@ public class LoadBalanceDiagnosisStrategy implements DiagnosisStrategy {
 
     Map<String, String> loadMetrics = new HashMap<String, String>();
 
-    loadMetrics.put("usr", "load-CPU");
-    loadMetrics.put("used", "load-Mem");
-    loadMetrics.put("totalrecv", "load-Net-Recv");
-    loadMetrics.put("totalsend", "load-Net-Send");
-    loadMetrics.put("diskread", "load-Disk-Read");
-    loadMetrics.put("diskwrit", "load-Disk-Writ");
+    loadMetrics.put(Constants.DSTAT_USR, "load-CPU");
+    loadMetrics.put(Constants.DSTAT_USED, "load-Mem");
+    loadMetrics.put(Constants.DSTAT_TOTALRECV, "load-Net-Recv");
+    loadMetrics.put(Constants.DSTAT_TOTALSEND, "load-Net-Send");
+    loadMetrics.put(Constants.DSTAT_DISKREAD, "load-Disk-Read");
+    loadMetrics.put(Constants.DSTAT_DISKWRIT, "load-Disk-Writ");
 
     String metricsArray[] = DstatUtil.metricsHead;
     for (String metrics : loadMetrics.keySet()) {
@@ -59,7 +60,7 @@ public class LoadBalanceDiagnosisStrategy implements DiagnosisStrategy {
       double sumLoad = 0.0;
       for (int i = 0; i < hostDataSet.size(); i++) {
         List<String> dataRecord = new ArrayList<String>();
-        dataRecord = hostDataSet.get(i).get(null).get(0);
+        dataRecord = hostDataSet.get(i).get(Constants.NULL).get(0);
         Map<String, Double> parseResult = DstatUtil.parseDstat(dataRecord);
         sumLoad += parseResult.get(loadName);
       }
@@ -73,7 +74,8 @@ public class LoadBalanceDiagnosisStrategy implements DiagnosisStrategy {
     avgLoadNum = avgLoadNum / avgLoad.size();
 
     for (String host : avgLoad.keySet()) {
-      double percent = Double.valueOf(df.format((avgLoadNum - avgLoad.get(host)) / avgLoadNum * 100));
+      double percent =
+          Double.valueOf(df.format((avgLoadNum - avgLoad.get(host)) / avgLoadNum * 100));
       if (percent > LOW) {
         DiagnosisResult tmpResult = new DiagnosisResult();
         tmpResult.setDiagnosisName(performanceIndex);

@@ -11,6 +11,7 @@ import com.intel.sto.bigdata.app.appdiagnosis.DiagnosisContext;
 import com.intel.sto.bigdata.app.appdiagnosis.DiagnosisResult;
 import com.intel.sto.bigdata.app.appdiagnosis.DiagnosisResult.Level;
 import com.intel.sto.bigdata.app.appdiagnosis.util.DstatUtil;
+import com.intel.sto.bigdata.app.appdiagnosis.util.Constants;
 
 /**
  * Which nodes' computation resource(CPU, memory, disk, network) is wasted. 80% high, 50% middle,
@@ -32,9 +33,10 @@ public class ResourcesWasteDiagnosisStrategy implements DiagnosisStrategy {
       double sumCpuUtility = 0.0;
       for (int i = 0; i < hostDataSet.size(); i++) {
         List<String> dataRecord = new ArrayList<String>();
-        dataRecord = hostDataSet.get(i).get(null).get(0);
+        dataRecord = hostDataSet.get(i).get(Constants.NULL).get(0);
         Map<String, Double> parseResult = DstatUtil.parseDstat(dataRecord);
-        sumCpuUtility += (parseResult.get("usr") + parseResult.get("sys"));
+        sumCpuUtility +=
+            (parseResult.get(Constants.DSTAT_USR) + parseResult.get(Constants.DSTAT_SYS));
       }
 
       double percent = 1 - sumCpuUtility / (100 * hostDataSet.size());
