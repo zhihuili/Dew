@@ -16,11 +16,15 @@ public class DewDrop {
       System.err.println("Please input master url.");
       System.exit(1);
     }
-    startAgent(args[0], 0);
+    if (args.length == 1) {
+      startAgent(args[0], 0, null);
+    } else {
+      startAgent(args[0], 0, args[1]);
+    }
     Runtime.getRuntime().addShutdownHook(hook);
   }
 
-  private static void startAgent(String masterUrl, int port) {
+  private static void startAgent(String masterUrl, int port, String serviceDes) {
     String url = "akka.tcp://Master@" + masterUrl + "/user/master";
     ActorSystem system =
         ActorSystem.create(
@@ -30,14 +34,14 @@ public class DewDrop {
                 .withValue("akka.remote.netty.tcp.port", ConfigValueFactory.fromAnyRef(port))
                 .withValue("akka.remote.netty.tcp.hostname",
                     ConfigValueFactory.fromAnyRef(Host.getName())));
-    system.actorOf(Props.create(Agent.class, url, serviceManager), "agent");
-
+    system.actorOf(Props.create(Agent.class, url, serviceManager, serviceDes), "agent");
   }
 
   private static Thread hook = new Thread() {
     @Override
     public void run() {
       serviceManager.stopAllService();
+      serviceManager.stopAllProcess();
     }
   };
 

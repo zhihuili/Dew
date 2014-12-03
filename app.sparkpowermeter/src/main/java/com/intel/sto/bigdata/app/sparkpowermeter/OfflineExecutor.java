@@ -31,6 +31,7 @@ import com.intel.sto.bigdata.dew.service.sysmetrics.callback.DstatHttpCallback;
 import com.intel.sto.bigdata.dew.service.sysmetrics.listener.SaveDstatListener;
 import com.intel.sto.bigdata.dew.service.sysmetrics.message.DstatServiceRequest;
 import com.intel.sto.bigdata.dew.service.sysmetrics.message.HttpDstatServiceRequest;
+import com.intel.sto.bigdata.dew.utils.Files;
 import com.intel.sto.bigdata.dew.utils.Host;
 
 public class OfflineExecutor {
@@ -39,7 +40,7 @@ public class OfflineExecutor {
       throws Exception {
     String workPath = init(confPath, String.valueOf(startTime));
     InputStream is = new FileInputStream(WorkloadConf.get(Constants.SPARK_CLUSTER_SLAVE));
-    Set<String> hosts = FileUtil.loadFile(is);
+    Set<String> hosts = Files.loadResourceFile(is);
     analyzePerformance(workPath, desPath, hosts, startTime, endTime);
 
     diagnose(workPath, hosts); // Do you need it?
@@ -126,7 +127,7 @@ public class OfflineExecutor {
     AppProcessor processor = new DoNothingAppProcessor();
     JettyStreamServer server = new JettyStreamServer(new DstatHttpCallback(path));
     String httpUrl = "http://" + Host.getName() + ":" + server.getPort();
-    new AgentProxy(master, processor, new AppDes(hosts))
+    new AgentProxy(master, processor, new AppDes(hosts, "dstat"))
         .requestService(new HttpDstatServiceRequest(httpUrl, startTime, endTime));
     System.out.println("Load performance data file completely.");
     server.shutDown();

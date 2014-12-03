@@ -1,6 +1,9 @@
 package com.intel.sto.bigdata.dew.message;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public class AgentRegister implements Serializable {
 
@@ -10,6 +13,7 @@ public class AgentRegister implements Serializable {
   private String hostName;
   private int port;
   private String url = "";
+  private Set<String> services = new HashSet<String>();
 
   public AgentRegister() {
   }
@@ -50,6 +54,14 @@ public class AgentRegister implements Serializable {
 
   public void setUrl(String url) {
     this.url = url;
+  }
+
+  public Set<String> getServices() {
+    return services;
+  }
+
+  public void setServices(Set<String> services) {
+    this.services = services;
   }
 
   @Override
