@@ -1,6 +1,10 @@
 package com.intel.sto.bigdata.dew.message;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
+
+import akka.actor.ActorRef;
 
 public class AgentRegister implements Serializable {
 
@@ -10,6 +14,9 @@ public class AgentRegister implements Serializable {
   private String hostName;
   private int port;
   private String url = "";
+  private String type;// branch,leaf
+  private transient ActorRef agent;
+  private Set<String> services = new HashSet<String>();
 
   public AgentRegister() {
   }
@@ -50,6 +57,30 @@ public class AgentRegister implements Serializable {
 
   public void setUrl(String url) {
     this.url = url;
+  }
+
+  public Set<String> getServices() {
+    return services;
+  }
+
+  public void setServices(Set<String> services) {
+    this.services = services;
+  }
+
+  public String getType() {
+    return type;
+  }
+
+  public void setType(String type) {
+    this.type = type;
+  }
+
+  public ActorRef getAgent() {
+    return agent;
+  }
+
+  public void setAgent(ActorRef agent) {
+    this.agent = agent;
   }
 
   @Override

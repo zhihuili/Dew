@@ -29,7 +29,7 @@ public class SaveDstatListener implements AppProcessor {
     for (ServiceResponse response : list) {
       String hostName =
           hosts.contains(response.getNodeName()) ? response.getNodeName() : response.getIp();
-          SaveDstatFile.save(path, hostName, response.getContent());
+      SaveDstatFile.save(path, hostName, response.getContent());
     }
   }
 
@@ -49,7 +49,8 @@ public class SaveDstatListener implements AppProcessor {
     hosts.add(args[1]);
     SaveDstatListener sdl = new SaveDstatListener("/tmp/", hosts);
 
-    new AgentProxy(args[0], sdl, new AppDes(hosts)).requestService(new DstatServiceRequest(System
-        .currentTimeMillis() - 3000, System.currentTimeMillis() - 1000));
+    new AgentProxy(args[0], sdl, new AppDes(hosts, "dstat"))
+        .requestService(new DstatServiceRequest(System.currentTimeMillis() - 3000, System
+            .currentTimeMillis() - 1000));
   }
 }

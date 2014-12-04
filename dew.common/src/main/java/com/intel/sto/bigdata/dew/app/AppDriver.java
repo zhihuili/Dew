@@ -16,7 +16,7 @@ import akka.actor.UntypedActor;
 import akka.event.Logging;
 import akka.event.LoggingAdapter;
 
-import com.intel.sto.bigdata.dew.message.AgentList;
+import com.intel.sto.bigdata.dew.message.AgentQuery;
 import com.intel.sto.bigdata.dew.message.AgentRegister;
 import com.intel.sto.bigdata.dew.message.ProcessCompletion;
 import com.intel.sto.bigdata.dew.message.ServiceCompletion;
@@ -65,9 +65,9 @@ public class AppDriver extends UntypedActor {
 
   private void init() {
     try {
-      AgentList al = new AgentList();
+      AgentQuery al = new AgentQuery();
       al.setRequestHosts(appDes.getHosts());
-      AgentList agentList = (AgentList) ask(master, al, 3000).result(duration, null);
+      AgentQuery agentList = (AgentQuery) ask(master, al, 3000).result(duration, null);
       agents = agentList.getResponseUrls();
       log.debug("=========target agent=========" + agents.toString());
       for (AgentRegister agent : agents) {

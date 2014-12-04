@@ -7,11 +7,11 @@ public class StartService implements Serializable {
   private static final long serialVersionUID = 1L;
 
   private String serviceName;
-  private String serviceUri;
+  private String serviceDes;
 
-  public StartService(String name, String uri) {
+  public StartService(String name, String des) {
     this.serviceName = name;
-    this.serviceUri = uri;
+    this.serviceDes = des;
   }
 
   public String getServiceName() {
@@ -22,12 +22,12 @@ public class StartService implements Serializable {
     this.serviceName = serviceName;
   }
 
-  public String getServiceUri() {
-    return serviceUri;
+  public String getServiceDes() {
+    return serviceDes;
   }
 
-  public void setServiceUri(String serviceUri) {
-    this.serviceUri = serviceUri;
+  public void setServiceDes(String serviceDes) {
+    this.serviceDes = serviceDes;
   }
 
 }
