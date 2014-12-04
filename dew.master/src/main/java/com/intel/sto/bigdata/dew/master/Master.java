@@ -6,18 +6,23 @@ import akka.actor.UntypedActor;
 import akka.event.Logging;
 import akka.event.LoggingAdapter;
 
+import com.intel.sto.bigdata.dew.master.servicemanagement.ProcessServiceManager;
 import com.intel.sto.bigdata.dew.message.AgentQuery;
 import com.intel.sto.bigdata.dew.message.AgentRegister;
 import com.intel.sto.bigdata.dew.message.StartService;
 import com.intel.sto.bigdata.dew.service.ServiceDes;
+import com.intel.sto.bigdata.dew.utils.Constants;
 import com.intel.sto.bigdata.dew.utils.Files;
 
 public class Master extends UntypedActor {
   private LoggingAdapter log = Logging.getLogger(this);
   private List<ServiceDes> defaultServices;
+  private ProcessServiceManager processServiceManager;
 
   public Master() throws Exception {
     defaultServices = Files.loadService("/services.properties");
+    processServiceManager = new ProcessServiceManager(defaultServices, getSelf());
+    processServiceManager.start();
   }
 
   @Override
@@ -25,11 +30,16 @@ public class Master extends UntypedActor {
     if (message instanceof AgentRegister) {
       AgentRegister ai = (AgentRegister) message;
       ai.setUrl(getSender().path().toString());
+      ai.setAgent(getSender());
       ClusterState.addAgent(ai);
       log.info("Agent registered: " + ai.getUrl());
       for (ServiceDes des : defaultServices) {
-        getSender().tell(des, getSelf());
+        // only start thread service.
+        if (des.getServiceType().equals(Constants.THREAD_SERVICE_TYPE)) {
+          getSender().tell(des, getSelf());
+        }
       }
+      processServiceManager.scan();
     } else if (message instanceof AgentQuery) {
       AgentQuery al = (AgentQuery) message;
       al.setResponseUrls(ClusterState.findAgent(al.getRequestHosts(), al.getServiceName()));
@@ -37,8 +47,11 @@ public class Master extends UntypedActor {
     } else if (message instanceof StartService) {
       StartService ss = (StartService) message;
       String agentUrl = getSender().path().toString();
-      ClusterState.addService(agentUrl, ss.getServiceName());
-      log.info(ss.getServiceName() + " added to " + agentUrl);
+      String serviceName = ss.getServiceName();
+      if (serviceName != null) {
+        ClusterState.addService(agentUrl, serviceName);
+        log.info(ss.getServiceName() + " added to " + agentUrl);
+      }
     } else {
       log.info("Unhandle message:" + message);
       unhandled(message);

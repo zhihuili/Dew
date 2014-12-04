@@ -16,6 +16,7 @@ import com.intel.sto.bigdata.dew.message.ServiceResponse;
 import com.intel.sto.bigdata.dew.message.StartService;
 import com.intel.sto.bigdata.dew.service.Service;
 import com.intel.sto.bigdata.dew.service.ServiceDes;
+import com.intel.sto.bigdata.dew.utils.Constants;
 import com.intel.sto.bigdata.dew.utils.Host;
 import com.intel.sto.bigdata.dew.utils.Util;
 
@@ -56,7 +57,13 @@ public class Agent extends UntypedActor {
       } else {
         // getContext().watch(master);
         // getContext().become(active, true);
-        master.tell(new AgentRegister(Host.getIp(), Host.getName(), 0), getSelf());
+        AgentRegister ar = new AgentRegister(Host.getIp(), Host.getName(), 0);
+        if (defaultServiceDes == null) {
+          ar.setType(Constants.BRANCH_AGENT_TYPE);
+        } else {
+          ar.setType(Constants.LEAF_AGENT_TYPE);
+        }
+        master.tell(ar, getSelf());
       }
     } else if (message instanceof ServiceRequest) {
       ServiceRequest serviceRequest = (ServiceRequest) message;
@@ -68,6 +75,7 @@ public class Agent extends UntypedActor {
         getSender().tell(sr, getSelf());
       }
     } else if (message instanceof ServiceDes) {
+      // TODO ugly code, I will refactor it by create BranchAgent and LeafAgent.
       if (defaultServiceDes == null) {
         String serviceName = processStartService(message);
         if (serviceName != null) {
@@ -85,7 +93,7 @@ public class Agent extends UntypedActor {
   private String processStartService(Object message) {
     ServiceDes sd = (ServiceDes) message;
 
-    if (sd.getServiceType().toLowerCase().equals("thread")) {
+    if (sd.getServiceType().toLowerCase().equals(Constants.THREAD_SERVICE_TYPE)) {
       ClassLoader cl = this.getClass().getClassLoader();
       try {
         Service service = (Service) cl.loadClass(sd.getServiceClass()).newInstance();
@@ -96,11 +104,12 @@ public class Agent extends UntypedActor {
       }
       return sd.getServiceName();
     }
-    if (sd.getServiceType().toLowerCase().equals("process")) {
-      sd.setServiceType("thread");
+    if (sd.getServiceType().toLowerCase().equals(Constants.PROCESS_SERVICE_TYPE)) {
+      sd.setServiceType(Constants.THREAD_SERVICE_TYPE);
       String cp = Util.findDewClassPath();
-      if (cp != null) {
-        System.out.println("-----------" + cp);
+      if (cp == null) {
+        log.error("start process service failed, classpath is null.");
+        return null;
       }
 
       String des = sd.serialize();
@@ -115,7 +124,7 @@ public class Agent extends UntypedActor {
         e.printStackTrace();
       }
     }
-    return null;
+    return null;// not register process service
 
   }
 
