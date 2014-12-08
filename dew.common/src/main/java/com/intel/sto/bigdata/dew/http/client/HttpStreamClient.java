@@ -36,7 +36,7 @@ public class HttpStreamClient {
     try {
       CloseableHttpResponse response = httpClient.execute(httpPost);
       if (response.getStatusLine().getStatusCode() != HttpServletResponse.SC_OK) {
-        throw new Exception("Http server can't process the post requst successfully.");
+        throw new Exception("Http server can't process the post requst successfully." + url);
       }
     } catch (Exception e1) {
       e1.printStackTrace();

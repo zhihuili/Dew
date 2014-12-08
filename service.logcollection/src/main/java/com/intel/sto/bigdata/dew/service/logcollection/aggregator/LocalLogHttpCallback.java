@@ -9,7 +9,7 @@ import java.util.Map;
 import com.intel.sto.bigdata.dew.http.server.HttpStreamCallback;
 import com.intel.sto.bigdata.dew.service.logcollection.Constants;
 
-public class LogHttpCallback extends HttpStreamCallback {
+public class LocalLogHttpCallback extends HttpStreamCallback {
 
   @Override
   public void call(Map<String, String> parameters, InputStream is) {
