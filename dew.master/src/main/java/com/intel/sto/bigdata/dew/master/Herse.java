@@ -18,7 +18,6 @@ public class Herse {
       System.exit(1);
     }
     startMaster(Integer.valueOf(args[0]));
-
   }
 
   private static void startMaster(int port) {
