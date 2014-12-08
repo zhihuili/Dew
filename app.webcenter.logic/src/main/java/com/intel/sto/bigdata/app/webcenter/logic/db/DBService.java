@@ -7,10 +7,13 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 
 import com.intel.sto.bigdata.app.sparkperformance.Util;
 import com.intel.sto.bigdata.app.webcenter.logic.Constants;
+import com.intel.sto.bigdata.dew.utils.Files;
 
 public class DBService {
   private static String db_driver;
@@ -26,14 +29,13 @@ public class DBService {
     s = null;
   }
 
-  public void getConnection() throws IOException {
-    File directory = new File("..");
-    String confFilePath = directory.getCanonicalPath() + "/app.sparkpowermeter/conf.properties";
-    Properties p = Util.buildProperties(confFilePath);
-    db_driver = p.getProperty(Constants.DB_DRIVER);
-    db_url = p.getProperty(Constants.DB_URL);
-    db_username = p.getProperty(Constants.DB_USERNAME);
-    db_password = p.getProperty(Constants.DB_PASSWORD);
+  public void getConnection() throws Exception {
+    Map<String,String> JDBCConf = new HashMap<String,String>();
+    JDBCConf = Files.loadPropertiesFile("/dbconf.properties");
+    db_driver = JDBCConf.get(Constants.DB_DRIVER);
+    db_url = JDBCConf.get(Constants.DB_URL);
+    db_username = JDBCConf.get(Constants.DB_USERNAME);
+    db_password = JDBCConf.get(Constants.DB_PASSWORD);
     try {
       Class.forName(db_driver).newInstance();
       conn = DriverManager.getConnection(db_url,db_username,db_password);
