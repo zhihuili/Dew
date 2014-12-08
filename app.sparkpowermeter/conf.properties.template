@@ -12,3 +12,9 @@ workload.runner.frequency=1
 workload.chart.xmax = 300
 workload.chart.width = 800
 workload.chart.height = 300
+
+dew.db=derby
+dew.db.driver=org.apache.derby.jdbc.EmbeddedDriver
+dew.db.url=jdbc:derby:../Database/dewdb
+dew.db.username=app
+dew.db.password=app
