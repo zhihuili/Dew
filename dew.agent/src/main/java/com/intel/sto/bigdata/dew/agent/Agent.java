@@ -119,6 +119,8 @@ public class Agent extends UntypedActor {
             runtime.exec("java -cp " + cp + " com.intel.sto.bigdata.dew.agent.DewDrop " + masterUrl
                 + " " + des);
         serviceManager.putProcess(sd.getServiceName(), process);
+        ProcessPrinter pp = new ProcessPrinter(process);
+        pp.start();
       } catch (IOException e) {
         // TODO Auto-generated catch block
         e.printStackTrace();

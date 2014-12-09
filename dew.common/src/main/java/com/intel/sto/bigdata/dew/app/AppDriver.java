@@ -67,6 +67,7 @@ public class AppDriver extends UntypedActor {
     try {
       AgentQuery al = new AgentQuery();
       al.setRequestHosts(appDes.getHosts());
+      al.setServiceName(appDes.getServiceName());
       AgentQuery agentList = (AgentQuery) ask(master, al, 3000).result(duration, null);
       agents = agentList.getResponseUrls();
       log.debug("=========target agent=========" + agents.toString());
