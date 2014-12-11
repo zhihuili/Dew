@@ -6,9 +6,13 @@ import java.io.InputStreamReader;
 
 public class ProcessPrinter extends Thread {
   Process process;
+  String thisUrl;
+  int hashcode;
 
-  public ProcessPrinter(Process process) {
+  public ProcessPrinter(String thisUrl, Process process) {
     this.process = process;
+    this.thisUrl = thisUrl;
+    this.hashcode = process.hashCode();
   }
 
   @Override
@@ -17,7 +21,7 @@ public class ProcessPrinter extends Thread {
     String line;
     try {
       while ((line = br.readLine()) != null) {
-        System.out.println(line);
+        System.out.println(thisUrl + "-" + hashcode + " : " + line);
       }
     } catch (IOException e) {
       e.printStackTrace();

@@ -38,7 +38,8 @@ public class LogCollectorProcessor extends Thread {
       if (executorPath.isDirectory()) {
         File[] logFiles = executorPath.listFiles();
         for (File logFile : logFiles) {
-          if (logFile.isFile()) {
+          // TODO WTF std
+          if (logFile.isFile() && logFile.getName().startsWith("std")) {
             Map<String, String> parameters = new HashMap<String, String>();
             parameters.put(Constants.APP_ID, request.getAppId());
             parameters.put(Constants.EXECUTOR_ID, executorPath.getName());

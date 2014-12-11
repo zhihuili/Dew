@@ -8,7 +8,7 @@ public class LogManager {
 
     // collect spark executor log file.
     if (args.length > 1) {
-      LogCollection.collect(args[0]);
+      LogCollection.collect(args[1]);
     }
 
     else {

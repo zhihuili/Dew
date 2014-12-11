@@ -24,12 +24,12 @@ public class ClusterState {
   }
 
   public static Set<AgentRegister> findAgent(Set<String> hosts, String service) {
-    if (hosts == null) {
+    if (hosts == null && service == null) {
       return agents;
     }
     Set<AgentRegister> urls = new HashSet<AgentRegister>();
     for (AgentRegister ar : agents) {
-      if (hosts.contains(ar.getHostName()) || hosts.contains(ar.getIp())) {
+      if (hosts == null || hosts.contains(ar.getHostName()) || hosts.contains(ar.getIp())) {
         if (service == null || ar.getServices().contains(service)) {
           urls.add(ar);
         }

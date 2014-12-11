@@ -34,10 +34,14 @@ public class LogCollection {
     collectionRequest.setLogPathList(logPathList);
     // TODO hosts
     new AgentProxy(conf.get(Constants.DEW_MASTER_URL), new DoNothingAppProcessor(), new AppDes(
-        null, "logcollection")).requestService(new LogCollectionRequest());
+        null, "logcollection")).requestService(collectionRequest);
   }
 
   private static void init() throws Exception {
     conf = Files.loadPropertiesFile("/conf.properties");
+  }
+  
+  public static void main(String[] args) throws Exception{
+    collect("app-20140729132215-0003");
   }
 }

@@ -16,7 +16,7 @@ public class AgentRegister implements Serializable {
   private String url = "";
   private String type;// branch,leaf
   private transient ActorRef agent;
-  private Set<String> services = new HashSet<String>();
+  private Set<String> services;
 
   public AgentRegister() {
   }
@@ -25,6 +25,7 @@ public class AgentRegister implements Serializable {
     this.ip = ip;
     this.hostName = hostName;
     this.port = port;
+
   }
 
   public String getIp() {
@@ -60,6 +61,9 @@ public class AgentRegister implements Serializable {
   }
 
   public Set<String> getServices() {
+    if (services == null) {
+      services = new HashSet<String>();
+    }
     return services;
   }
 

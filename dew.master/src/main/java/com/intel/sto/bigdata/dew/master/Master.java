@@ -39,7 +39,9 @@ public class Master extends UntypedActor {
           getSender().tell(des, getSelf());
         }
       }
-      processServiceManager.scan();
+      if (ai.getType() == Constants.BRANCH_AGENT_TYPE) {
+        processServiceManager.scan();
+      }
     } else if (message instanceof AgentQuery) {
       AgentQuery al = (AgentQuery) message;
       al.setResponseUrls(ClusterState.findAgent(al.getRequestHosts(), al.getServiceName()));

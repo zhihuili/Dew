@@ -1,7 +1,6 @@
 package com.intel.sto.bigdata.dew.agent;
 
 import java.io.IOException;
-import java.net.URL;
 
 import akka.actor.ActorIdentity;
 import akka.actor.ActorRef;
@@ -62,6 +61,7 @@ public class Agent extends UntypedActor {
           ar.setType(Constants.BRANCH_AGENT_TYPE);
         } else {
           ar.setType(Constants.LEAF_AGENT_TYPE);
+          ar.getServices().add(defaultServiceDes.getServiceName());
         }
         master.tell(ar, getSelf());
       }
@@ -119,7 +119,7 @@ public class Agent extends UntypedActor {
             runtime.exec("java -cp " + cp + " com.intel.sto.bigdata.dew.agent.DewDrop " + masterUrl
                 + " " + des);
         serviceManager.putProcess(sd.getServiceName(), process);
-        ProcessPrinter pp = new ProcessPrinter(process);
+        ProcessPrinter pp = new ProcessPrinter(getSelf().path().toString(),process);
         pp.start();
       } catch (IOException e) {
         // TODO Auto-generated catch block
