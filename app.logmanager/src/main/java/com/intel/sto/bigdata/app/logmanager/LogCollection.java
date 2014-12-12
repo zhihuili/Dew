@@ -38,7 +38,7 @@ public class LogCollection {
   }
 
   private static void init() throws Exception {
-    conf = Files.loadPropertiesFile("/conf.properties");
+    conf = Files.loadPropertiesFile("/logmanager.conf");
   }
   
   public static void main(String[] args) throws Exception{
