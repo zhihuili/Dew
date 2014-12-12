@@ -12,7 +12,7 @@ public class LogAggregatorService extends Service {
   @Override
   public void run() {
     try {
-      server = new JettyStreamServer(new LocalLogHttpCallback());
+      server = new JettyStreamServer(new IndividualHdfsLogHttpCallback(dewConf));
     } catch (Exception e) {
       e.printStackTrace();
     }
