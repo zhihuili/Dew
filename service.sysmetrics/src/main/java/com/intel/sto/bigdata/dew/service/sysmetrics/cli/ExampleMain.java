@@ -16,7 +16,7 @@ public class ExampleMain {
       System.err.println("Please input master url.");
       System.exit(1);
     }
-    new AgentProxy(args[0], new PrintDstatProcessor(), new AppDes())
+    new AgentProxy(args[0], new PrintDstatProcessor(), new AppDes(null,"dstat"))
         .requestService(new DstatServiceRequest(System.currentTimeMillis() - 3000, System
             .currentTimeMillis() - 1000));
   }
