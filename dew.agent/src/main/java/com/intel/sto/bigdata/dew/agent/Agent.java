@@ -1,7 +1,6 @@
 package com.intel.sto.bigdata.dew.agent;
 
 import java.io.IOException;
-import java.net.URL;
 
 import akka.actor.ActorIdentity;
 import akka.actor.ActorRef;
@@ -10,6 +9,8 @@ import akka.actor.UntypedActor;
 import akka.event.Logging;
 import akka.event.LoggingAdapter;
 
+import com.intel.sto.bigdata.dew.conf.DewConf;
+import com.intel.sto.bigdata.dew.conf.DewConfMessage;
 import com.intel.sto.bigdata.dew.message.AgentRegister;
 import com.intel.sto.bigdata.dew.message.ServiceRequest;
 import com.intel.sto.bigdata.dew.message.ServiceResponse;
@@ -26,9 +27,11 @@ public class Agent extends UntypedActor {
   private ServiceManager serviceManager;
   private ServiceDes defaultServiceDes;
   private LoggingAdapter log = Logging.getLogger(this);
+  private DewConf dewConf;
 
   public Agent(String masterUrl, ServiceManager serviceManager, String serviceDes) {
     this.serviceManager = serviceManager;
+    this.dewConf = new DewConf();
     this.masterUrl = masterUrl;
     if (serviceDes != null) {
       defaultServiceDes = new ServiceDes();
@@ -62,7 +65,9 @@ public class Agent extends UntypedActor {
           ar.setType(Constants.BRANCH_AGENT_TYPE);
         } else {
           ar.setType(Constants.LEAF_AGENT_TYPE);
+          ar.getServices().add(defaultServiceDes.getServiceName());
         }
+        master.tell(new DewConfMessage(), getSelf());
         master.tell(ar, getSelf());
       }
     } else if (message instanceof ServiceRequest) {
@@ -84,6 +89,8 @@ public class Agent extends UntypedActor {
       } else {// the agent only start one service (defalutServiceDes)
         getSender().tell(new StartService(defaultServiceDes.getServiceName(), null), getSelf());
       }
+    } else if (message instanceof DewConfMessage) {
+      dewConf.setP(((DewConfMessage) message).getP());
     } else {
       log.warning("Unhandled message:" + message);
       unhandled(message);
@@ -97,6 +104,7 @@ public class Agent extends UntypedActor {
       ClassLoader cl = this.getClass().getClassLoader();
       try {
         Service service = (Service) cl.loadClass(sd.getServiceClass()).newInstance();
+        service.setDewConf(dewConf);
         serviceManager.putService(sd.getServiceName(), service);
         new Thread(service).start();
       } catch (Exception e) {
@@ -119,6 +127,8 @@ public class Agent extends UntypedActor {
             runtime.exec("java -cp " + cp + " com.intel.sto.bigdata.dew.agent.DewDrop " + masterUrl
                 + " " + des);
         serviceManager.putProcess(sd.getServiceName(), process);
+        ProcessPrinter pp = new ProcessPrinter(getSelf().path().toString(), process);
+        pp.start();
       } catch (IOException e) {
         // TODO Auto-generated catch block
         e.printStackTrace();

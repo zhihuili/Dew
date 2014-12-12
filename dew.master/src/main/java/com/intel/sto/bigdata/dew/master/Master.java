@@ -6,6 +6,8 @@ import akka.actor.UntypedActor;
 import akka.event.Logging;
 import akka.event.LoggingAdapter;
 
+import com.intel.sto.bigdata.dew.conf.DewConf;
+import com.intel.sto.bigdata.dew.conf.DewConfMessage;
 import com.intel.sto.bigdata.dew.master.servicemanagement.ProcessServiceManager;
 import com.intel.sto.bigdata.dew.message.AgentQuery;
 import com.intel.sto.bigdata.dew.message.AgentRegister;
@@ -18,8 +20,10 @@ public class Master extends UntypedActor {
   private LoggingAdapter log = Logging.getLogger(this);
   private List<ServiceDes> defaultServices;
   private ProcessServiceManager processServiceManager;
+  private DewConf dewConf;
 
   public Master() throws Exception {
+    dewConf = new DewConf();
     defaultServices = Files.loadService("/services.properties");
     processServiceManager = new ProcessServiceManager(defaultServices, getSelf());
     processServiceManager.start();
@@ -39,7 +43,9 @@ public class Master extends UntypedActor {
           getSender().tell(des, getSelf());
         }
       }
-      processServiceManager.scan();
+      if (ai.getType() == Constants.BRANCH_AGENT_TYPE) {
+        processServiceManager.scan();
+      }
     } else if (message instanceof AgentQuery) {
       AgentQuery al = (AgentQuery) message;
       al.setResponseUrls(ClusterState.findAgent(al.getRequestHosts(), al.getServiceName()));
@@ -52,6 +58,10 @@ public class Master extends UntypedActor {
         ClusterState.addService(agentUrl, serviceName);
         log.info(ss.getServiceName() + " added to " + agentUrl);
       }
+    } else if (message instanceof DewConfMessage) {
+      DewConfMessage conf = (DewConfMessage) message;
+      conf.setP(dewConf.getP());
+      getSender().tell(conf, getSelf());
     } else {
       log.info("Unhandle message:" + message);
       unhandled(message);

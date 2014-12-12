@@ -1,6 +1,11 @@
 package com.intel.sto.bigdata.dew.utils;
 
+import java.io.BufferedInputStream;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
+import java.util.Properties;
 
 public class Util {
   // Because posting http stream use header to transfer parameter, add a
@@ -31,5 +36,13 @@ public class Util {
       return url.getPath();
     }
     return null;
+  }
+  
+  public static Properties buildProperties(String conf) throws IOException {
+    InputStream in = new BufferedInputStream(new FileInputStream(conf));
+    Properties props = new Properties();
+    props.load(in);
+    in.close();
+    return props;
   }
 }

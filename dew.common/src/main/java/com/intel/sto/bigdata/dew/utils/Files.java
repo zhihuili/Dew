@@ -49,6 +49,9 @@ public class Files {
     Set<String> set = loadResourceFile(is);
     Map<String, String> map = new HashMap<String, String>();
     for (String line : set) {
+      if (line == null || line.trim().equals("")) {
+        continue;
+      }
       String[] kv = line.split("=");
       if (kv == null || kv.length != 2) {
         throw new Exception("Failed load properties file because of " + line);

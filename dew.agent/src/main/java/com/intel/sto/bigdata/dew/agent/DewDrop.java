@@ -25,7 +25,12 @@ public class DewDrop {
   }
 
   private static void startAgent(String masterUrl, int port, String serviceDes) {
-    String url = "akka.tcp://Master@" + masterUrl + "/user/master";
+    String url;
+    if (masterUrl.startsWith("akka.tcp")) {
+      url = masterUrl;
+    } else {
+      url = "akka.tcp://Master@" + masterUrl + "/user/master";
+    }
     ActorSystem system =
         ActorSystem.create(
             "Agent",
