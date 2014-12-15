@@ -16,7 +16,7 @@ import org.apache.http.util.EntityUtils;
  * Http client tool for HTTP/GET method
  *
  */
-public class HttpGetClient {
+public class HttpSimpleClient {
 
   public static String get(String url, Map<String, String> request) throws Exception {
 
@@ -54,6 +54,6 @@ public class HttpGetClient {
   public static void main(String[] args) throws Exception {
     Map<String, String> para = new HashMap<String, String>();
     para.put("whatNodes", "LIVE");
-    System.out.println(HttpGetClient.get("http://127.0.0.1:50070/dfsnodelist.jsp", para));
+    System.out.println(HttpSimpleClient.get("http://127.0.0.1:50070/dfsnodelist.jsp", para));
   }
 }
