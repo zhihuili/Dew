@@ -1,7 +1,11 @@
 #!/bin/bash
-for file in target/app.webcenter-web/WEB-INF/lib/*.jar
+cur="`dirname "$0"`"
+cur="`cd "$cur"; pwd`"
+export DEW_HOME=${cur}/..
+lib=${cur}/target/app.webcenter-web/WEB-INF/lib
+
+for file in ${lib}/*.jar
 do
-classpath="$classpath":"`pwd`"/"$file"
+classpath="$classpath":"$file"
 done
-pwdconf=`pwd`
-java -cp $classpath com.intel.sto.bigdata.app.webcenter.logic.ui.JettyServerStart `pwd`/target/app.webcenter-web/
+java -cp $classpath com.intel.sto.bigdata.app.webcenter.logic.ui.JettyServerStart ${cur}/target/app.webcenter-web/
