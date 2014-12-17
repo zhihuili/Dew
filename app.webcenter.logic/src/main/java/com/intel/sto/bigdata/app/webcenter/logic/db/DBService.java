@@ -30,7 +30,7 @@ public class DBService {
   }
 
   public void getConnection() throws Exception {
-    Map<String,String> JDBCConf = new HashMap<String,String>();
+    Map<String, String> JDBCConf = new HashMap<String, String>();
     JDBCConf = Files.loadPropertiesFile("/dbconf.properties");
     db_driver = JDBCConf.get(Constants.DB_DRIVER);
     db_url = JDBCConf.get(Constants.DB_URL);
@@ -38,7 +38,7 @@ public class DBService {
     db_password = JDBCConf.get(Constants.DB_PASSWORD);
     try {
       Class.forName(db_driver).newInstance();
-      conn = DriverManager.getConnection(db_url,db_username,db_password);
+      conn = DriverManager.getConnection(db_url, db_username, db_password);
     } catch (Exception e) {
       e.toString();
       e.printStackTrace();
@@ -67,5 +67,21 @@ public class DBService {
       e.printStackTrace();
     }
     return rs;
+  }
+
+  public boolean executeNoSelect(String sql) {
+    int result = 0;
+    try {
+      s = conn.createStatement();
+      result = s.executeUpdate(sql);
+    } catch (SQLException e) {
+      e.toString();
+      e.printStackTrace();
+    }
+
+    if (result == 1)
+      return true;
+    else
+      return false;
   }
 }
