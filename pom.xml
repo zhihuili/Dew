@@ -39,6 +39,7 @@
     <module>dew.agent</module>
     <module>service.sysmetrics</module>
     <module>service.logcollection</module>
+    <module>service.shellexecutor</module>
     <module>app.sparklogparser</module>
     <module>app.appdiagnosis</module>
     <module>app.sparkperformance</module>
