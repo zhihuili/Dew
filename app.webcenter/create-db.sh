@@ -10,11 +10,11 @@ create table userinfo(
 user_id int generated always as identity,
 name varchar(10) NOT NULL,
 password varchar(20) NOT NULL,
-type int NOT NULL,
+type varchar(20) NOT NULL,
 primary key(user_id)
 );
 
-insert into userinfo(name,password,type) values('admin','admin',1);
+insert into userinfo(name,password,type) values('admin','admin','Admin');
 
 create table application(
 app_id int generated always as identity,

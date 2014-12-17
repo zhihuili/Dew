@@ -11,6 +11,34 @@
        <action name="showHistoryPic" class="com.intel.sto.bigdata.app.webcenter.logic.action.history.ShowHistoryPicAction">
            <result name="success">/jsp/showHistoryPic.jsp</result>
        </action>
+       <action name="login" class="com.intel.sto.bigdata.app.webcenter.logic.action.login.LoginAction">
+           <result name="success">Main.jsp</result>
+           <result name="error">login.jsp</result>
+       </action>
+       <action name="userList" class="com.intel.sto.bigdata.app.webcenter.logic.action.user.UserAction" method="list">
+            <result>userList.jsp</result>
+        </action>
+        <action name="userStore" class="com.intel.sto.bigdata.app.webcenter.logic.action.user.UserStoreAction">
+            <result type="redirect">userList.action</result>
+        </action>
+        <action name="userEdit" class="com.intel.sto.bigdata.app.webcenter.logic.action.user.UserAction" method="load">
+            <result>userEdit.jsp</result>
+        </action>
+        <action name="userModify" class="com.intel.sto.bigdata.app.webcenter.logic.action.user.UserAction" method="modify">
+            <result type="redirect">userList.action</result>
+        </action>
+        <action name="appList" class="com.intel.sto.bigdata.app.webcenter.logic.action.appinfo.AppAction" method="list">
+            <result>appList.jsp</result>
+        </action>
+        <action name="appStore" class="com.intel.sto.bigdata.app.webcenter.logic.action.appinfo.AppStoreAction">
+            <result type="redirect">appList.action</result>
+        </action>
+        <action name="appModify" class="com.intel.sto.bigdata.app.webcenter.logic.action.appinfo.AppAction" method="modify">
+            <result type="redirect">appList.action</result>
+        </action>
+        <action name="appEdit" class="com.intel.sto.bigdata.app.webcenter.logic.action.appinfo.AppAction" method="load">
+            <result>appEdit.jsp</result>
+        </action>
     </package>
    
 </struts>
