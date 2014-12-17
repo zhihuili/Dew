@@ -1,7 +1,7 @@
 package com.intel.sto.bigdata.app.webcenter.logic.action.bean;
 
 public class appBean {
-  public int app_id;
+  public int appId;
   public String name;
   public String path;
   public String executable;
@@ -9,11 +9,11 @@ public class appBean {
   public String type;
 
   public int getApp_id() {
-    return app_id;
+    return appId;
   }
 
   public void setApp_id(int app_id) {
-    this.app_id = app_id;
+    this.appId = app_id;
   }
 
   public String getName() {

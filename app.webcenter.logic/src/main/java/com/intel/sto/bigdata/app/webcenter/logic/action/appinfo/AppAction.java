@@ -7,17 +7,17 @@ import com.intel.sto.bigdata.app.webcenter.logic.db.DBOperator;
 import com.opensymphony.xwork2.ActionSupport;
 
 public class AppAction extends ActionSupport {
-  public String app_id;
+  public String appId;
   public appBean app;
   public ArrayList<appBean> apps;
   public DBOperator operator = new DBOperator();
 
-  public String getApp_id() {
-    return app_id;
+  public String getAppId() {
+    return appId;
   }
 
-  public void setApp_id(String app_id) {
-    this.app_id = app_id;
+  public void setAppId(String appId) {
+    this.appId = appId;
   }
 
   public appBean getApp() {
@@ -47,7 +47,7 @@ public class AppAction extends ActionSupport {
   }
 
   public String load() throws Exception {
-    app = operator.getSingleApp(app_id);
+    app = operator.getSingleApp(appId);
     return SUCCESS;
   }
 }

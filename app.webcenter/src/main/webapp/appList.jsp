@@ -43,18 +43,18 @@ user name : ${sessionScope.currentUser}
             <tbody>
                 <s:iterator value="apps">
                     <tr>
-                        <td><s:property value="app_id" /></td>
+                        <td><s:property value="appId" /></td>
                         <td><s:property value="name" /></td>
                         <td><s:property value="path" /></td>
                         <td><s:property value="executable" /></td>
                         <td><s:property value="strategy" /></td>
                          <td><s:property value="type" /></td>
                         <td>
-                            <a href='<s:url action="appEdit"><s:param name="app_id" value="app_id" /></s:url>'>
+                            <a href='<s:url action="appEdit"><s:param name="appId" value="appId" /></s:url>'>
                                 Edit
                             </a>
                             &nbsp;
-                            <a href='<s:url action="Remove"><s:param name="app_id" value="app_id" /></s:url>'>
+                            <a href='<s:url action="Remove"><s:param name="appId" value="appId" /></s:url>'>
                                 Delete
                             </a>
                         </td>
@@ -63,8 +63,8 @@ user name : ${sessionScope.currentUser}
             </tbody>
         </table>
 <a href="appStore.jsp">Add Application</a>
-  
-
+<br>
+<a href="Main.jsp">back Home</a>
 
 </body>
 </html>

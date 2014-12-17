@@ -59,8 +59,8 @@ user name : ${sessionScope.currentUser}
             </tbody>
         </table>
 <a href="userStore.jsp">Add New User</a>
-  
-
+<br>
+<a href="Main.jsp">back Home</a>
 
 </body>
 </html>

@@ -130,7 +130,7 @@ public class DBOperator extends DBService {
     String sql =
         "update application set name='" + app.name + "', path='" + app.path + "', executable='"
             + app.executable + "', strategy='" + app.strategy + "', type='" + app.type
-            + "' where app_id=" + app.app_id;
+            + "' where app_id=" + app.appId;
     boolean result = false;
     getConnection();
     result = executeNoSelect(sql);

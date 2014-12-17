@@ -12,7 +12,7 @@
 	<h2>
     </h2>
     <s:form action="appModify" >
-    	<s:textfield name="app.app_id" label="App_id" />
+    	<s:textfield name="app.appId" label="AppId" />
         <s:textfield name="app.name" label="Name" />
         <s:textfield name="app.path" label="path" />
         <s:textfield name="app.executable" label="executable" />
