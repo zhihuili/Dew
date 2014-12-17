@@ -90,7 +90,7 @@ public class ProcessServiceManager extends Thread {
     }
     // TODO use load balance replace random
     for (int i = 0; i < newProcessNum; i++) {
-      int randomNum = (int) Math.random() * nodes.size();
+      int randomNum = (int) (Math.random() * nodes.size());
       int j = 0;
       String newNode = null;
       for (String node : nodes) {
