@@ -35,7 +35,7 @@ public class ExecuteThread extends Thread {
       while ((line = br.readLine()) != null) {
         fw.write(line + System.getProperty("line.separator"));
       }
-      int exitValue = process.exitValue();
+      int exitValue = process.waitFor();
       if (request.getStatusUrl() != null && !request.getStatusUrl().trim().equals("")) {
         Map<String, String> status = new HashMap<String, String>();
         status.put("id", request.getId());
