@@ -157,4 +157,69 @@ public class DBOperator extends DBService {
 
     return result;
   }
+
+  public ArrayList<jobBean> getAllJob() throws Exception {
+    ArrayList<jobBean> result = new ArrayList<jobBean>();
+
+    String sql = "select * from job";
+    getConnection();
+    ResultSet rs = executeSelect(sql);
+
+    while (rs.next()) {
+      jobBean singleJob = new jobBean();
+      singleJob.setJobId(rs.getInt("job_id"));
+      singleJob.setName(rs.getString("name"));
+      singleJob.setDefination(rs.getString("defination"));
+      singleJob.setCycle(rs.getString("cycle"));
+      singleJob.setUserId(rs.getInt("user_id"));
+      result.add(singleJob);
+    }
+    rs.close();
+    closeConnection();
+    return result;
+  }
+
+  public void addNewJob(String name, String defination, String cycle, String userId)
+      throws Exception {
+
+    String sql =
+        "insert into job(name,defination,cycle,user_id) values('" + name + "','" + defination
+            + "','" + cycle + "'," + userId + ")";
+
+    boolean result = false;
+
+    getConnection();
+    result = executeNoSelect(sql);
+    closeConnection();
+  }
+
+  public void jobModify(jobBean job) throws Exception {
+    String sql =
+        "update job set name='" + job.name + "', defination='" + job.defination + "', cycle='"
+            + job.cycle + "', user_id=" + job.userId + " where job_id=" + job.jobId;
+    boolean result = false;
+    getConnection();
+    result = executeNoSelect(sql);
+    closeConnection();
+  }
+
+  public jobBean getSingleJob(String jobId) throws Exception {
+    jobBean result = new jobBean();
+
+    String sql = "select * from job where job_id=" + jobId;
+    getConnection();
+    ResultSet rs = executeSelect(sql);
+
+    while (rs.next()) {
+      result.setJobId(rs.getInt("job_id"));
+      result.setName(rs.getString("name"));
+      result.setDefination(rs.getString("defination"));
+      result.setCycle(rs.getString("cycle"));
+      result.setUserId(rs.getInt("user_id"));
+    }
+    rs.close();
+    closeConnection();
+
+    return result;
+  }
 }

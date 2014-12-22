@@ -16,6 +16,7 @@ user name : ${sessionScope.currentUser}
 <tr>
   <td><a href="userList">admin</a></td>
   <td><a href="appList">Application Management</a></td>
+  <td><a href="jobList">Job Management</a></td>
 </tr>
 </table>
 </body>
