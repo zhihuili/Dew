@@ -7,8 +7,23 @@ import java.util.Map.Entry;
 import com.intel.sto.bigdata.app.asp.util.Util;
 
 public class Executor {
+
+  private static Map<String, String> conf;
+  private static final int MAX_X_SIZE = 9;
+  static {
+    try {
+      conf = Util.loadConf();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
+
   public static void execute() throws Exception {
-    Map<String, String> conf = Util.loadConf();
+    executeWorkload();
+    draw();
+  }
+
+  public static void executeWorkload() throws Exception {
     Update.update(conf);
     Build.build(conf);
     Map<String, String> workload = Util.loadWorkload();
@@ -19,7 +34,15 @@ public class Executor {
       long duration = Workload.run(workloadCommand);
       workresult.put(workloadName, duration);
     }
-    DataPrinter.print(conf, workresult);
+    String time = DataPrinter.print(conf, workresult);
+    ListBuilder.buildList(conf, MAX_X_SIZE, time);
   }
 
+  public static void executeNow() throws Exception {
+    execute();
+  }
+
+  public static void draw() throws Exception {
+    DrawChart.draw(conf);
+  }
 }

@@ -9,6 +9,8 @@ public class Update {
   public static void update(Map<String, String> conf) throws Exception {
     String path = conf.get("branch");
     String command = conf.get("update");
-    Util.execute(command, null, path);
+    if (command != null && !command.trim().equals("")) {
+      Util.execute(command, null, path);
+    }
   }
 }
