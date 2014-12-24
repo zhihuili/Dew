@@ -9,7 +9,7 @@ import java.util.Map.Entry;
 
 public class DataPrinter {
 
-  public static void print(Map<String, String> conf, Map<String, Long> workresult) throws Exception {
+  public static String print(Map<String, String> conf, Map<String, Long> workresult) throws Exception {
     Date date = new Date(System.currentTimeMillis());
     SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
     String time = sdf.format(date);
@@ -25,5 +25,6 @@ public class DataPrinter {
         fw.close();
       }
     }
+    return time;
   }
 }

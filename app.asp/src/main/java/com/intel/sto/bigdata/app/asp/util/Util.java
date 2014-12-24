@@ -1,24 +1,14 @@
 package com.intel.sto.bigdata.app.asp.util;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.Map;
 
 import com.intel.sto.bigdata.dew.utils.Files;
 
 public class Util {
   public static void printProcessLog(Process process) {
-    BufferedReader br = new BufferedReader(new InputStreamReader(process.getInputStream()));
-    String line;
-    try {
-      while ((line = br.readLine()) != null) {
-        System.out.println(line);
-      }
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
+    new PrintStreamThread(process.getInputStream());
+    new PrintStreamThread(process.getErrorStream());
   }
 
   public static void printSplitLine(String comments) {

@@ -8,6 +8,8 @@ public class Build {
   public static void build(Map<String, String> conf) throws Exception {
     String path = conf.get("branch");
     String command = conf.get("build");
-    Util.execute(command, null, path);
+    if (command != null && !command.trim().equals("")) {
+      Util.execute(command, null, path);
+    }
   }
 }
