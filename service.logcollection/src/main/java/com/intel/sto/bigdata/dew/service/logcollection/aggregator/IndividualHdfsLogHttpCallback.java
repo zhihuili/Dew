@@ -5,10 +5,8 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.URI;
 import java.util.Map;
 
-import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FSDataOutputStream;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
@@ -30,7 +28,7 @@ public class IndividualHdfsLogHttpCallback extends HttpStreamCallback {
   public void call(Map<String, String> parameters, InputStream is) {
     try {
       Path logPath =
-          new Path(File.separator + "dewlog" + File.separator + parameters.get(Constants.APP_ID));
+          new Path(File.separator + Constants.LOG_ROOT_DIR + File.separator + parameters.get(Constants.APP_ID));
       if (!fs.exists(logPath)) {
         fs.mkdirs(logPath);
       }
