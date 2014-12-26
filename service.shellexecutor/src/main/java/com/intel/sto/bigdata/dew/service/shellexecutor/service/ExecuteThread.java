@@ -39,7 +39,7 @@ public class ExecuteThread extends Thread {
       if (request.getStatusUrl() != null && !request.getStatusUrl().trim().equals("")) {
         Map<String, String> status = new HashMap<String, String>();
         status.put("id", request.getId());
-        if (exitValue == 0) {
+        if (exitValue != 0) {
           status.put("status", "failure");
         } else {
           status.put("status", "success");
