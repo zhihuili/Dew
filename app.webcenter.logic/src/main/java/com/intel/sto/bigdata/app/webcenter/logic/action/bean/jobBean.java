@@ -1,6 +1,6 @@
 package com.intel.sto.bigdata.app.webcenter.logic.action.bean;
 
-public class jobBean {
+public class JobBean {
   public int jobId;
   public String name;
   public String defination;
@@ -46,5 +46,4 @@ public class jobBean {
   public void setUserId(int userId) {
     this.userId = userId;
   }
-
 }

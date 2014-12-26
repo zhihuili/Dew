@@ -56,8 +56,8 @@ user name : ${sessionScope.currentUser}
                                 Delete
                             </a>
                             &nbsp;
-                            <a href='<s:url action="JobRun"><s:param name="jobId" value="jobId" /></s:url>'>
-                                Delete
+                            <a href='<s:url action="JobRun"><s:param name="name" value="name" /></s:url>'>
+                                Run
                             </a>
                         </td>
                     </tr>

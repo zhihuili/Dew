@@ -37,6 +37,7 @@ user name : ${sessionScope.currentUser}
                     <th>executable</th>
                     <th>strategy</th>
                     <th>type</th>
+                    <th>host</th>
                     <th>Operation</th>
                 </tr>
             </thead>
@@ -48,7 +49,8 @@ user name : ${sessionScope.currentUser}
                         <td><s:property value="path" /></td>
                         <td><s:property value="executable" /></td>
                         <td><s:property value="strategy" /></td>
-                         <td><s:property value="type" /></td>
+                        <td><s:property value="type" /></td>
+                        <td><s:property value="host" /></td>
                         <td>
                             <a href='<s:url action="appEdit"><s:param name="appId" value="appId" /></s:url>'>
                                 Edit

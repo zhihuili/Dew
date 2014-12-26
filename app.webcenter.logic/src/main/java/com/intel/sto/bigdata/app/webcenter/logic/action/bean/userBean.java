@@ -1,6 +1,6 @@
 package com.intel.sto.bigdata.app.webcenter.logic.action.bean;
 
-public class userBean {
+public class UserBean {
   public int id;
   public String name;
   public String password;

@@ -17,6 +17,7 @@
         <s:textfield name="executable" label="Executable" />
         <s:select name="strategy" label="Strategy" list="{'reexecute','alert','nothing'}" />
         <s:select name="type" label="Type" list="{'spark','hadoop','hive'}" />
+        <s:textfield name="host" label="Host" />
         <s:submit />
     </s:form>
 

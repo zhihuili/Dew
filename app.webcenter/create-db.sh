@@ -36,7 +36,7 @@ primary key(job_id)
 );
 
 create table jobrecord(
-record_id int generated always as identity,
+record_id varchar(100) NOT NULL,
 job_id int NOT NULL,
 starttime timestamp NOT NULL,
 endtime timestamp NOT NULL,

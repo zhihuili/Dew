@@ -18,6 +18,7 @@
         <s:textfield name="app.executable" label="executable" />
         <s:select name="app.strategy" label="Strategy" list="{'reexecute','alert','nothing'}" value="app.strategy"/>
         <s:select name="app.type" label="Type" list="{'spark','hadoop','hive'}" value="app.type"/>
+        <s:textfield name="app.host" label="host" />
         <s:submit />
     </s:form>
 

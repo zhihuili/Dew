@@ -8,8 +8,8 @@ import com.opensymphony.xwork2.ActionSupport;
 
 public class JobAction extends ActionSupport {
   public String jobId;
-  public jobBean job;
-  public ArrayList<jobBean> jobs;
+  public JobBean job;
+  public ArrayList<JobBean> jobs;
   public DBOperator operator = new DBOperator();
 
   public String getJobId() {
@@ -20,19 +20,19 @@ public class JobAction extends ActionSupport {
     this.jobId = jobId;
   }
 
-  public jobBean getJob() {
+  public JobBean getJob() {
     return job;
   }
 
-  public void setJob(jobBean job) {
+  public void setJob(JobBean job) {
     this.job = job;
   }
 
-  public ArrayList<jobBean> getJobs() {
+  public ArrayList<JobBean> getJobs() {
     return jobs;
   }
 
-  public void setJobs(ArrayList<jobBean> jobs) {
+  public void setJobs(ArrayList<JobBean> jobs) {
     this.jobs = jobs;
   }
 
