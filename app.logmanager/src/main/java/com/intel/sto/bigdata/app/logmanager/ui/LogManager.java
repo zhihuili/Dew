@@ -1,5 +1,7 @@
 package com.intel.sto.bigdata.app.logmanager.ui;
 
+import java.util.List;
+
 import com.intel.sto.bigdata.app.logmanager.LogCollection;
 import com.intel.sto.bigdata.app.logmanager.LogQuery;
 
@@ -22,8 +24,14 @@ public class LogManager {
             words = words + " " + args[i];
           }
         }
-        LogQuery.query(args[1], words);
+        List<String> result = LogQuery.querySingle(args[1], words);
+        System.out.println("====================================================================");
+        for (String line : result) {
+          System.out.println(line);
+        }
+        System.out.println("====================================================================");
       }
+      return;
     }
 
     System.err.println("Usage:");
