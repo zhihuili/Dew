@@ -39,6 +39,24 @@
         <action name="appEdit" class="com.intel.sto.bigdata.app.webcenter.logic.action.appinfo.AppAction" method="load">
             <result>appEdit.jsp</result>
         </action>
+        <action name="jobList" class="com.intel.sto.bigdata.app.webcenter.logic.action.job.JobAction" method="list">
+            <result>jobList.jsp</result>
+        </action>
+        <action name="jobStore" class="com.intel.sto.bigdata.app.webcenter.logic.action.job.JobStoreAction">
+            <result type="redirect">jobList.action</result>
+        </action>
+        <action name="jobModify" class="com.intel.sto.bigdata.app.webcenter.logic.action.job.JobAction" method="modify">
+            <result type="redirect">jobList.action</result>
+        </action>
+        <action name="jobEdit" class="com.intel.sto.bigdata.app.webcenter.logic.action.job.JobAction" method="load">
+            <result>jobEdit.jsp</result>
+        </action>
+        <action name="JobRun" class="com.intel.sto.bigdata.app.webcenter.logic.action.run.RunJobAction">
+            <result type="redirect">jobList.action</result>
+        </action>
+        <action name="JobEnd" class="com.intel.sto.bigdata.app.webcenter.logic.action.run.EndJobAction">
+            <result type="redirect">jobList.action</result>
+        </action>
     </package>
    
 </struts>

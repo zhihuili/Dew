@@ -9,6 +9,7 @@ public class AppStoreAction extends ActionSupport {
   public String executable;
   public String strategy;
   public String type;
+  public String host;
 
   public String getName() {
     return name;
@@ -50,9 +51,17 @@ public class AppStoreAction extends ActionSupport {
     this.type = type;
   }
 
+  public String getHost() {
+    return host;
+  }
+
+  public void setHost(String host) {
+    this.host = host;
+  }
+
   public String execute() throws Exception {
     DBOperator operator = new DBOperator();
-    operator.addNewApp(name, path, executable, strategy, type);
+    operator.addNewApp(name, path, executable, strategy, type, host);
     return SUCCESS;
   }
 }

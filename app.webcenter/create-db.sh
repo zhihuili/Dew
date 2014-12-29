@@ -23,6 +23,7 @@ path varchar(1000) NOT NULL,
 executable varchar(100) NOT NULL,
 strategy varchar(15) NOT NULL,
 type varchar(15) NOT NULL,
+host varchar(100) NOT NULL,
 primary key(app_id)
 );
 
@@ -36,7 +37,7 @@ primary key(job_id)
 );
 
 create table jobrecord(
-record_id int generated always as identity,
+record_id varchar(100) NOT NULL,
 job_id int NOT NULL,
 starttime timestamp NOT NULL,
 endtime timestamp NOT NULL,

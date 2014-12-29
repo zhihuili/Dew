@@ -3,15 +3,15 @@ package com.intel.sto.bigdata.app.webcenter.logic.action.user;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.intel.sto.bigdata.app.webcenter.logic.action.bean.userBean;
+import com.intel.sto.bigdata.app.webcenter.logic.action.bean.UserBean;
 import com.intel.sto.bigdata.app.webcenter.logic.db.DBOperator;
 import com.opensymphony.xwork2.ActionSupport;
 
 public class UserAction extends ActionSupport {
   public String id;
   public String[] ids;
-  public userBean user;
-  public ArrayList<userBean> users;
+  public UserBean user;
+  public ArrayList<UserBean> users;
   public DBOperator operator = new DBOperator();
 
   public String getId() {
@@ -30,19 +30,19 @@ public class UserAction extends ActionSupport {
     this.ids = ids;
   }
 
-  public userBean getUser() {
+  public UserBean getUser() {
     return user;
   }
 
-  public void setUser(userBean user) {
+  public void setUser(UserBean user) {
     this.user = user;
   }
 
-  public ArrayList<userBean> getUsers() {
+  public ArrayList<UserBean> getUsers() {
     return users;
   }
 
-  public void setUsers(ArrayList<userBean> users) {
+  public void setUsers(ArrayList<UserBean> users) {
     this.users = users;
   }
 

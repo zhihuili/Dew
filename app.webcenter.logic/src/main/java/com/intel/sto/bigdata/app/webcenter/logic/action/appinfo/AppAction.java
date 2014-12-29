@@ -8,8 +8,8 @@ import com.opensymphony.xwork2.ActionSupport;
 
 public class AppAction extends ActionSupport {
   public String appId;
-  public appBean app;
-  public ArrayList<appBean> apps;
+  public AppBean app;
+  public ArrayList<AppBean> apps;
   public DBOperator operator = new DBOperator();
 
   public String getAppId() {
@@ -20,19 +20,19 @@ public class AppAction extends ActionSupport {
     this.appId = appId;
   }
 
-  public appBean getApp() {
+  public AppBean getApp() {
     return app;
   }
 
-  public void setApp(appBean app) {
+  public void setApp(AppBean app) {
     this.app = app;
   }
 
-  public ArrayList<appBean> getApps() {
+  public ArrayList<AppBean> getApps() {
     return apps;
   }
 
-  public void setApps(ArrayList<appBean> apps) {
+  public void setApps(ArrayList<AppBean> apps) {
     this.apps = apps;
   }
 

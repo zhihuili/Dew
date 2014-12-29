@@ -31,7 +31,7 @@ public class DBService {
 
   public void getConnection() throws Exception {
     Map<String, String> JDBCConf = new HashMap<String, String>();
-    JDBCConf = Files.loadPropertiesFile("/dbconf.properties");
+    JDBCConf = Files.loadPropertiesFile("/conf.properties");
     db_driver = JDBCConf.get(Constants.DB_DRIVER);
     db_url = JDBCConf.get(Constants.DB_URL);
     db_username = JDBCConf.get(Constants.DB_USERNAME);

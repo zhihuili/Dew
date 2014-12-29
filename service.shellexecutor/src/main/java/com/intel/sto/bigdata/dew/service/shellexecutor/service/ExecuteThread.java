@@ -36,6 +36,9 @@ public class ExecuteThread extends Thread {
         fw.write(line + System.getProperty("line.separator"));
       }
       int exitValue = process.waitFor();
+      if (fw != null) {
+        fw.close();
+      }
       if (request.getStatusUrl() != null && !request.getStatusUrl().trim().equals("")) {
         Map<String, String> status = new HashMap<String, String>();
         status.put("id", request.getId());
@@ -56,13 +59,6 @@ public class ExecuteThread extends Thread {
     } catch (Exception e) {
       e.printStackTrace();
     } finally {
-      if (fw != null) {
-        try {
-          fw.close();
-        } catch (IOException e) {
-          e.printStackTrace();
-        }
-      }
       if (br != null) {
         try {
           br.close();

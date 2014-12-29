@@ -1,19 +1,28 @@
 package com.intel.sto.bigdata.app.webcenter.logic.action.bean;
 
-public class appBean {
+public class AppBean {
   public int appId;
   public String name;
   public String path;
   public String executable;
   public String strategy;
   public String type;
+  public String host;
 
-  public int getApp_id() {
+  public int getAppId() {
     return appId;
   }
 
-  public void setApp_id(int app_id) {
-    this.appId = app_id;
+  public void setAppId(int appId) {
+    this.appId = appId;
+  }
+
+  public String getHost() {
+    return host;
+  }
+
+  public void setHost(String host) {
+    this.host = host;
   }
 
   public String getName() {

@@ -11,13 +11,11 @@
 
 	<h2>
     </h2>
-    <s:form action="appStore" >
+    <s:form action="jobStore" >
         <s:textfield name="name" label="Name" />
-        <s:textfield name="path" label="Path" />
-        <s:textfield name="executable" label="Executable" />
-        <s:select name="strategy" label="Strategy" list="{'reexecute','alert','nothing'}" />
-        <s:select name="type" label="Type" list="{'spark','hadoop','hive'}" />
-        <s:textfield name="host" label="Host" />
+        <s:textfield name="defination" label="Defination" />
+        <s:textfield name="cycle" label="Cycle" />
+        <s:textfield name="userId" label="UserId" />
         <s:submit />
     </s:form>
 
