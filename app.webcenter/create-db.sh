@@ -23,6 +23,7 @@ path varchar(1000) NOT NULL,
 executable varchar(100) NOT NULL,
 strategy varchar(15) NOT NULL,
 type varchar(15) NOT NULL,
+host varchar(100) NOT NULL,
 primary key(app_id)
 );
 

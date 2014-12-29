@@ -29,7 +29,11 @@
 	<listener>
 		<listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
 	</listener>
-
+	<servlet>
+		<servlet-name>InitFileServer</servlet-name>
+		<servlet-class>com.intel.sto.bigdata.app.webcenter.logic.servlet.InitFileServerServlet</servlet-class>
+		<load-on-startup>0</load-on-startup>
+	</servlet>
 	<welcome-file-list>
 		<welcome-file>index.jsp</welcome-file>
 	</welcome-file-list>
