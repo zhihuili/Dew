@@ -39,7 +39,16 @@ public class OfflineExecutor {
   public static void execute(String confPath, String desPath, long startTime, long endTime)
       throws Exception {
     String workPath = init(confPath, String.valueOf(startTime));
-    InputStream is = new FileInputStream(WorkloadConf.get(Constants.SPARK_CLUSTER_SLAVE));
+    String slaveFilePath = WorkloadConf.get(Constants.SPARK_CLUSTER_SLAVE);
+    if (slaveFilePath == null) {
+      String dewHome = System.getenv("DEW_HOME");
+      File slaveFile = new File(dewHome + "/conf", "slaves");
+      if (!slaveFile.exists()) {
+        throw new Exception("Cannot find slave file.");
+      }
+      slaveFilePath = slaveFile.getAbsolutePath();
+    }
+    InputStream is = new FileInputStream(slaveFilePath);
     Set<String> hosts = Files.loadResourceFile(is);
     analyzePerformance(workPath, desPath, hosts, startTime, endTime);
 
