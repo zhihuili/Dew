@@ -4,6 +4,7 @@ target
 .idea
 .settings
 *.log
+*.pid
 *.jar
 null
 conf.properties
