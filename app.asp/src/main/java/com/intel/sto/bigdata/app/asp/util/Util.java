@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.Map;
 
 import com.intel.sto.bigdata.dew.utils.Files;
+import com.intel.sto.bigdata.dew.utils.PrintStreamThread;
 
 public class Util {
   public static void printProcessLog(Process process) {

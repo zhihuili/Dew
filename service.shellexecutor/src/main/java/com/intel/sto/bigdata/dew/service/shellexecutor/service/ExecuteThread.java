@@ -6,13 +6,13 @@ import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Map;
 
 import com.intel.sto.bigdata.dew.http.client.HttpSimpleClient;
 import com.intel.sto.bigdata.dew.http.client.HttpStreamClient;
 import com.intel.sto.bigdata.dew.service.shellexecutor.message.ExecuteRequest;
+import com.intel.sto.bigdata.dew.utils.PrintStreamThread;
 
 public class ExecuteThread extends Thread {
   ExecuteRequest request;
@@ -29,12 +29,9 @@ public class ExecuteThread extends Thread {
     try {
       Process process =
           runtime.exec(request.getCommand(), request.getEnvp(), new File(request.getDirectory()));
-      br = new BufferedReader(new InputStreamReader(process.getInputStream()));
       fw = new FileWriter("/tmp/" + request.getId());
-      String line;
-      while ((line = br.readLine()) != null) {
-        fw.write(line + System.getProperty("line.separator"));
-      }
+      new PrintStreamThread(process.getInputStream(), fw);
+      new PrintStreamThread(process.getErrorStream(), fw);
       int exitValue = process.waitFor();
       if (fw != null) {
         fw.close();
