@@ -26,6 +26,7 @@ public class PrintStreamThread extends Thread {
     printer = new Printer() {
       @Override
       public void print(String s) throws IOException {
+        //FIXME thread safety
         fw.write(s + System.getProperty("line.separator"));
       }
     };
