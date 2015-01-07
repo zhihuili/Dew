@@ -19,13 +19,13 @@
             <result>/userList.jsp</result>
         </action>
         <action name="userStore" class="com.intel.sto.bigdata.app.webcenter.logic.action.user.UserStoreAction">
-            <result type="redirect">/userList.action</result>
+            <result type="redirect">userList.action</result>
         </action>
         <action name="userEdit" class="com.intel.sto.bigdata.app.webcenter.logic.action.user.UserAction" method="load">
             <result>/userEdit.jsp</result>
         </action>
         <action name="userModify" class="com.intel.sto.bigdata.app.webcenter.logic.action.user.UserAction" method="modify">
-            <result type="redirect">/userList.action</result>
+            <result type="redirect">userList.action</result>
         </action>
         <action name="appList" class="com.intel.sto.bigdata.app.webcenter.logic.action.appinfo.AppAction" method="list">
             <result>/appList.jsp</result>
