@@ -1,19 +1,28 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-<%@taglib prefix="s" uri="/struts-tags" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
-</head>
-<body>
-	  <h1>Dew</h1>
-	  <s:form action="login" method="get">
-	  	<s:textfield name="username" label="User"/>
-	  	<s:password name="password" label="Password"/>
-	  	<s:submit value="Login"/>
-	  	<s:reset value="Reset"/>
-	  </s:form> 
-</body>
-</html>
+<%@ include file="head.jsp"%>
+<div class='span3'></div>
+<div class='span9'>
+	<form class='form-horizontal' id="login" name="login"
+		action="/action/login" method="post">
+		<div class="control-group">
+			<label class="control-label" for="username">User</label>
+			<div class="controls">
+				<input type="text" name="username" id="username" placeholder="Username">
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label" for="password">Password</label>
+			<div class="controls">
+				<input type="password" name="password" id="password" placeholder="Password">
+			</div>
+		</div>
+		<div class="control-group">
+			<div class="controls">
+				<label class="checkbox"> <input type="checkbox" disabled>
+					Remember me
+				</label>
+				<button type="submit" value="login" class="btn">Sign in</button>
+			</div>
+		</div>
+	</form>
+</div>
+<%@ include file="end.jsp"%>

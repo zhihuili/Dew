@@ -11,4 +11,5 @@ conf.properties
 conf/slaves
 conf/dew.conf
 dew-collected-data
+Database
 logs

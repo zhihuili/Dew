@@ -4,31 +4,31 @@
     "http://struts.apache.org/dtds/struts-2.0.dtd">
  
 <struts>
-    <package name="default" extends="struts-default">
+    <package name="default" extends="struts-default" namespace="/action">
        <action name="" class="com.intel.sto.bigdata.app.webcenter.logic.action.history.ShowHistoryListAction">
-           <result name="success">/jsp/showHistoryList.jsp</result>
+           <result name="success">/showHistoryList.jsp</result>
        </action>
        <action name="showHistoryPic" class="com.intel.sto.bigdata.app.webcenter.logic.action.history.ShowHistoryPicAction">
-           <result name="success">/jsp/showHistoryPic.jsp</result>
+           <result name="success">/showHistoryPic.jsp</result>
        </action>
        <action name="login" class="com.intel.sto.bigdata.app.webcenter.logic.action.login.LoginAction">
-           <result name="success">Main.jsp</result>
-           <result name="error">login.jsp</result>
+           <result name="success">/Main.jsp</result>
+           <result name="error">/login.jsp</result>
        </action>
        <action name="userList" class="com.intel.sto.bigdata.app.webcenter.logic.action.user.UserAction" method="list">
-            <result>userList.jsp</result>
+            <result>/userList.jsp</result>
         </action>
         <action name="userStore" class="com.intel.sto.bigdata.app.webcenter.logic.action.user.UserStoreAction">
             <result type="redirect">userList.action</result>
         </action>
         <action name="userEdit" class="com.intel.sto.bigdata.app.webcenter.logic.action.user.UserAction" method="load">
-            <result>userEdit.jsp</result>
+            <result>/userEdit.jsp</result>
         </action>
         <action name="userModify" class="com.intel.sto.bigdata.app.webcenter.logic.action.user.UserAction" method="modify">
             <result type="redirect">userList.action</result>
         </action>
         <action name="appList" class="com.intel.sto.bigdata.app.webcenter.logic.action.appinfo.AppAction" method="list">
-            <result>appList.jsp</result>
+            <result>/appList.jsp</result>
         </action>
         <action name="appStore" class="com.intel.sto.bigdata.app.webcenter.logic.action.appinfo.AppStoreAction">
             <result type="redirect">appList.action</result>
@@ -37,10 +37,10 @@
             <result type="redirect">appList.action</result>
         </action>
         <action name="appEdit" class="com.intel.sto.bigdata.app.webcenter.logic.action.appinfo.AppAction" method="load">
-            <result>appEdit.jsp</result>
+            <result>/appEdit.jsp</result>
         </action>
         <action name="jobList" class="com.intel.sto.bigdata.app.webcenter.logic.action.job.JobAction" method="list">
-            <result>jobList.jsp</result>
+            <result>/jobList.jsp</result>
         </action>
         <action name="jobStore" class="com.intel.sto.bigdata.app.webcenter.logic.action.job.JobStoreAction">
             <result type="redirect">jobList.action</result>
@@ -49,7 +49,7 @@
             <result type="redirect">jobList.action</result>
         </action>
         <action name="jobEdit" class="com.intel.sto.bigdata.app.webcenter.logic.action.job.JobAction" method="load">
-            <result>jobEdit.jsp</result>
+            <result>/jobEdit.jsp</result>
         </action>
         <action name="JobRun" class="com.intel.sto.bigdata.app.webcenter.logic.action.run.RunJobAction">
             <result type="redirect">jobList.action</result>
