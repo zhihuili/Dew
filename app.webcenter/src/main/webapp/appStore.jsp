@@ -1,25 +1,59 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-    <%@taglib prefix="s" uri="/struts-tags" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>User</title>
-</head>
-<body>
-
-	<h2>
-    </h2>
-    <s:form action="appStore" >
-        <s:textfield name="name" label="Name" />
-        <s:textfield name="path" label="Path" />
-        <s:textfield name="executable" label="Executable" />
-        <s:select name="strategy" label="Strategy" list="{'reexecute','alert','nothing'}" />
-        <s:select name="type" label="Type" list="{'spark','hadoop','hive'}" />
-        <s:textfield name="host" label="Host" />
-        <s:submit />
-    </s:form>
-
-</body>
-</html>
+<%@ include file="head.jsp"%>
+<%@ include file="appMenu.jsp"%>
+<div class='span9 main'>
+	<form class='form-horizontal' id=appStore name="appStore"
+		action="/action/appStore.action" method="get">
+		<div class="control-group">
+			<label class="control-label" for="name">Name</label>
+			<div class="controls">
+				<input type="text" name="name" id="name" placeholder="kmeans">
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label" for="host">Host</label>
+			<div class="controls">
+				<input type="text" name="host" id="host" placeholder="sr145">
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label" for="path">Path</label>
+			<div class="controls">
+				<input type="text" name="path" id="path"
+					placeholder="/home/username/workload/kmeans">
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label" for="executable">Executable</label>
+			<div class="controls">
+				<input type="text" name="executable" id="executable"
+					placeholder="./run.sh">
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label" for="strategy">Supervisor</label>
+			<div class="controls">
+				<select name="strategy" id="strategy">
+					<option value="reexecute">reExecute</option>
+					<option value="alert">alert</option>
+					<option value="nothing">nothing</option>
+				</select>
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label" for="type">Type</label>
+			<div class="controls">
+				<select name="type" id="type">
+					<option value="spark">spark</option>
+					<option value="hadoop">hadoop</option>
+					<option value="hive">hive</option>
+				</select>
+			</div>
+		</div>
+		<div class="control-group">
+			<div class="controls">
+				<button type="submit" value="login" class="btn">Submit</button>
+			</div>
+		</div>
+	</form>
+</div>
+<%@ include file="end.jsp"%>
