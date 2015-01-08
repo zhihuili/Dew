@@ -25,11 +25,11 @@ public class DBService {
   }
 
   public void getConnection() throws Exception {
-    Map<String, String> JDBCConf = WebCenterContext.getConf();
-    db_driver = JDBCConf.get(Constants.DB_DRIVER);
-    db_url = JDBCConf.get(Constants.DB_URL);
-    db_username = JDBCConf.get(Constants.DB_USERNAME);
-    db_password = JDBCConf.get(Constants.DB_PASSWORD);
+    Map<String, String> jdbcConf = WebCenterContext.getConf();
+    db_driver = jdbcConf.get(Constants.DB_DRIVER);
+    db_url = jdbcConf.get(Constants.DB_URL);
+    db_username = jdbcConf.get(Constants.DB_USERNAME);
+    db_password = jdbcConf.get(Constants.DB_PASSWORD);
     try {
       Class.forName(db_driver).newInstance();
       conn = DriverManager.getConnection(db_url, db_username, db_password);
