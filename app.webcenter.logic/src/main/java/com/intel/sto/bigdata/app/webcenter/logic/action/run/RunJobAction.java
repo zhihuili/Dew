@@ -1,21 +1,20 @@
 package com.intel.sto.bigdata.app.webcenter.logic.action.run;
 
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
 import com.intel.sto.bigdata.app.webcenter.logic.Constants;
 import com.intel.sto.bigdata.app.webcenter.logic.WebCenterContext;
+import com.intel.sto.bigdata.app.webcenter.logic.action.bean.AppBean;
+import com.intel.sto.bigdata.app.webcenter.logic.action.bean.JobBean;
 import com.intel.sto.bigdata.app.webcenter.logic.db.DBOperator;
 import com.intel.sto.bigdata.dew.app.AgentProxy;
 import com.intel.sto.bigdata.dew.app.AppDes;
 import com.intel.sto.bigdata.dew.app.DoNothingAppProcessor;
 import com.intel.sto.bigdata.dew.service.shellexecutor.message.ExecuteRequest;
-import com.intel.sto.bigdata.dew.utils.Files;
 import com.intel.sto.bigdata.dew.utils.Host;
 import com.opensymphony.xwork2.ActionSupport;
-import com.intel.sto.bigdata.app.webcenter.logic.action.bean.*;
 
 public class RunJobAction extends ActionSupport {
 
@@ -47,8 +46,7 @@ public class RunJobAction extends ActionSupport {
     Set<String> hosts = new HashSet<String>();
     hosts.add(appBean.host);
 
-    Map<String, String> conf = new HashMap<String, String>();
-    conf = Files.loadPropertiesFile("/conf.properties");
+    Map<String, String> conf = WebCenterContext.getConf();
     String masterUrl = conf.get(Constants.DEW_MASTER);
 
     new AgentProxy(masterUrl, new DoNothingAppProcessor(), new AppDes(hosts, "shell"))

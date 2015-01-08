@@ -1,19 +1,14 @@
 package com.intel.sto.bigdata.app.webcenter.logic.db;
 
-import java.io.File;
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.SQLException;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.HashMap;
 import java.util.Map;
-import java.util.Properties;
 
-import com.intel.sto.bigdata.app.sparkperformance.Util;
 import com.intel.sto.bigdata.app.webcenter.logic.Constants;
-import com.intel.sto.bigdata.dew.utils.Files;
+import com.intel.sto.bigdata.app.webcenter.logic.WebCenterContext;
 
 public class DBService {
   private static String db_driver;
@@ -30,8 +25,7 @@ public class DBService {
   }
 
   public void getConnection() throws Exception {
-    Map<String, String> JDBCConf = new HashMap<String, String>();
-    JDBCConf = Files.loadPropertiesFile("/conf.properties");
+    Map<String, String> JDBCConf = WebCenterContext.getConf();
     db_driver = JDBCConf.get(Constants.DB_DRIVER);
     db_url = JDBCConf.get(Constants.DB_URL);
     db_username = JDBCConf.get(Constants.DB_USERNAME);
