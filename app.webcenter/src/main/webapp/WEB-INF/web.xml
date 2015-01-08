@@ -30,8 +30,8 @@
 		<listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
 	</listener>
 	<servlet>
-		<servlet-name>InitFileServer</servlet-name>
-		<servlet-class>com.intel.sto.bigdata.app.webcenter.logic.servlet.InitFileServerServlet</servlet-class>
+		<servlet-name>InitServlet</servlet-name>
+		<servlet-class>com.intel.sto.bigdata.app.webcenter.logic.servlet.InitServlet</servlet-class>
 		<load-on-startup>0</load-on-startup>
 	</servlet>
 	<welcome-file-list>

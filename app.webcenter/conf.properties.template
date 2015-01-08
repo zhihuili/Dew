@@ -3,4 +3,4 @@ dew.db.driver=org.apache.derby.jdbc.EmbeddedDriver
 dew.db.url=jdbc:derby:../Database/dewdb
 dew.db.username=app
 dew.db.password=app
-dew.master=hostName:6066
+#dew.master=hostName:6066
