@@ -4,10 +4,10 @@ import com.intel.sto.bigdata.app.webcenter.logic.db.DBOperator;
 import com.opensymphony.xwork2.ActionSupport;
 
 public class JobStoreAction extends ActionSupport{
-  public String name;
-  public String defination;
-  public String cycle;
-  public String userId;
+  private String name;
+  private String defination;
+  private String cycle;
+  private String userId;
   public String getName() {
     return name;
   }

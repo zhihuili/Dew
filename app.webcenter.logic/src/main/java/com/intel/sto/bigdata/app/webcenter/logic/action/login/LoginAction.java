@@ -7,8 +7,8 @@ import com.opensymphony.xwork2.ActionSupport;
 import com.intel.sto.bigdata.app.webcenter.logic.db.DBOperator;
 
 public class LoginAction extends ActionSupport {
-  public String username;
-  public String password;
+  private String username;
+  private String password;
 
   public String getUsername() {
     return username;

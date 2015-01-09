@@ -82,8 +82,8 @@ public class DBOperator extends DBService {
 
   public void userModify(UserBean user) throws Exception {
     String sql =
-        "update userinfo set name='" + user.name + "', password='" + user.password + "', type='"
-            + user.type + "' where user_id=" + user.id;
+        "update userinfo set name='" + user.getName() + "', password='" + user.getPassword() + "', type='"
+            + user.getType() + "' where user_id=" + user.getId();
 
     getConnection();
     executeNoSelect(sql);
@@ -127,9 +127,9 @@ public class DBOperator extends DBService {
 
   public void appModify(AppBean app) throws Exception {
     String sql =
-        "update application set name='" + app.name + "', path='" + app.path + "', executable='"
-            + app.executable + "', strategy='" + app.strategy + "', type='" + app.type
-            + "', host='" + app.host + "' where app_id=" + app.appId;
+        "update application set name='" + app.getName() + "', path='" + app.getPath() + "', executable='"
+            + app.getExecutable() + "', strategy='" + app.getStrategy() + "', type='" + app.getType()
+            + "', host='" + app.getHost() + "' where app_id=" + app.getAppId();
 
     getConnection();
     executeNoSelect(sql);
@@ -215,8 +215,8 @@ public class DBOperator extends DBService {
 
   public void jobModify(JobBean job) throws Exception {
     String sql =
-        "update job set name='" + job.name + "', defination='" + job.defination + "', cycle='"
-            + job.cycle + "', user_id=" + job.userId + " where job_id=" + job.jobId;
+        "update job set name='" + job.getName() + "', defination='" + job.getDefination() + "', cycle='"
+            + job.getCycle() + "', user_id=" + job.getUserId() + " where job_id=" + job.getJobId();
 
     getConnection();
     executeNoSelect(sql);

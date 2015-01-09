@@ -7,10 +7,10 @@ import com.intel.sto.bigdata.app.webcenter.logic.db.DBOperator;
 import com.opensymphony.xwork2.ActionSupport;
 
 public class JobAction extends ActionSupport {
-  public String jobId;
-  public JobBean job;
-  public ArrayList<JobBean> jobs;
-  public DBOperator operator = new DBOperator();
+  private String jobId;
+  private JobBean job;
+  private ArrayList<JobBean> jobs;
+  private DBOperator operator = new DBOperator();
 
   public String getJobId() {
     return jobId;
