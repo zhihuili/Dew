@@ -43,7 +43,7 @@ public class LogQueryAction extends ActionSupport {
     StringBuffer sb = new StringBuffer();
     List<String> logList = LogQuery.querySingle(appRecordId, queryWords);
     for (String line : logList) {
-      sb.append(line +System.getProperty("line.separator"));
+      sb.append(line + System.getProperty("line.separator"));
     }
     logResult = sb.toString();
     return SUCCESS;
