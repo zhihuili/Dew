@@ -10,6 +10,7 @@ public class AppAction extends ActionSupport {
   public String appId;
   public AppBean app;
   public ArrayList<AppBean> apps;
+  public String appName;
   public DBOperator operator = new DBOperator();
 
   public String getAppId() {
@@ -36,6 +37,14 @@ public class AppAction extends ActionSupport {
     this.apps = apps;
   }
 
+  public String getAppName() {
+    return appName;
+  }
+
+  public void setAppName(String appName) {
+    this.appName = appName;
+  }
+
   public String list() throws Exception {
     apps = operator.getAllApp();
     return SUCCESS;
@@ -48,6 +57,14 @@ public class AppAction extends ActionSupport {
 
   public String load() throws Exception {
     app = operator.getSingleApp(appId);
+    return SUCCESS;
+  }
+
+  public String search() throws Exception {
+    app = operator.getSingleAppByName(appName);
+    System.out.println("The app name is " + app.name);
+    apps = new ArrayList<AppBean>();
+    apps.add(app);
     return SUCCESS;
   }
 }

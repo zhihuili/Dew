@@ -30,7 +30,7 @@
 			</div>
 		</div>
 		<div class="control-group">
-			<label class="control-label" for="strategy">Supervisor</label>
+			<label class="control-label" for="strategy">Strategy</label>
 			<div class="controls">
 				<select name="strategy" id="strategy">
 					<option value="reexecute">reExecute</option>

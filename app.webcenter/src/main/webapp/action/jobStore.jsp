@@ -1,23 +1,39 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-    <%@taglib prefix="s" uri="/struts-tags" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>User</title>
-</head>
-<body>
-
-	<h2>
-    </h2>
-    <s:form action="jobStore" >
-        <s:textfield name="name" label="Name" />
-        <s:textfield name="defination" label="Defination" />
-        <s:textfield name="cycle" label="Cycle" />
-        <s:textfield name="userId" label="UserId" />
-        <s:submit />
-    </s:form>
-
-</body>
-</html>
+<%@ include file="head.jsp"%>
+<%@ include file="jobMenu.jsp"%>
+<div class='span9 main'>
+	<form class='form-horizontal' id=jobStore name="jobStore"
+		action="/action/jobStore.action" method="get">
+		<div class="control-group">
+			<label class="control-label" for="name">Name</label>
+			<div class="controls">
+				<input type="text" name="name" id="name" placeholder="daily">
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label" for="host">Defination</label>
+			<div class="controls">
+				<input type="text" name="defination" id="defination" placeholder="nweight,wordcount">
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label" for="path">Cycle</label>
+			<div class="controls">
+				<input type="text" name="cycle" id="cycle"
+					placeholder="0 0 2">
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label" for="executable">UserId</label>
+			<div class="controls">
+				<input type="text" name="userId" id="userId"
+					placeholder="1">
+			</div>
+		</div>
+		<div class="control-group">
+			<div class="controls">
+				<button type="submit" value="login" class="btn">Submit</button>
+			</div>
+		</div>
+	</form>
+</div>
+<%@ include file="end.jsp"%>
