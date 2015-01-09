@@ -8,6 +8,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.Map;
 
+import com.intel.sto.bigdata.app.webcenter.logic.WebCenterContext;
 import com.intel.sto.bigdata.dew.http.server.HttpStreamCallback;
 
 public class FileSaveCallback extends HttpStreamCallback {
@@ -16,7 +17,7 @@ public class FileSaveCallback extends HttpStreamCallback {
   public void call(Map<String, String> parameters, InputStream is) {
     try {
       BufferedReader br = new BufferedReader(new InputStreamReader(is));
-      File outputPath = new File("/tmp", "webcenter");
+      File outputPath = new File(WebCenterContext.getConf().get("dew.webcenter.applogfile.path"));
       if (!outputPath.exists()) {
         outputPath.mkdirs();
       }
