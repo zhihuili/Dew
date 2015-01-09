@@ -7,7 +7,7 @@ public class Constants {
   public static final String DB_USERNAME = "dew.db.username";
   public static final String DB_PASSWORD = "dew.db.password";
 
-  public static final String DEW_MASTER = "dew.master";
+  public static final String DEW_MASTER = "dew.master.url";
 
   public static final String FILE_SERVER_PORT = "FileServerPort";
 }
