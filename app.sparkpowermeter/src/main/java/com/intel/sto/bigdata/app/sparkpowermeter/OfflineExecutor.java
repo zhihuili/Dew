@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Properties;
 import java.util.Set;
 
@@ -38,7 +39,7 @@ public class OfflineExecutor {
 
   public static void execute(String confPath, String desPath, long startTime, long endTime)
       throws Exception {
-    String workPath = init(confPath, String.valueOf(startTime));
+    String workPath = init(confPath, String.valueOf(startTime), new HashMap<String, String>());
     String slaveFilePath = WorkloadConf.get(Constants.SPARK_CLUSTER_SLAVE);
     if (slaveFilePath == null) {
       String dewHome = System.getenv("DEW_HOME");
@@ -55,10 +56,14 @@ public class OfflineExecutor {
     diagnose(workPath, hosts); // Do you need it?
   }
 
-  private static String init(String confPath, String appId) throws Exception {
+  private static String init(String confPath, String appId, Map<String, String> conf)
+      throws Exception {
     // prepare context
     Properties p = Util.buildProperties(confPath);
     WorkloadConf.set(p);
+    for (Entry<String, String> entry : conf.entrySet()) {
+      WorkloadConf.set(entry.getKey(), entry.getValue());
+    }
     String baseWorkPath = WorkloadConf.get(Constants.WORKLOAD_OUTPUT_PATH);
     String workPath = baseWorkPath + appId + "/";
     File workDir = new File(workPath);
@@ -91,12 +96,10 @@ public class OfflineExecutor {
     FileUtil.printAnalysisResult(diagnosisResultList, analysisFile);
   }
 
-  public static void execute(String confPath, String desPath, String logPath) throws Exception {
+  public static void execute(String confPath, String desPath, App app, Map<String, String> conf)
+      throws Exception {
 
-    // parse spark driver log.
-    App app = DriverlogMain.parseLogFile(logPath);
-
-    String workPath = init(confPath, app.getAppId());
+    String workPath = init(confPath, app.getAppId(), conf);
 
     // output parsed spark driver log to workPath.
     DriverlogMain.printApp(app, workPath);
@@ -105,6 +108,12 @@ public class OfflineExecutor {
     analyzePerformance(workPath, desPath, app.getExecutors(), app.getStartTime(), app.getEndTime());
 
     diagnose(workPath, app.getExecutors());
+  }
+
+  public static void execute(String confPath, String desPath, String logPath) throws Exception {
+    // parse spark driver log.
+    App app = DriverlogMain.parseLogFile(logPath);
+    execute(confPath, desPath, app, new HashMap<String, String>());
   }
 
   private static DiagnosisContext buildDiagnosisContext(String workPath, Set<String> hosts)
