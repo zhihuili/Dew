@@ -46,9 +46,9 @@ primary key(record_id)
 );
 
 create table apprecord(
-record_id int generated always as identity,
-app_id int NOT NULL,
-job_record int NOT NULL,
+record_id varchar(100) NOT NULL,
+app_name varchar(100) NOT NULL,
+job_record varchar(100) NOT NULL,
 starttime timestamp NOT NULL,
 endtime timestamp NOT NULL,
 result varchar(20) NOT NULL,
