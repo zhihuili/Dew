@@ -2,61 +2,92 @@
 <!DOCTYPE struts PUBLIC
     "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
     "http://struts.apache.org/dtds/struts-2.0.dtd">
- 
+
 <struts>
-    <package name="default" extends="struts-default" namespace="/action">
-       <action name="" class="com.intel.sto.bigdata.app.webcenter.logic.action.history.ShowHistoryListAction">
-           <result name="success">/showHistoryList.jsp</result>
-       </action>
-       <action name="showHistoryPic" class="com.intel.sto.bigdata.app.webcenter.logic.action.history.ShowHistoryPicAction">
-           <result name="success">/showHistoryPic.jsp</result>
-       </action>
-       <action name="login" class="com.intel.sto.bigdata.app.webcenter.logic.action.login.LoginAction">
-           <result name="success">/Main.jsp</result>
-           <result name="error">/login.jsp</result>
-       </action>
-       <action name="userList" class="com.intel.sto.bigdata.app.webcenter.logic.action.user.UserAction" method="list">
-            <result>/userList.jsp</result>
-        </action>
-        <action name="userStore" class="com.intel.sto.bigdata.app.webcenter.logic.action.user.UserStoreAction">
-            <result type="redirect">userList.action</result>
-        </action>
-        <action name="userEdit" class="com.intel.sto.bigdata.app.webcenter.logic.action.user.UserAction" method="load">
-            <result>/userEdit.jsp</result>
-        </action>
-        <action name="userModify" class="com.intel.sto.bigdata.app.webcenter.logic.action.user.UserAction" method="modify">
-            <result type="redirect">userList.action</result>
-        </action>
-        <action name="appList" class="com.intel.sto.bigdata.app.webcenter.logic.action.appinfo.AppAction" method="list">
-            <result>/appList.jsp</result>
-        </action>
-        <action name="appStore" class="com.intel.sto.bigdata.app.webcenter.logic.action.appinfo.AppStoreAction">
-            <result type="redirect">appList.action</result>
-        </action>
-        <action name="appModify" class="com.intel.sto.bigdata.app.webcenter.logic.action.appinfo.AppAction" method="modify">
-            <result type="redirect">appList.action</result>
-        </action>
-        <action name="appEdit" class="com.intel.sto.bigdata.app.webcenter.logic.action.appinfo.AppAction" method="load">
-            <result>/appEdit.jsp</result>
-        </action>
-        <action name="jobList" class="com.intel.sto.bigdata.app.webcenter.logic.action.job.JobAction" method="list">
-            <result>/jobList.jsp</result>
-        </action>
-        <action name="jobStore" class="com.intel.sto.bigdata.app.webcenter.logic.action.job.JobStoreAction">
-            <result type="redirect">jobList.action</result>
-        </action>
-        <action name="jobModify" class="com.intel.sto.bigdata.app.webcenter.logic.action.job.JobAction" method="modify">
-            <result type="redirect">jobList.action</result>
-        </action>
-        <action name="jobEdit" class="com.intel.sto.bigdata.app.webcenter.logic.action.job.JobAction" method="load">
-            <result>/jobEdit.jsp</result>
-        </action>
-        <action name="JobRun" class="com.intel.sto.bigdata.app.webcenter.logic.action.run.RunJobAction">
-            <result type="redirect">jobList.action</result>
-        </action>
-        <action name="JobEnd" class="com.intel.sto.bigdata.app.webcenter.logic.action.run.EndJobAction">
-            <result type="redirect">jobList.action</result>
-        </action>
-    </package>
-   
+	<package name="default" extends="struts-default" namespace="/action">
+		<action name=""
+			class="com.intel.sto.bigdata.app.webcenter.logic.action.history.ShowHistoryListAction">
+			<result name="success">showHistoryList.jsp</result>
+		</action>
+		<action name="showHistoryPic"
+			class="com.intel.sto.bigdata.app.webcenter.logic.action.history.ShowHistoryPicAction">
+			<result name="success">showHistoryPic.jsp</result>
+		</action>
+		<action name="login"
+			class="com.intel.sto.bigdata.app.webcenter.logic.action.login.LoginAction">
+			<result name="success">Main.jsp</result>
+			<result name="error">login.jsp</result>
+		</action>
+		<action name="userList"
+			class="com.intel.sto.bigdata.app.webcenter.logic.action.user.UserAction"
+			method="list">
+			<result>userList.jsp</result>
+		</action>
+		<action name="userStore"
+			class="com.intel.sto.bigdata.app.webcenter.logic.action.user.UserStoreAction">
+			<result type="redirect">userList.action</result>
+		</action>
+		<action name="userEdit"
+			class="com.intel.sto.bigdata.app.webcenter.logic.action.user.UserAction"
+			method="load">
+			<result>userEdit.jsp</result>
+		</action>
+		<action name="userModify"
+			class="com.intel.sto.bigdata.app.webcenter.logic.action.user.UserAction"
+			method="modify">
+			<result type="redirect">userList.action</result>
+		</action>
+		<action name="appList"
+			class="com.intel.sto.bigdata.app.webcenter.logic.action.appinfo.AppAction"
+			method="list">
+			<result>appList.jsp</result>
+		</action>
+		<action name="appStore"
+			class="com.intel.sto.bigdata.app.webcenter.logic.action.appinfo.AppStoreAction">
+			<result type="redirect">appList.action</result>
+		</action>
+		<action name="appModify"
+			class="com.intel.sto.bigdata.app.webcenter.logic.action.appinfo.AppAction"
+			method="modify">
+			<result type="redirect">appList.action</result>
+		</action>
+		<action name="appEdit"
+			class="com.intel.sto.bigdata.app.webcenter.logic.action.appinfo.AppAction"
+			method="load">
+			<result>appEdit.jsp</result>
+		</action>
+		<action name="logQuery"
+			class="com.intel.sto.bigdata.app.webcenter.logic.action.appinfo.LogQueryAction"
+			method="query">
+			<result>logQuery.jsp</result>
+		</action>
+		<action name="jobList"
+			class="com.intel.sto.bigdata.app.webcenter.logic.action.job.JobAction"
+			method="list">
+			<result>jobList.jsp</result>
+		</action>
+		<action name="jobStore"
+			class="com.intel.sto.bigdata.app.webcenter.logic.action.job.JobStoreAction">
+			<result type="redirect">jobList.action</result>
+		</action>
+		<action name="jobModify"
+			class="com.intel.sto.bigdata.app.webcenter.logic.action.job.JobAction"
+			method="modify">
+			<result type="redirect">jobList.action</result>
+		</action>
+		<action name="jobEdit"
+			class="com.intel.sto.bigdata.app.webcenter.logic.action.job.JobAction"
+			method="load">
+			<result>jobEdit.jsp</result>
+		</action>
+		<action name="JobRun"
+			class="com.intel.sto.bigdata.app.webcenter.logic.action.run.RunJobAction">
+			<result type="redirect">jobList.action</result>
+		</action>
+		<action name="JobEnd"
+			class="com.intel.sto.bigdata.app.webcenter.logic.action.run.EndJobAction">
+			<result type="redirect">jobList.action</result>
+		</action>
+	</package>
+
 </struts>
