@@ -4,6 +4,7 @@ import com.intel.sto.bigdata.app.webcenter.logic.db.DBOperator;
 import com.opensymphony.xwork2.ActionSupport;
 
 public class EndJobAction extends ActionSupport {
+  private static final long serialVersionUID = 1L;
   private String id;
   private String status;
   private DBOperator operator = new DBOperator();
@@ -25,7 +26,7 @@ public class EndJobAction extends ActionSupport {
   }
 
   public String execute() throws Exception {
-    operator.changeJobStatus(id, status);
+    operator.changeAppStatus(id, status);
     return SUCCESS;
   }
 }

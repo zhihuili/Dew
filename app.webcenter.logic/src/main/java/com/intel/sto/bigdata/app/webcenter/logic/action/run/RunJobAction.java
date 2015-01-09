@@ -1,5 +1,6 @@
 package com.intel.sto.bigdata.app.webcenter.logic.action.run;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
@@ -33,25 +34,43 @@ public class RunJobAction extends ActionSupport {
   public String execute() throws Exception {
     String hostName = Host.getName();
     JobBean jobBean = operator.getSingleJobByName(name);
-    String recordId = operator.addNewJobRecord(jobBean.getJobId());
+    String jobrecordId = operator.addNewJobRecord(jobBean.getJobId());
 
-    AppBean appBean = operator.getSingleAppByName(jobBean.getDefination());
-    ExecuteRequest request = new ExecuteRequest();
-    request.setId(recordId);
-    request.setDirectory(appBean.getPath());
-    request.setCommand(appBean.getExecutable());
-    request.setStatusUrl("http://" + hostName + ":6077/JobEnd.action");
-    request
-        .setLogUrl("http://" + hostName + ":" + WebCenterContext.get(Constants.FILE_SERVER_PORT));
-    Set<String> hosts = new HashSet<String>();
-    hosts.add(appBean.getHost());
+    String defination = jobBean.getDefination();
+    ArrayList<String> appList = getApps(defination);
 
-    Map<String, String> conf = WebCenterContext.getConf();
-    String masterUrl = conf.get(Constants.DEW_MASTER);
+    for (String app : appList) {
+      AppBean appBean = operator.getSingleAppByName(app);
+      String appRecordID = operator.addNewAppRecord(appBean, jobrecordId);
+      ExecuteRequest request = new ExecuteRequest();
+      request.setId(appRecordID);
+      request.setDirectory(appBean.getPath());
+      request.setCommand(appBean.getExecutable());
+      request.setStatusUrl("http://" + hostName + ":6077/action/JobEnd.action");
+      request.setLogUrl("http://" + hostName + ":"
+          + WebCenterContext.get(Constants.FILE_SERVER_PORT));
 
-    new AgentProxy(masterUrl, new DoNothingAppProcessor(), new AppDes(hosts, "shell"))
-        .requestService(request);
+      Set<String> hosts = new HashSet<String>();
+      hosts.add(appBean.getHost());
+      Map<String, String> conf = WebCenterContext.getConf();
+      String masterUrl = conf.get(Constants.DEW_MASTER);
+
+      new AgentProxy(masterUrl, new DoNothingAppProcessor(), new AppDes(hosts, "shell"))
+          .requestService(request);
+    }
 
     return SUCCESS;
+  }
+
+  public static ArrayList<String> getApps(String defination) {
+    ArrayList<String> result = new ArrayList<String>();
+
+    String tmp[] = defination.split(",");
+
+    for (String app : tmp) {
+      result.add(app);
+    }
+
+    return result;
   }
 }

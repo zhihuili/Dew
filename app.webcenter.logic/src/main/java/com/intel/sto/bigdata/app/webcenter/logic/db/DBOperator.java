@@ -82,8 +82,8 @@ public class DBOperator extends DBService {
 
   public void userModify(UserBean user) throws Exception {
     String sql =
-        "update userinfo set name='" + user.getName() + "', password='" + user.getPassword() + "', type='"
-            + user.getType() + "' where user_id=" + user.getId();
+        "update userinfo set name='" + user.getName() + "', password='" + user.getPassword()
+            + "', type='" + user.getType() + "' where user_id=" + user.getId();
 
     getConnection();
     executeNoSelect(sql);
@@ -127,9 +127,10 @@ public class DBOperator extends DBService {
 
   public void appModify(AppBean app) throws Exception {
     String sql =
-        "update application set name='" + app.getName() + "', path='" + app.getPath() + "', executable='"
-            + app.getExecutable() + "', strategy='" + app.getStrategy() + "', type='" + app.getType()
-            + "', host='" + app.getHost() + "' where app_id=" + app.getAppId();
+        "update application set name='" + app.getName() + "', path='" + app.getPath()
+            + "', executable='" + app.getExecutable() + "', strategy='" + app.getStrategy()
+            + "', type='" + app.getType() + "', host='" + app.getHost() + "' where app_id="
+            + app.getAppId();
 
     getConnection();
     executeNoSelect(sql);
@@ -215,8 +216,9 @@ public class DBOperator extends DBService {
 
   public void jobModify(JobBean job) throws Exception {
     String sql =
-        "update job set name='" + job.getName() + "', defination='" + job.getDefination() + "', cycle='"
-            + job.getCycle() + "', user_id=" + job.getUserId() + " where job_id=" + job.getJobId();
+        "update job set name='" + job.getName() + "', defination='" + job.getDefination()
+            + "', cycle='" + job.getCycle() + "', user_id=" + job.getUserId() + " where job_id="
+            + job.getJobId();
 
     getConnection();
     executeNoSelect(sql);
@@ -270,7 +272,7 @@ public class DBOperator extends DBService {
 
     String sql =
         "insert into jobrecord(record_id,job_id,starttime,endtime,result) values('" + recordId
-            + "'," + jobId + ",'" + timestamp + "','" + timestamp + "','running')";
+            + "'," + jobId + ",'" + timestamp + "','" + timestamp + "','success')";
     getConnection();
     executeNoSelect(sql);
     closeConnection();
@@ -278,14 +280,66 @@ public class DBOperator extends DBService {
     return recordId;
   }
 
-  public void changeJobStatus(String recordId, String status) throws Exception {
+  public void changeAppStatus(String recordId, String status) throws Exception {
     java.util.Date date = new java.util.Date();
     Timestamp timestamp = new Timestamp(date.getTime());
     String sql =
-        "update jobrecord set endtime='" + timestamp + "', result='" + status
+        "update apprecord set endtime='" + timestamp + "', result='" + status
             + "' where record_id='" + recordId + "'";
     getConnection();
     executeNoSelect(sql);
+
+    DBOperator operator = new DBOperator();
+    AppRecordBean appRecordBean = operator.getSingleAppRecordByRecordID(recordId);
+
+    if (status.equals("success")) {
+      sql =
+          "update jobrecord set endtime='" + timestamp + "' where record_id='"
+              + appRecordBean.getJobRecordID() + "'";
+    } else {
+      sql =
+          "update jobrecord set endtime='" + timestamp + "', result='" + status
+              + "' where record_id='" + appRecordBean.getJobRecordID() + "'";
+    }
+
+    executeNoSelect(sql);
     closeConnection();
+  }
+
+  public String addNewAppRecord(AppBean appBean, String jobRecordID) throws Exception {
+    String recordId = UUID.randomUUID().toString();
+    java.util.Date date = new java.util.Date();
+    Timestamp timestamp = new Timestamp(date.getTime());
+
+    String sql =
+        "insert into apprecord(record_id,app_name,job_record,starttime,endtime,result) values('"
+            + recordId + "','" + appBean.getName() + "','" + jobRecordID + "','" + timestamp
+            + "','" + timestamp + "','running')";
+    getConnection();
+    executeNoSelect(sql);
+    closeConnection();
+
+    return recordId;
+  }
+
+  public AppRecordBean getSingleAppRecordByRecordID(String recordID) throws Exception {
+    AppRecordBean result = new AppRecordBean();
+
+    String sql = "select * from apprecord where record_id='" + recordID + "'";
+    getConnection();
+    ResultSet rs = executeSelect(sql);
+
+    while (rs.next()) {
+      result.setRecordID(rs.getString("record_id"));
+      result.setAppName(rs.getString("app_name"));
+      result.setJobRecordID(rs.getString("job_record"));
+      result.setStartTime(rs.getTimestamp("starttime"));
+      result.setEndTime(rs.getTimestamp("endtime"));
+      result.setResult(rs.getString("result"));
+    }
+    rs.close();
+    closeConnection();
+
+    return result;
   }
 }
