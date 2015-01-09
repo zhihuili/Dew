@@ -4,3 +4,4 @@ dew.db.url=jdbc:derby:../Database/dewdb
 dew.db.username=app
 dew.db.password=app
 #dew.master=hostName:6066
+dew.webcenter.applogfile.path=/tmp/webcenter
