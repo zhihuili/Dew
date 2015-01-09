@@ -4,9 +4,9 @@ import com.intel.sto.bigdata.app.webcenter.logic.db.DBOperator;
 import com.opensymphony.xwork2.ActionSupport;
 
 public class EndJobAction extends ActionSupport {
-  public String id;
-  public String status;
-  public DBOperator operator = new DBOperator();
+  private String id;
+  private String status;
+  private DBOperator operator = new DBOperator();
 
   public String getId() {
     return id;

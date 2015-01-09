@@ -1,35 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-    <%@taglib prefix="s" uri="/struts-tags" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Application List</title>
-<style type="text/css">
-        table {
-            border: 1px solid black;
-            border-collapse: collapse;
-        }
-        
-        table thead tr th {
-            border: 1px solid black;
-            padding: 3px;
-            background-color: #cccccc;
-        }
-        
-        table tbody tr td {
-            border: 1px solid black;
-            padding: 3px;
-        }
-    </style>
-</head>
-<body>
-user name : ${sessionScope.currentUser}
-
-
-        <table cellspacing="0">
-            <thead>
+<%@ include file="head.jsp"%>
+<%@ include file="jobMenu.jsp"%>
+<div class='span9 main'>
+	<table
+		class="table table-striped table-bordered table-hover table-condensed">
+		<thead>
                 <tr>
                     <th>JobId</th>
                     <th>Name</th>
@@ -64,9 +38,5 @@ user name : ${sessionScope.currentUser}
                 </s:iterator>
             </tbody>
         </table>
-<a href="jobStore.jsp">Add Job</a>
-<br>
-<a href="Main.jsp">back Home</a>
-
-</body>
-</html>
+	</div>
+<%@ include file="end.jsp"%>

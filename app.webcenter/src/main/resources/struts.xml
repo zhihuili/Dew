@@ -61,6 +61,11 @@
 			method="query">
 			<result>logQuery.jsp</result>
 		</action>
+		<action name="appSearch"
+			class="com.intel.sto.bigdata.app.webcenter.logic.action.appinfo.AppAction"
+			method="search">
+			<result>appList.jsp</result>
+		</action>
 		<action name="jobList"
 			class="com.intel.sto.bigdata.app.webcenter.logic.action.job.JobAction"
 			method="list">

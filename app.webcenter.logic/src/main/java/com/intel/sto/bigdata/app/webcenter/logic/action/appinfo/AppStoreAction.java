@@ -4,12 +4,12 @@ import com.intel.sto.bigdata.app.webcenter.logic.db.DBOperator;
 import com.opensymphony.xwork2.ActionSupport;
 
 public class AppStoreAction extends ActionSupport {
-  public String name;
-  public String path;
-  public String executable;
-  public String strategy;
-  public String type;
-  public String host;
+  private String name;
+  private String path;
+  private String executable;
+  private String strategy;
+  private String type;
+  private String host;
 
   public String getName() {
     return name;

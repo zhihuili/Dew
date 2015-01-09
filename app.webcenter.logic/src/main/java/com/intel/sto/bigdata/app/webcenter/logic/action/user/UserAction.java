@@ -8,11 +8,11 @@ import com.intel.sto.bigdata.app.webcenter.logic.db.DBOperator;
 import com.opensymphony.xwork2.ActionSupport;
 
 public class UserAction extends ActionSupport {
-  public String id;
-  public String[] ids;
-  public UserBean user;
-  public ArrayList<UserBean> users;
-  public DBOperator operator = new DBOperator();
+  private String id;
+  private String[] ids;
+  private UserBean user;
+  private ArrayList<UserBean> users;
+  private DBOperator operator = new DBOperator();
 
   public String getId() {
     return id;

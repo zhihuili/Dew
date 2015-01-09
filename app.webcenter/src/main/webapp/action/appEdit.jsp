@@ -1,26 +1,63 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-    <%@taglib prefix="s" uri="/struts-tags" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Application</title>
-</head>
-<body>
-
-	<h2>
-    </h2>
-    <s:form action="appModify" >
-    	<s:textfield name="app.appId" label="AppId" />
-        <s:textfield name="app.name" label="Name" />
-        <s:textfield name="app.path" label="path" />
-        <s:textfield name="app.executable" label="executable" />
-        <s:select name="app.strategy" label="Strategy" list="{'reexecute','alert','nothing'}" value="app.strategy"/>
-        <s:select name="app.type" label="Type" list="{'spark','hadoop','hive'}" value="app.type"/>
-        <s:textfield name="app.host" label="host" />
-        <s:submit />
-    </s:form>
-
-</body>
-</html>
+<%@ include file="head.jsp"%>
+<%@ include file="appMenu.jsp"%>
+<div class='span9 main'>
+	<form class='form-horizontal' id=appModify name="appModify"
+		action="/action/appModify.action" method="get">
+		<div class="control-group">
+			<label class="control-label" for="name">AppID</label>
+			<div class="controls">
+				<s:textfield name="app.appId"/>
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label" for="name">Name</label>
+			<div class="controls">
+				<s:textfield name="app.name"/>
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label" for="name">Host</label>
+			<div class="controls">
+				<s:textfield name="app.host"/>
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label" for="name">Path</label>
+			<div class="controls">
+				<s:textfield name="app.path"/>
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label" for="name">Executable</label>
+			<div class="controls">
+				<s:textfield name="app.executable"/>
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label" for="strategy">Strategy</label>
+			<div class="controls">
+				<select name="app.strategy" id="strategy">
+					<option value="reexecute">reExecute</option>
+					<option value="alert">alert</option>
+					<option value="nothing">nothing</option>
+				</select>
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label" for="type">Type</label>
+			<div class="controls">
+				<select name="app.type" id="type">
+					<option value="spark">spark</option>
+					<option value="hadoop">hadoop</option>
+					<option value="hive">hive</option>
+				</select>
+			</div>
+		</div>
+		<div class="control-group">
+			<div class="controls">
+				<button type="submit" value="login" class="btn">Submit</button>
+			</div>
+		</div>
+	</form>
+</div>
+<%@ include file="end.jsp"%>

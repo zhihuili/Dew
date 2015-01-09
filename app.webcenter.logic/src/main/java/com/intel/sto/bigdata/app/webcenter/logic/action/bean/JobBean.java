@@ -1,11 +1,11 @@
 package com.intel.sto.bigdata.app.webcenter.logic.action.bean;
 
 public class JobBean {
-  public int jobId;
-  public String name;
-  public String defination;
-  public String cycle;
-  public int userId;
+  private int jobId;
+  private String name;
+  private String defination;
+  private String cycle;
+  private int userId;
 
   public int getJobId() {
     return jobId;

@@ -1,13 +1,13 @@
 package com.intel.sto.bigdata.app.webcenter.logic.action.bean;
 
 public class AppBean {
-  public int appId;
-  public String name;
-  public String path;
-  public String executable;
-  public String strategy;
-  public String type;
-  public String host;
+  private int appId;
+  private String name;
+  private String path;
+  private String executable;
+  private String strategy;
+  private String type;
+  private String host;
 
   public int getAppId() {
     return appId;

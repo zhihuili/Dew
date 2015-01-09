@@ -4,9 +4,9 @@ import com.intel.sto.bigdata.app.webcenter.logic.db.DBOperator;
 import com.opensymphony.xwork2.ActionSupport;
 
 public class UserStoreAction extends ActionSupport {
-  public String name;
-  public String password;
-  public String type;
+  private String name;
+  private String password;
+  private String type;
 
   public String getName() {
     return name;
