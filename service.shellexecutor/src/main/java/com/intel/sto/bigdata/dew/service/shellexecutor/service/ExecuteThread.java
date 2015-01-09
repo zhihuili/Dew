@@ -44,13 +44,13 @@ public class ExecuteThread extends Thread {
         } else {
           status.put("status", "success");
         }
-        HttpSimpleClient.get(request.getStatusUrl(), status);
         if (request.getLogUrl() != null) {
           Map<String, String> para = new HashMap<String, String>();
           para.put("id", request.getId());
           InputStream is = new FileInputStream("/tmp/" + request.getId());
           HttpStreamClient.post(request.getLogUrl(), para, is);
         }
+        HttpSimpleClient.get(request.getStatusUrl(), status);
       }
 
     } catch (Exception e) {
