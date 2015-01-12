@@ -11,7 +11,7 @@
 		<s:iterator value="piclink" id="column">
 			<s:property value="column"/>
 			<br>
-				<img src='../ForHistory/<s:property value="column"/>' width="800" height="300"/>
+				<img src='/servlet/image?fileName=<s:property value="column"/>' width="800" height="300"/>
 			<br>
 		</s:iterator>
 </body>
