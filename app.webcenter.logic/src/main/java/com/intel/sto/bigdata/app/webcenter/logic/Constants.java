@@ -10,6 +10,7 @@ public class Constants {
   public static final String DEW_MASTER = "dew.master.url";
 
   public static final String SPARK_LOG_PATH = "dew.webcenter.applogfile.path";
+  public static final String WORKLOAD_OUTPATH_PATH = "workload.output.path";
 
   public static final String FILE_SERVER_PORT = "FileServerPort";
 }
