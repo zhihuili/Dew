@@ -11,14 +11,14 @@ public class ShowHistoryPicAction extends ActionSupport {
 
   private static final long serialVersionUID = 7941458215136661321L;
   public String path;
-  public ArrayList<String> piclink;
+  public ArrayList<String> picLink;
 
   public ArrayList<String> getPiclink() {
-    return piclink;
+    return picLink;
   }
 
   public void setPiclink(ArrayList<String> piclink) {
-    this.piclink = piclink;
+    this.picLink = piclink;
   }
 
   public String getPath() {
@@ -30,62 +30,23 @@ public class ShowHistoryPicAction extends ActionSupport {
   }
 
   public String execute() throws Exception {
-    piclink = new ArrayList<String>();
-    piclink = getpiclink(path);
-
-    String webappPath =
-        ServletActionContext.getServletContext().getRealPath(File.separator) + "/ForHistory";
-    File historyPath = new File(webappPath);
-
-    if (historyPath.exists()) {
-      deleteAll(historyPath);
-      historyPath.mkdir();
-    } else {
-      historyPath.mkdir();
-    }
-
-    ArrayList<String> wholePath = new ArrayList<String>();
-    for (String tmp : piclink) {
-      wholePath.add(path + "/" + tmp);
-    }
-    for (String jpgFile : wholePath) {
-      String cmdT = "/bin/cp " + jpgFile + " " + webappPath;
-      String[] cmdW = { "/bin/sh", "-c", cmdT };
-      Process p = Runtime.getRuntime().exec(cmdW);
-      if (p.waitFor() != 0) {
-        throw new Exception("backup failed.");
-      }
-    }
+    picLink = new ArrayList<String>();
+    picLink = getPicLink(path);
 
     return SUCCESS;
   }
 
-  static public ArrayList<String> getpiclink(String filePath) {
+  static public ArrayList<String> getPicLink(String filePath) {
     ArrayList<String> temp = new ArrayList<String>();
     File root = new File(filePath);
     File[] files = root.listFiles();
     for (File file : files) {
       if (file.getName().endsWith(".jpg") || file.getName().endsWith(".png")) {
-        temp.add(file.getName());
+        temp.add(file.getAbsolutePath());
       }
     }
 
     return temp;
   }
 
-  public void deleteAll(File path) {
-    if (!path.exists())
-      return;
-    if (path.isFile()) {
-      path.delete();
-      return;
-    }
-    File[] files = path.listFiles();
-    if (files.length != 0) {
-      for (int i = 0; i < files.length; i++) {
-        deleteAll(files[i]);
-      }
-    }
-    path.delete();
-  }
 }
