@@ -5,7 +5,7 @@
 
 <struts>
 	<package name="default" extends="struts-default" namespace="/action">
-		<action name=""
+		<action name="showAnalysisHistory"
 			class="com.intel.sto.bigdata.app.webcenter.logic.action.history.ShowHistoryListAction">
 			<result name="success">showHistoryList.jsp</result>
 		</action>
