@@ -1,6 +1,8 @@
 package com.intel.sto.bigdata.app.webcenter.logic.action.run;
 
 import com.intel.sto.bigdata.app.webcenter.logic.db.DBOperator;
+import com.intel.sto.bigdata.app.sparklogparser.model.App;
+import com.intel.sto.bigdata.app.webcenter.logic.util.Utils;
 import com.opensymphony.xwork2.ActionSupport;
 
 public class EndJobAction extends ActionSupport {
@@ -26,7 +28,8 @@ public class EndJobAction extends ActionSupport {
   }
 
   public String execute() throws Exception {
-    operator.changeAppStatus(id, status);
+    App currentApp = Utils.parseSparkDriverLog(id);
+    operator.changeAppStatus(id, status, currentApp.getAppId());
     return SUCCESS;
   }
 }

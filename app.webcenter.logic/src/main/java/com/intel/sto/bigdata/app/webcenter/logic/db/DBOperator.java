@@ -280,12 +280,12 @@ public class DBOperator extends DBService {
     return recordId;
   }
 
-  public void changeAppStatus(String recordId, String status) throws Exception {
+  public void changeAppStatus(String recordId, String status, String enginID) throws Exception {
     java.util.Date date = new java.util.Date();
     Timestamp timestamp = new Timestamp(date.getTime());
     String sql =
-        "update apprecord set endtime='" + timestamp + "', result='" + status
-            + "' where record_id='" + recordId + "'";
+        "update apprecord set endtime='" + timestamp + "', result='" + status + "',engin_app_id='"
+            + enginID + "' where record_id='" + recordId + "'";
     getConnection();
     executeNoSelect(sql);
 
