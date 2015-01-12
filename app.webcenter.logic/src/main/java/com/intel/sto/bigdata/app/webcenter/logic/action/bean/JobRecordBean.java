@@ -2,11 +2,9 @@ package com.intel.sto.bigdata.app.webcenter.logic.action.bean;
 
 import java.sql.Timestamp;
 
-public class AppRecordBean {
+public class JobRecordBean {
   private String recordID;
-  private String appName;
-  private String jobRecordID;
-  private String enginAppID;
+  private String jobName;
   private Timestamp startTime;
   private Timestamp endTime;
   private String result;
@@ -19,28 +17,12 @@ public class AppRecordBean {
     this.recordID = recordID;
   }
 
-  public String getAppName() {
-    return appName;
+  public String getJobName() {
+    return jobName;
   }
 
-  public void setAppName(String appName) {
-    this.appName = appName;
-  }
-
-  public String getJobRecordID() {
-    return jobRecordID;
-  }
-
-  public void setJobRecordID(String jobRecordID) {
-    this.jobRecordID = jobRecordID;
-  }
-
-  public String getEnginAppID() {
-    return enginAppID;
-  }
-
-  public void setEnginAppID(String enginAppID) {
-    this.enginAppID = enginAppID;
+  public void setJobName(String jobName) {
+    this.jobName = jobName;
   }
 
   public Timestamp getStartTime() {
