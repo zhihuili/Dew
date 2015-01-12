@@ -59,19 +59,25 @@ public class OfflineExecutor {
   private static String init(String confPath, String appId, Map<String, String> conf)
       throws Exception {
     // prepare context
-    Properties p = Util.buildProperties(confPath);
-    WorkloadConf.set(p);
+    File confFile = new File(confPath);
+    if (confFile.exists()) {
+      Properties p = Util.buildProperties(confPath);
+      WorkloadConf.set(p);
+    }
     for (Entry<String, String> entry : conf.entrySet()) {
       WorkloadConf.set(entry.getKey(), entry.getValue());
     }
     String baseWorkPath = WorkloadConf.get(Constants.WORKLOAD_OUTPUT_PATH);
-    String workPath = baseWorkPath + appId + "/";
-    File workDir = new File(workPath);
+    if (baseWorkPath == null) {
+      throw new Exception("configuration can't be loaded: " + Constants.WORKLOAD_OUTPUT_PATH);
+    }
+    File workDir = new File(baseWorkPath, appId);
+    String workPath = (workDir).getAbsolutePath();
     if (workDir.exists()) {
       System.err.println(workPath + " exists. delete it.");
       workDir.delete();
     }
-    workDir.mkdir();
+    workDir.mkdirs();
     WorkloadConf.set(Constants.WORKLOAD_OUTPUT_PATH, workPath);
     return workPath;
   }
