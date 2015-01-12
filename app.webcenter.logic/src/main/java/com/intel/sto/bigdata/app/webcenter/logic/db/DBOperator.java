@@ -312,7 +312,7 @@ public class DBOperator extends DBService {
     Timestamp timestamp = new Timestamp(date.getTime());
 
     String sql =
-        "insert into apprecord(record_id,app_name,job_record,starttime,endtime,result) values('"
+        "insert into apprecord(record_id,app_name,job_recordid,starttime,endtime,result) values('"
             + recordId + "','" + appBean.getName() + "','" + jobRecordID + "','" + timestamp
             + "','" + timestamp + "','running')";
     getConnection();
@@ -340,6 +340,51 @@ public class DBOperator extends DBService {
     rs.close();
     closeConnection();
 
+    return result;
+  }
+
+  public ArrayList<JobRecordBean> getAllJobRecord() throws Exception {
+    ArrayList<JobRecordBean> result = new ArrayList<JobRecordBean>();
+
+    String sql =
+        "select jobrecord.record_id,job.name,jobrecord.starttime,jobrecord.endtime,jobrecord.result from jobrecord,job where jobrecord.job_id=job.job_id order by jobrecord.starttime desc";
+    getConnection();
+    ResultSet rs = executeSelect(sql);
+
+    while (rs.next()) {
+      JobRecordBean singleJobRecord = new JobRecordBean();
+      singleJobRecord.setRecordID(rs.getString("record_id"));
+      singleJobRecord.setJobName(rs.getString("name"));
+      singleJobRecord.setStartTime(rs.getTimestamp("starttime"));
+      singleJobRecord.setEndTime(rs.getTimestamp("endtime"));
+      singleJobRecord.setResult(rs.getString("result"));
+      result.add(singleJobRecord);
+    }
+    rs.close();
+    closeConnection();
+    return result;
+  }
+
+  public ArrayList<AppRecordBean> getAllAppRecord() throws Exception {
+    ArrayList<AppRecordBean> result = new ArrayList<AppRecordBean>();
+
+    String sql = "select * from apprecord order by starttime desc";
+    getConnection();
+    ResultSet rs = executeSelect(sql);
+
+    while (rs.next()) {
+      AppRecordBean singleAppRecord = new AppRecordBean();
+      singleAppRecord.setRecordID(rs.getString("record_id"));
+      singleAppRecord.setAppName(rs.getString("app_name"));
+      singleAppRecord.setJobRecordID(rs.getString("job_recordid"));
+      singleAppRecord.setEnginAppID(rs.getString("engin_app_id"));
+      singleAppRecord.setStartTime(rs.getTimestamp("starttime"));
+      singleAppRecord.setEndTime(rs.getTimestamp("endtime"));
+      singleAppRecord.setResult(rs.getString("result"));
+      result.add(singleAppRecord);
+    }
+    rs.close();
+    closeConnection();
     return result;
   }
 }

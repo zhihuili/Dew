@@ -93,6 +93,16 @@
 			class="com.intel.sto.bigdata.app.webcenter.logic.action.run.EndJobAction">
 			<result type="redirect">jobList.action</result>
 		</action>
+		<action name="jobRecordList"
+			class="com.intel.sto.bigdata.app.webcenter.logic.action.job.JobRecordAction"
+			method="list">
+			<result>jobRecordList.jsp</result>
+		</action>
+		<action name="appRecordList"
+			class="com.intel.sto.bigdata.app.webcenter.logic.action.appinfo.AppRecordAction"
+			method="list">
+			<result>appRecordList.jsp</result>
+		</action>
 	</package>
 
 </struts>
