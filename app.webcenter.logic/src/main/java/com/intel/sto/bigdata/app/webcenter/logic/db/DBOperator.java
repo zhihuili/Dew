@@ -288,7 +288,9 @@ public class DBOperator extends DBService {
             + enginID + "' where record_id='" + recordId + "'";
     getConnection();
     executeNoSelect(sql);
-
+    closeConnection();
+    
+    getConnection();
     DBOperator operator = new DBOperator();
     AppRecordBean appRecordBean = operator.getSingleAppRecordByRecordID(recordId);
 
