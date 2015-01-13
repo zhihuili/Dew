@@ -24,6 +24,14 @@
                         <td><s:property value="startTime" /></td>
                         <td><s:property value="endTime" /></td>
                         <td><s:property value="result" /></td>
+                        <td><a
+						href='<s:url action="showAnalysisResult"><s:param name="enginID" value="enginAppID" /><s:param name="path" value="" /></s:url>'>
+							Analysis </a> &nbsp; <a
+						href='<s:url action="logQuery"><s:param name="appRecordId" value="enginAppID" /></s:url>'>
+							LogQuery </a> &nbsp; <a
+						href='<s:url action="showDiagnosisResult"><s:param name="enginID" value="enginAppID" /><s:param name="path" value="" /></s:url>'>
+							Diagnosis </a>
+						</td>
                     </tr>
                 </s:iterator>
             </tbody>

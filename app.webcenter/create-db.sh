@@ -49,7 +49,7 @@ create table apprecord(
 record_id varchar(100) NOT NULL,
 app_name varchar(100) NOT NULL,
 job_recordid varchar(100) NOT NULL,
-engin_app_id varchar(100) NOT NULL,
+engin_app_id varchar(100),
 starttime timestamp NOT NULL,
 endtime timestamp NOT NULL,
 result varchar(20) NOT NULL,

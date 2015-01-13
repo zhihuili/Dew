@@ -103,6 +103,18 @@
 			method="list">
 			<result>appRecordList.jsp</result>
 		</action>
+		<action name="showAnalysisResult"
+			class="com.intel.sto.bigdata.app.webcenter.logic.action.history.GetBackupPathAction">
+			<result type="chain">showHistoryPic</result>
+		</action>
+		<action name="showDiagnosisResult"
+			class="com.intel.sto.bigdata.app.webcenter.logic.action.history.GetBackupPathAction">
+			<result type="chain">showDiagnosisCSV</result>
+		</action>
+		<action name="showDiagnosisCSV"
+			class="com.intel.sto.bigdata.app.webcenter.logic.action.history.ShowDiagnosisResult">
+			<result name="success">showDiagnosisResult.jsp</result>
+		</action>
 	</package>
 
 </struts>
