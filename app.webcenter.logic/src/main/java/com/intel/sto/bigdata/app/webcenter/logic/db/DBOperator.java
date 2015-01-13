@@ -290,9 +290,7 @@ public class DBOperator extends DBService {
     executeNoSelect(sql);
     closeConnection();
     
-    getConnection();
-    DBOperator operator = new DBOperator();
-    AppRecordBean appRecordBean = operator.getSingleAppRecordByRecordID(recordId);
+    AppRecordBean appRecordBean = getSingleAppRecordByRecordID(recordId);
 
     if (status.equals("success")) {
       sql =
@@ -303,7 +301,7 @@ public class DBOperator extends DBService {
           "update jobrecord set endtime='" + timestamp + "', result='" + status
               + "' where record_id='" + appRecordBean.getJobRecordID() + "'";
     }
-
+    getConnection();
     executeNoSelect(sql);
     closeConnection();
   }
@@ -334,7 +332,7 @@ public class DBOperator extends DBService {
     while (rs.next()) {
       result.setRecordID(rs.getString("record_id"));
       result.setAppName(rs.getString("app_name"));
-      result.setJobRecordID(rs.getString("job_record"));
+      result.setJobRecordID(rs.getString("job_recordid"));
       result.setStartTime(rs.getTimestamp("starttime"));
       result.setEndTime(rs.getTimestamp("endtime"));
       result.setResult(rs.getString("result"));
