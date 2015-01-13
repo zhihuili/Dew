@@ -5,22 +5,18 @@
 		class="table table-striped table-bordered table-hover table-condensed">
 		<thead>
                 <tr>
-                    <th>JobId</th>
                     <th>Name</th>
                     <th>Defination</th>
                     <th>Cycle</th>
-                    <th>UserId</th>
                     <th>Operation</th>
                 </tr>
             </thead>
             <tbody>
                 <s:iterator value="jobs">
                     <tr>
-                        <td><s:property value="jobId" /></td>
                         <td><s:property value="name" /></td>
                         <td><s:property value="defination" /></td>
                         <td><s:property value="cycle" /></td>
-                        <td><s:property value="userId" /></td>
                         <td>
                             <a href='<s:url action="jobEdit"><s:param name="jobId" value="jobId" /></s:url>'>
                                 Edit
