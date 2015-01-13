@@ -23,13 +23,6 @@
 			</div>
 		</div>
 		<div class="control-group">
-			<label class="control-label" for="executable">UserId</label>
-			<div class="controls">
-				<input type="text" name="userId" id="userId"
-					placeholder="1">
-			</div>
-		</div>
-		<div class="control-group">
 			<div class="controls">
 				<button type="submit" value="login" class="btn">Submit</button>
 			</div>

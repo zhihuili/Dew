@@ -28,12 +28,6 @@
 			</div>
 		</div>
 		<div class="control-group">
-			<label class="control-label" for="name">UserId</label>
-			<div class="controls">
-				<s:textfield name="job.userId"/>
-			</div>
-		</div>
-		<div class="control-group">
 			<div class="controls">
 				<button type="submit" value="login" class="btn">Submit</button>
 			</div>
