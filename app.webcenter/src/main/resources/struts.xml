@@ -105,11 +105,11 @@
 		</action>
 		<action name="showAnalysisResult"
 			class="com.intel.sto.bigdata.app.webcenter.logic.action.history.GetBackupPathAction">
-			<result type="redirect">showHistoryPic.action?path=${path}</result>
+			<result type="chain">showHistoryPic</result>
 		</action>
 		<action name="showDiagnosisResult"
 			class="com.intel.sto.bigdata.app.webcenter.logic.action.history.GetBackupPathAction">
-			<result type="redirect">showDiagnosisCSV.action?path=${path}</result>
+			<result type="chain">showDiagnosisCSV</result>
 		</action>
 		<action name="showDiagnosisCSV"
 			class="com.intel.sto.bigdata.app.webcenter.logic.action.history.ShowDiagnosisResult">

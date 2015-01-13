@@ -2,8 +2,7 @@ package com.intel.sto.bigdata.app.webcenter.logic.action.history;
 
 import java.io.File;
 
-import com.intel.sto.bigdata.app.sparkperformance.Util;
-import com.intel.sto.bigdata.app.webcenter.logic.Constants;
+import com.intel.sto.bigdata.app.webcenter.logic.util.Utils;
 import com.opensymphony.xwork2.ActionSupport;
 
 public class GetBackupPathAction extends ActionSupport {
@@ -28,11 +27,8 @@ public class GetBackupPathAction extends ActionSupport {
   }
 
   public String execute() throws Exception {
-    File sparkPowerMeterConfFile =
-        new File(System.getenv("DEW_HOME"), "app.sparkpowermeter/conf.properties");
-    String backupPath =
-        Util.buildProperties(sparkPowerMeterConfFile.getAbsolutePath()).getProperty(
-            Constants.WORKLOAD_OUTPATH_PATH);
+
+    String backupPath = Utils.getWorkloadPath();
     File tmpPath = new File(backupPath, enginID);
     path = tmpPath.toString();
     return SUCCESS;
