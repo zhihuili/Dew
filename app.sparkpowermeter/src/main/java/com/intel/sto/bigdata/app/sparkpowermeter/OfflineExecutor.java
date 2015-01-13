@@ -72,12 +72,13 @@ public class OfflineExecutor {
       throw new Exception("configuration can't be loaded: " + Constants.WORKLOAD_OUTPUT_PATH);
     }
     File workDir = new File(baseWorkPath, appId);
-    String workPath = (workDir).getAbsolutePath();
+
     if (workDir.exists()) {
-      System.err.println(workPath + " exists. delete it.");
+      System.err.println(workDir.getAbsolutePath() + " exists. delete it.");
       workDir.delete();
     }
     workDir.mkdirs();
+    String workPath = workDir.getAbsolutePath();
     WorkloadConf.set(Constants.WORKLOAD_OUTPUT_PATH, workPath);
     return workPath;
   }
