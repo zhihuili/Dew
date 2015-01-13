@@ -29,7 +29,10 @@ public class EndJobAction extends ActionSupport {
 
   public String execute() throws Exception {
     App currentApp = Utils.parseSparkDriverLog(id);
-    operator.changeAppStatus(id, status, currentApp.getAppId());
+    String appId = currentApp.getAppId();
+    operator.changeAppStatus(id, status, appId);
+    Utils.collectSparkLog(appId);
+    Utils.runSparkPowerMeter(currentApp);
     return SUCCESS;
   }
 }

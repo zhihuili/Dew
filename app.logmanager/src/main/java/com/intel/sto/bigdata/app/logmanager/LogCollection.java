@@ -16,11 +16,11 @@ public class LogCollection {
 
   private static Map<String, String> conf;
 
-  public static void collect(String appId) throws Exception {
-    init();
+  public static void collect(String appId, List<String> logPathList, String masterUrl)
+      throws Exception {
     FirstAggregatorProcessor processor = new FirstAggregatorProcessor();
-    new AgentProxy(conf.get(Constants.DEW_MASTER_URL), processor,
-        new AppDes(null, "logaggregation")).requestService(new LogAggregatorRequest());
+    new AgentProxy(masterUrl, processor, new AppDes(null, "logaggregation"))
+        .requestService(new LogAggregatorRequest());
     String aggregatorHttpUrl = processor.getHttpUrl();
     if (aggregatorHttpUrl == null) {
       throw new Exception("can't find log aggregator.");
@@ -28,20 +28,25 @@ public class LogCollection {
     LogCollectionRequest collectionRequest = new LogCollectionRequest();
     collectionRequest.setAppId(appId);
     collectionRequest.setHttpUrl(aggregatorHttpUrl);
-    List<String> logPathList = new ArrayList<String>();
-    // TODO path
-    logPathList.add(conf.get(Constants.SPARK_LOG_PATH));
     collectionRequest.setLogPathList(logPathList);
     // TODO hosts
-    new AgentProxy(conf.get(Constants.DEW_MASTER_URL), new DoNothingAppProcessor(), new AppDes(
-        null, "logcollection")).requestService(collectionRequest);
+    new AgentProxy(masterUrl, new DoNothingAppProcessor(), new AppDes(null, "logcollection"))
+        .requestService(collectionRequest);
   }
 
   private static void init() throws Exception {
     conf = Files.loadPropertiesFile("/logmanager.conf");
   }
-  
-  public static void main(String[] args) throws Exception{
+
+  public static void collect(String appId) throws Exception {
+    init();
+    List<String> logPathList = new ArrayList<String>();
+    // TODO path
+    logPathList.add(conf.get(Constants.SPARK_LOG_PATH));
+    collect(appId, logPathList, conf.get(Constants.DEW_MASTER_URL));
+  }
+
+  public static void main(String[] args) throws Exception {
     collect("app-20140729132215-0003");
   }
 }
