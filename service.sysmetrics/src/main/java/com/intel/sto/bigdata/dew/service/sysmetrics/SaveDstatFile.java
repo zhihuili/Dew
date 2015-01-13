@@ -10,7 +10,7 @@ public class SaveDstatFile {
 
     FileOutputStream fos = null;
     try {
-      fos = new FileOutputStream(new File(path + "dstat_" + hostName + ".dat"));
+      fos = new FileOutputStream(new File(path , "dstat_" + hostName + ".dat"));
       String[] contents = content.split(";");
       for (String line : contents) {
         fos.write((line + System.getProperty("line.separator")).getBytes());
