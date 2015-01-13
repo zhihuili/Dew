@@ -2,7 +2,10 @@ package com.intel.sto.bigdata.app.webcenter.logic.util;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
+import com.intel.sto.bigdata.app.logmanager.LogCollection;
 import com.intel.sto.bigdata.app.sparklogparser.DriverlogMain;
 import com.intel.sto.bigdata.app.sparklogparser.model.App;
 import com.intel.sto.bigdata.app.sparkperformance.Util;
@@ -24,6 +27,32 @@ public class Utils {
     String desPath = (new File(dewHome, "app.sparkpowermeter/runner.des")).getAbsolutePath();
 
     OfflineExecutor.execute(confPath, desPath, app, WebCenterContext.getConf());
+  }
+
+  public static void collectSparkLog(String appId) throws Exception {
+    List<String> logPathList = new ArrayList<String>();
+
+    String sparkHome = System.getenv("SPARK_HOME");
+    if (sparkHome != null) {
+      logPathList.add(new File(sparkHome, "work").getAbsolutePath());
+    }
+
+    String yarnHome = System.getenv("HADOOP_HOME");
+    if (yarnHome != null) {
+      logPathList.add(new File(yarnHome, "logs/userlogs/").getAbsolutePath());
+    }
+
+    String yarnConfDir = System.getenv("YARN_CONF_DIR");
+    if (yarnConfDir != null) {
+      logPathList.add(new File(yarnConfDir, "../../logs/userlogs/").getAbsolutePath());
+    }
+
+    String logPath = WebCenterContext.getConf().get("spark.log.path");
+    if (logPath != null) {
+      logPathList.add(logPath);
+    }
+
+    LogCollection.collect(appId, logPathList, WebCenterContext.getConf().get(Constants.DEW_MASTER));
   }
 
   public static String getWorkloadPath() throws IOException {
