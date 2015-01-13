@@ -34,22 +34,22 @@ public class Utils {
 
     String sparkHome = System.getenv("SPARK_HOME");
     if (sparkHome != null) {
-      logPathList.add(new File(sparkHome, appId).getAbsolutePath());
+      logPathList.add(new File(sparkHome, "work").getAbsolutePath());
     }
 
     String yarnHome = System.getenv("HADOOP_HOME");
     if (yarnHome != null) {
-      logPathList.add(new File(yarnHome, "logs/userlogs/" + appId).getAbsolutePath());
+      logPathList.add(new File(yarnHome, "logs/userlogs/").getAbsolutePath());
     }
 
     String yarnConfDir = System.getenv("YARN_CONF_DIR");
     if (yarnConfDir != null) {
-      logPathList.add(new File(yarnConfDir, "../../logs/userlogs/" + appId).getAbsolutePath());
+      logPathList.add(new File(yarnConfDir, "../../logs/userlogs/").getAbsolutePath());
     }
 
     String logPath = WebCenterContext.getConf().get("spark.log.path");
     if (logPath != null) {
-      logPathList.add(new File(logPath, appId).getAbsolutePath());
+      logPathList.add(logPath);
     }
 
     LogCollection.collect(appId, logPathList, WebCenterContext.getConf().get(Constants.DEW_MASTER));
