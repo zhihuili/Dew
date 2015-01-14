@@ -28,7 +28,7 @@ public class Matcher {
     map.put("(.*)Registered executor:(.*)", new ExecutorsProcessor());
     map.put("(.*)Changing view acls to(.*)", new UserProcessor());
     map.put("(.*)Connected to Spark cluster with app ID(.*)", new StandaloneAppIdProcessor());
-    map.put(" Application (.*) has started running.", new YarnAppIdProcessor());
+    map.put("(.*)Application (.*) has started running.", new YarnAppIdProcessor());
   }
 
   public static Processor build(String line) throws Exception {

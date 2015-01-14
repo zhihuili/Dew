@@ -72,12 +72,13 @@ public class OfflineExecutor {
       throw new Exception("configuration can't be loaded: " + Constants.WORKLOAD_OUTPUT_PATH);
     }
     File workDir = new File(baseWorkPath, appId);
-    String workPath = (workDir).getAbsolutePath();
+
     if (workDir.exists()) {
-      System.err.println(workPath + " exists. delete it.");
+      System.err.println(workDir.getAbsolutePath() + " exists. delete it.");
       workDir.delete();
     }
     workDir.mkdirs();
+    String workPath = workDir.getAbsolutePath() + "/";
     WorkloadConf.set(Constants.WORKLOAD_OUTPUT_PATH, workPath);
     return workPath;
   }
@@ -98,7 +99,7 @@ public class OfflineExecutor {
   private static void diagnose(String workPath, Set<String> hosts) throws Exception {
     List<DiagnosisResult> diagnosisResultList =
         Diagnostician.diagnose(buildDiagnosisContext(workPath, hosts));
-    File analysisFile = new File(workPath + "analysis.result");
+    File analysisFile = new File(workPath, "analysis.result");
     FileUtil.printAnalysisResult(diagnosisResultList, analysisFile);
   }
 
@@ -109,7 +110,8 @@ public class OfflineExecutor {
 
     // output parsed spark driver log to workPath.
     DriverlogMain.printApp(app, workPath);
-    WorkloadConf.set(Constants.SPARK_CLUSTER_SLAVE, workPath + "executors.csv");
+    WorkloadConf.set(Constants.SPARK_CLUSTER_SLAVE,
+        new File(workPath, "executors.csv").getAbsolutePath());
 
     analyzePerformance(workPath, desPath, app.getExecutors(), app.getStartTime(), app.getEndTime());
 

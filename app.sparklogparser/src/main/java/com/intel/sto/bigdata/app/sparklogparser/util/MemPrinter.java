@@ -13,7 +13,7 @@ public class MemPrinter {
 
     for (Map.Entry<String, MemInfo> entry : app.getMemMap().entrySet()) {
       FileOutputStream rddMemFs =
-          new FileOutputStream(new File(path + entry.getKey() + "rddmem.csv"));
+          new FileOutputStream(new File(path + entry.getKey() , "rddmem.csv"));
       for (Map.Entry<String, rddMemInfo> rddEntry : entry.getValue().getRddMemInfoMap().entrySet()) {
         rddMemFs.write((rddEntry.getKey() + "," + rddEntry.getValue().getMemSize() + ","
             + (rddEntry.getValue().getTime() - app.getLastChild().getAppStartTime()) + "\r\n")

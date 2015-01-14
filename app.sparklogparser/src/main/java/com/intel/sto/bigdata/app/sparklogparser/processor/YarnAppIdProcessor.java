@@ -6,7 +6,7 @@ public class YarnAppIdProcessor extends BaseProcessor {
 
   @Override
   public void process(App app) throws Exception {
-    app.setAppId(super.subLogLine(6));
+    app.setAppId(super.subLogLine(5));
 
   }
 

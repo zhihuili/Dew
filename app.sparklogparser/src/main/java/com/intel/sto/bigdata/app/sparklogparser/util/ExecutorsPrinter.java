@@ -8,7 +8,7 @@ import com.intel.sto.bigdata.app.sparklogparser.model.App;
 public class ExecutorsPrinter {
   public static void print(App app, String path) throws Exception {
 
-    FileOutputStream executorsFs = new FileOutputStream(new File(path + "executors.csv"));
+    FileOutputStream executorsFs = new FileOutputStream(new File(path , "executors.csv"));
     for (String executor : app.getExecutors()) {
       executorsFs.write((executor + "\r\n").getBytes());
     }
