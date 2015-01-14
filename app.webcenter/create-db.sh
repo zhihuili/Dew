@@ -32,7 +32,7 @@ job_id int generated always as identity,
 name varchar(100) NOT NULL,
 defination varchar(2000),
 cycle varchar(20),
-user_id int NOT NULL,
+user_id int,
 primary key(job_id)
 );
 

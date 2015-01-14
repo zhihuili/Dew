@@ -3,7 +3,7 @@
 <div class='span9 main'>
 	<form class='form-horizontal' id=appModify name="appModify"
 		action="/action/appModify.action" method="get">
-		<div class="control-group">
+		<div class="control-group" style="display: none">
 			<label class="control-label" for="name">AppID</label>
 			<div class="controls">
 				<s:textfield name="app.appId"/>

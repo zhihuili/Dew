@@ -5,7 +5,6 @@
 		class="table table-striped table-bordered table-hover table-condensed">
 		<thead>
 			<tr>
-				<th>ID</th>
 				<th>Name</th>
 				<th>path</th>
 				<th>executable</th>
@@ -18,7 +17,6 @@
 		<tbody>
 			<s:iterator value="apps">
 				<tr>
-					<td><s:property value="appId" /></td>
 					<td><s:property value="name" /></td>
 					<td><s:property value="path" /></td>
 					<td><s:property value="executable" /></td>
