@@ -1,7 +1,6 @@
 package com.intel.sto.bigdata.dew.utils;
 
 import java.io.IOException;
-import java.net.URI;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FileSystem;
@@ -16,10 +15,16 @@ public class Hdfs {
     this(new DewConf());
   }
 
-  private Hdfs(DewConf dewConf) throws IOException {
+  private Hdfs(DewConf dewConf) {
     Configuration conf = new Configuration();
-    // conf.addResource(new Path("/home/frank/Downloads/hadoop-1.0.3/conf/core-site.xml"));
-    fs = FileSystem.get(URI.create(dewConf.get("hdfs")), conf);
+    conf.set("fs.default.name", dewConf.get("hdfs"));
+    conf.set("fs.hdfs.impl", org.apache.hadoop.hdfs.DistributedFileSystem.class.getName());
+    try {
+      fs = FileSystem.get(conf);
+    } catch (Throwable t) {
+      System.err.println("----------hdfs throw:" + t);
+      t.printStackTrace();
+    }
   }
 
   /**
