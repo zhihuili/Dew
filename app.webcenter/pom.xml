@@ -9,7 +9,7 @@
 	<groupId>com.intel.sto.bigdata</groupId>
 	<artifactId>app.webcenter</artifactId>
 	<packaging>war</packaging>
-        <version>web</version>
+	<version>web</version>
 	<name>app.webcenter</name>
 	<url>http://maven.apache.org</url>
 	<dependencies>
@@ -17,6 +17,11 @@
 			<artifactId>app.webcenter.logic</artifactId>
 			<groupId>com.intel.sto.bigdata</groupId>
 			<version>1.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>2.1</version>
 		</dependency>
 	</dependencies>
 </project>

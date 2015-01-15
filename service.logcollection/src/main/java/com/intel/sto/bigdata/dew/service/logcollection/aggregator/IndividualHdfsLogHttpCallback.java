@@ -43,7 +43,6 @@ public class IndividualHdfsLogHttpCallback extends HttpStreamCallback {
         os.write((line + System.getProperty("line.separator")).getBytes());
       }
       os.close();
-      fs.close();
       br.close();
     } catch (IOException e) {
       e.printStackTrace();
