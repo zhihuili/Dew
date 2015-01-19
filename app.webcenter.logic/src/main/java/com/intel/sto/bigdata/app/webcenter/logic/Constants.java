@@ -13,4 +13,6 @@ public class Constants {
   public static final String WORKLOAD_OUTPATH_PATH = "workload.output.path";
 
   public static final String FILE_SERVER_PORT = "FileServerPort";
+
+  public static final String DSTAT_CIRCLELINK = "dstatCircleLink";
 }

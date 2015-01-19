@@ -12,7 +12,7 @@ public class Hdfs {
   private static FileSystem fs;
 
   private Hdfs() throws IOException {
-    this(new DewConf());
+    this(DewConf.getDewConf());
   }
 
   private Hdfs(DewConf dewConf) {

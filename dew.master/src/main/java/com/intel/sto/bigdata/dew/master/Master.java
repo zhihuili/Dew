@@ -23,7 +23,7 @@ public class Master extends UntypedActor {
   private DewConf dewConf;
 
   public Master() throws Exception {
-    dewConf = new DewConf();
+    dewConf = DewConf.getDewConf();
     defaultServices = Files.loadService("/services.properties");
     processServiceManager = new ProcessServiceManager(defaultServices, getSelf());
     processServiceManager.start();

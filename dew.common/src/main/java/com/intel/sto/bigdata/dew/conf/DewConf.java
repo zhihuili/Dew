@@ -7,8 +7,9 @@ import com.intel.sto.bigdata.dew.utils.Util;
 
 public class DewConf {
   Properties p;
+  private static DewConf instance = new DewConf();
 
-  public DewConf() {
+  private DewConf() {
     String dewHome = System.getenv("DEW_HOME");
     String confFile = dewHome + "/conf/dew.conf";
     try {
@@ -16,6 +17,10 @@ public class DewConf {
     } catch (IOException e) {
       e.printStackTrace();
     }
+  }
+
+  public static DewConf getDewConf() {
+    return instance;
   }
 
   public String get(String key) {

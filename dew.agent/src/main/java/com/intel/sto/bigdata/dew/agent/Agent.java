@@ -31,7 +31,7 @@ public class Agent extends UntypedActor {
 
   public Agent(String masterUrl, ServiceManager serviceManager, String serviceDes) {
     this.serviceManager = serviceManager;
-    this.dewConf = new DewConf();
+    this.dewConf =  DewConf.getDewConf();
     this.masterUrl = masterUrl;
     if (serviceDes != null) {
       defaultServiceDes = new ServiceDes();

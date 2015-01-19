@@ -14,6 +14,7 @@ import com.intel.sto.bigdata.dew.utils.Files;
 public class DstatProcessor extends Thread {
   private Process process;
   private File basePath = Files.getDstatDataPath();
+  private String currentDstat;
 
   @Override
   public void run() {
@@ -24,18 +25,18 @@ public class DstatProcessor extends Thread {
         tmpFile.delete();
       }
       tmpFile.createNewFile();
+      String tmpFileName = tmpFile.getAbsolutePath();
       String[] cmd =
           {
               "/bin/sh",
               "-c",
-              "dstat --mem --io --cpu --net -N eth0,eth1,total --disk --output "
-                  + tmpFile.getAbsolutePath()};
+              "dstat --mem --io --cpu --net -N eth0,eth1,total --disk --output " + tmpFileName
+                  + " | tail -f " + tmpFileName };
       process = Runtime.getRuntime().exec(cmd);
       BufferedReader br = new BufferedReader(new InputStreamReader(process.getInputStream()));
       String line;
-      while((line = br.readLine())!=null){
-        // do nothing.
-        // only output 671 line data if not read process.inputStream. 
+      while ((line = br.readLine()) != null) {
+        currentDstat = line;
       }
     } catch (Exception e) {
       e.printStackTrace();
@@ -136,6 +137,10 @@ public class DstatProcessor extends Thread {
     }
 
     return result;
+  }
+
+  public String getCurrentDstat() {
+    return currentDstat;
   }
 
   /**

@@ -1,16 +1,19 @@
 package com.intel.sto.bigdata.dew.utils;
 
 import java.io.BufferedInputStream;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.Properties;
+import java.util.Set;
 
 public class Util {
   // Because posting http stream use header to transfer parameter, add a
   // prefix to differ from http protocol.
   private static String PREFIX = "dew-";
+  private static Set<String> hosts;
 
   public static String addPrefix(String s) {
     return PREFIX + s;
@@ -37,7 +40,7 @@ public class Util {
     }
     return null;
   }
-  
+
   public static Properties buildProperties(String conf) throws IOException {
     InputStream in = new BufferedInputStream(new FileInputStream(conf));
     Properties props = new Properties();
@@ -45,4 +48,19 @@ public class Util {
     in.close();
     return props;
   }
+
+  public synchronized static Set<String> loadSlaves() throws Exception {
+    if (hosts == null) {
+      String dewHome = System.getenv("DEW_HOME");
+      File slaveFile = new File(dewHome + "/conf", "slaves");
+      if (!slaveFile.exists()) {
+        throw new Exception("Cannot find slave file.");
+      }
+      String slaveFilePath = slaveFile.getAbsolutePath();
+      InputStream is = new FileInputStream(slaveFilePath);
+      hosts = Files.loadResourceFile(is);
+    }
+    return hosts;
+  }
+
 }
