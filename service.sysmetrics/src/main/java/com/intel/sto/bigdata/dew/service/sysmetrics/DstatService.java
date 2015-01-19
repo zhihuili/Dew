@@ -9,6 +9,7 @@ import com.intel.sto.bigdata.dew.http.client.HttpStreamClient;
 import com.intel.sto.bigdata.dew.message.ErrorMessage;
 import com.intel.sto.bigdata.dew.message.ServiceResponse;
 import com.intel.sto.bigdata.dew.service.Service;
+import com.intel.sto.bigdata.dew.service.sysmetrics.message.CurrentDstatServiceRequest;
 import com.intel.sto.bigdata.dew.service.sysmetrics.message.DstatServiceRequest;
 import com.intel.sto.bigdata.dew.service.sysmetrics.message.HttpDstatServiceRequest;
 import com.intel.sto.bigdata.dew.utils.Host;
@@ -16,7 +17,7 @@ import com.intel.sto.bigdata.dew.utils.Host;
 public class DstatService extends Service {
 
   private boolean run = true;
-  DstatProcessor dp;
+  private DstatProcessor dp;
 
   @Override
   public void run() {
@@ -34,20 +35,24 @@ public class DstatService extends Service {
   @Override
   public ServiceResponse get(Object message) {
     ServiceResponse result = new ServiceResponse();
+    if (dp == null) {
+      result.setEm(new ErrorMessage("Service is stoped."));
+      return result;
+    }
+    if (message instanceof CurrentDstatServiceRequest) {
+      String content = dp.getCurrentDstat();
+      result.setContent(content);
+      return result;
+    }
     if (!(message instanceof DstatServiceRequest)) {
       result.setEm(new ErrorMessage("Wrong request message type, except DstatServiceRequest."));
       return result;
     }
     DstatServiceRequest request = (DstatServiceRequest) message;
-    DstatProcessor sdp = dp;
 
-    if (dp == null) {
-      result.setEm(new ErrorMessage("Service is Stoped."));
-      return result;
-    }
     String content;
     try {
-      content = sdp.findWorkloadMetrics(request.getStartTime(), request.getEndTime());
+      content = dp.findWorkloadMetrics(request.getStartTime(), request.getEndTime());
     } catch (Exception e) {
       result.setEm(new ErrorMessage(e.getMessage()));
       return result;

@@ -19,4 +19,8 @@ public class ErrorMessage implements Serializable {
     this.error = error;
   }
 
+  @Override
+  public String toString() {
+    return error;
+  }
 }

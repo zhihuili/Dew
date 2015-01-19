@@ -1,1 +1,2 @@
 hdfs=hdfs://localhost:9000
+master=locahost:6066
