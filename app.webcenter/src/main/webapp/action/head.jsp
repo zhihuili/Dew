@@ -47,7 +47,7 @@ html, body {
 			<div class='navbar navbar-inverse'>
 				<div class='navbar-inner nav-collapse' style="height: auto;">
 					<ul class="nav">
-						<li class="active"><a href="#">Home</a></li>
+						<li class="active"><a href="/action/Main.jsp">Home</a></li>
 						<li><a href="/action/appList">App Management</a></li>
 						<li><a href="/action/jobList">Job Management</a></li>
 						<li><a href="#">Log Management</a></li>

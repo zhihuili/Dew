@@ -17,7 +17,6 @@ import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
 import akka.actor.Identify;
 import akka.actor.Props;
-import akka.actor.UntypedActor;
 import akka.pattern.Patterns;
 import akka.util.Timeout;
 
@@ -51,7 +50,8 @@ public class MyAppDriver {
                     ConfigValueFactory.fromAnyRef(Host.getName())));
     String masterUrl = DewConf.getDewConf().get("master");
     String masterPath = "akka.tcp://Master@" + masterUrl + "/user/master";
-
+    log.warn("Build MyAppDriver with master url: "+masterPath);
+    
     try {
       master =
           ((ActorIdentity) ask(system.actorSelection(masterPath), new Identify(masterPath), 3000)

@@ -116,5 +116,10 @@
 			<result name="success">showDiagnosisResult.jsp</result>
 		</action>
 	</package>
-
+	<package name="jsontest" extends="json-default" namespace="/action">
+		<action name="getClusterData"
+			class="com.intel.sto.bigdata.app.webcenter.logic.action.cluster.GetClusterData">
+			<result type="json"></result>
+		</action>
+	</package>
 </struts>
