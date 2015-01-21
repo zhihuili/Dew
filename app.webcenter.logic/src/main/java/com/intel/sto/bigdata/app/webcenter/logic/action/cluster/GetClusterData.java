@@ -92,7 +92,7 @@ public class GetClusterData extends ActionSupport {
     ChartData dataMEMCached = new ChartData();
     dataMEMCached.setName("cached");
     ChartData dataMEMFree = new ChartData();
-    dataMEMFree.setName("Free");
+    dataMEMFree.setName("free");
     List<ChartData> tableNETWORK = new ArrayList<ChartData>();
     ChartData dataNETWORKRecv = new ChartData();
     dataNETWORKRecv.setName("totalrecv");
@@ -104,21 +104,21 @@ public class GetClusterData extends ActionSupport {
     ChartData dataDiskWrit = new ChartData();
     dataDiskWrit.setName("diskwrit");
 
-    List<Integer> metricUsr = new ArrayList<Integer>();
-    List<Integer> metricSys = new ArrayList<Integer>();
-    List<Integer> metricIdl = new ArrayList<Integer>();
-    List<Integer> metricWai = new ArrayList<Integer>();
+    List<Double> metricUsr = new ArrayList<Double>();
+    List<Double> metricSys = new ArrayList<Double>();
+    List<Double> metricIdl = new ArrayList<Double>();
+    List<Double> metricWai = new ArrayList<Double>();
 
-    List<Integer> metricUsed = new ArrayList<Integer>();
-    List<Integer> metricBuffer = new ArrayList<Integer>();
-    List<Integer> metricCached = new ArrayList<Integer>();
-    List<Integer> metricFree = new ArrayList<Integer>();
+    List<Double> metricUsed = new ArrayList<Double>();
+    List<Double> metricBuffer = new ArrayList<Double>();
+    List<Double> metricCached = new ArrayList<Double>();
+    List<Double> metricFree = new ArrayList<Double>();
 
-    List<Integer> metricTotalrecv = new ArrayList<Integer>();
-    List<Integer> metricTotalsend = new ArrayList<Integer>();
+    List<Double> metricTotalrecv = new ArrayList<Double>();
+    List<Double> metricTotalsend = new ArrayList<Double>();
 
-    List<Integer> metricDiskread = new ArrayList<Integer>();
-    List<Integer> metricDiskWrit = new ArrayList<Integer>();
+    List<Double> metricDiskread = new ArrayList<Double>();
+    List<Double> metricDiskWrit = new ArrayList<Double>();
 
     for (CircleLinkNode node : dstatList) {
       Map<String, String> map = node.getElement();
@@ -175,21 +175,21 @@ public class GetClusterData extends ActionSupport {
       avgDISKRead = avgDISKRead / map.size();
       avgDISKWrit = avgDISKWrit / map.size();
 
-      metricUsr.add((int)Math.rint(avgCPUUsr));
-      metricSys.add((int)Math.rint(avgCPUSys));
-      metricIdl.add((int)Math.rint(avgCPUIdl));
-      metricWai.add((int)Math.rint(avgCPUWai));
+      metricUsr.add(Math.rint(avgCPUUsr));
+      metricSys.add(Math.rint(avgCPUSys));
+      metricIdl.add(Math.rint(avgCPUIdl));
+      metricWai.add(Math.rint(avgCPUWai));
 
-      metricUsed.add((int)Math.rint(avgMEMUsed));
-      metricBuffer.add((int)Math.rint(avgMEMBuffer));
-      metricCached.add((int)Math.rint(avgMEMCached));
-      metricFree.add((int)Math.rint(avgMEMFree));
+      metricUsed.add(Math.rint(avgMEMUsed));
+      metricBuffer.add(Math.rint(avgMEMBuffer));
+      metricCached.add(Math.rint(avgMEMCached));
+      metricFree.add(Math.rint(avgMEMFree));
 
-      metricTotalrecv.add((int)Math.rint(avgNETWORKRecv));
-      metricTotalsend.add((int)Math.rint(avgNETWORKSend));
+      metricTotalrecv.add(Math.rint(avgNETWORKRecv));
+      metricTotalsend.add(Math.rint(avgNETWORKSend));
 
-      metricDiskread.add((int)Math.rint(avgDISKRead));
-      metricDiskWrit.add((int)Math.rint(avgDISKWrit));
+      metricDiskread.add(Math.rint(avgDISKRead));
+      metricDiskWrit.add(Math.rint(avgDISKWrit));
     }
 
     while (timeStamp.size() != 100) {
