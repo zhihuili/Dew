@@ -14,13 +14,15 @@ function  chart1( json,jsonTime) {
 	            }
 	        },
 	        yAxis: {
+	            min:0,
+	            max:100,
 	        	 title: {
 		                text: '   '
 		            }
 	        },
 	        plotOptions: {
 	            area: {
-	            	stacking: 'percent',
+	                 stacking: 'normal',
 	                marker: {
 	                    enabled: false,
 	                    symbol: 'circle',
