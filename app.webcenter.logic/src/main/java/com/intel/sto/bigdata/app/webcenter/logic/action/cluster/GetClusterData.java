@@ -175,21 +175,21 @@ public class GetClusterData extends ActionSupport {
       avgDISKRead = avgDISKRead / map.size();
       avgDISKWrit = avgDISKWrit / map.size();
 
-      metricUsr.add((int)Math.floor(avgCPUUsr));
-      metricSys.add((int)Math.floor(avgCPUSys));
-      metricIdl.add((int)Math.floor(avgCPUIdl));
-      metricWai.add((int)Math.floor(avgCPUWai));
+      metricUsr.add((int)Math.rint(avgCPUUsr));
+      metricSys.add((int)Math.rint(avgCPUSys));
+      metricIdl.add((int)Math.rint(avgCPUIdl));
+      metricWai.add((int)Math.rint(avgCPUWai));
 
-      metricUsed.add((int)Math.floor(avgMEMUsed));
-      metricBuffer.add((int)Math.floor(avgMEMBuffer));
-      metricCached.add((int)Math.floor(avgMEMCached));
-      metricFree.add((int)Math.floor(avgMEMFree));
+      metricUsed.add((int)Math.rint(avgMEMUsed));
+      metricBuffer.add((int)Math.rint(avgMEMBuffer));
+      metricCached.add((int)Math.rint(avgMEMCached));
+      metricFree.add((int)Math.rint(avgMEMFree));
 
-      metricTotalrecv.add((int)Math.floor(avgNETWORKRecv));
-      metricTotalsend.add((int)Math.floor(avgNETWORKSend));
+      metricTotalrecv.add((int)Math.rint(avgNETWORKRecv));
+      metricTotalsend.add((int)Math.rint(avgNETWORKSend));
 
-      metricDiskread.add((int)Math.floor(avgDISKRead));
-      metricDiskWrit.add((int)Math.floor(avgDISKWrit));
+      metricDiskread.add((int)Math.rint(avgDISKRead));
+      metricDiskWrit.add((int)Math.rint(avgDISKWrit));
     }
 
     while (timeStamp.size() != 100) {
