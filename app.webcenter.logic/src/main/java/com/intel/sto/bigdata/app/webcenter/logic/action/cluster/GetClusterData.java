@@ -104,21 +104,21 @@ public class GetClusterData extends ActionSupport {
     ChartData dataDiskWrit = new ChartData();
     dataDiskWrit.setName("diskwrit");
 
-    List<Double> metricUsr = new ArrayList<Double>();
-    List<Double> metricSys = new ArrayList<Double>();
-    List<Double> metricIdl = new ArrayList<Double>();
-    List<Double> metricWai = new ArrayList<Double>();
+    List<Integer> metricUsr = new ArrayList<Integer>();
+    List<Integer> metricSys = new ArrayList<Integer>();
+    List<Integer> metricIdl = new ArrayList<Integer>();
+    List<Integer> metricWai = new ArrayList<Integer>();
 
-    List<Double> metricUsed = new ArrayList<Double>();
-    List<Double> metricBuffer = new ArrayList<Double>();
-    List<Double> metricCached = new ArrayList<Double>();
-    List<Double> metricFree = new ArrayList<Double>();
+    List<Integer> metricUsed = new ArrayList<Integer>();
+    List<Integer> metricBuffer = new ArrayList<Integer>();
+    List<Integer> metricCached = new ArrayList<Integer>();
+    List<Integer> metricFree = new ArrayList<Integer>();
 
-    List<Double> metricTotalrecv = new ArrayList<Double>();
-    List<Double> metricTotalsend = new ArrayList<Double>();
+    List<Integer> metricTotalrecv = new ArrayList<Integer>();
+    List<Integer> metricTotalsend = new ArrayList<Integer>();
 
-    List<Double> metricDiskread = new ArrayList<Double>();
-    List<Double> metricDiskWrit = new ArrayList<Double>();
+    List<Integer> metricDiskread = new ArrayList<Integer>();
+    List<Integer> metricDiskWrit = new ArrayList<Integer>();
 
     for (CircleLinkNode node : dstatList) {
       Map<String, String> map = node.getElement();
@@ -175,21 +175,21 @@ public class GetClusterData extends ActionSupport {
       avgDISKRead = avgDISKRead / map.size();
       avgDISKWrit = avgDISKWrit / map.size();
 
-      metricUsr.add(avgCPUUsr);
-      metricSys.add(avgCPUSys);
-      metricIdl.add(avgCPUIdl);
-      metricWai.add(avgCPUWai);
+      metricUsr.add((int)Math.floor(avgCPUUsr));
+      metricSys.add((int)Math.floor(avgCPUSys));
+      metricIdl.add((int)Math.floor(avgCPUIdl));
+      metricWai.add((int)Math.floor(avgCPUWai));
 
-      metricUsed.add(avgMEMUsed);
-      metricBuffer.add(avgMEMBuffer);
-      metricCached.add(avgMEMCached);
-      metricFree.add(avgMEMFree);
+      metricUsed.add((int)Math.floor(avgMEMUsed));
+      metricBuffer.add((int)Math.floor(avgMEMBuffer));
+      metricCached.add((int)Math.floor(avgMEMCached));
+      metricFree.add((int)Math.floor(avgMEMFree));
 
-      metricTotalrecv.add(avgNETWORKRecv);
-      metricTotalsend.add(avgNETWORKSend);
+      metricTotalrecv.add((int)Math.floor(avgNETWORKRecv));
+      metricTotalsend.add((int)Math.floor(avgNETWORKSend));
 
-      metricDiskread.add(avgDISKRead);
-      metricDiskWrit.add(avgDISKWrit);
+      metricDiskread.add((int)Math.floor(avgDISKRead));
+      metricDiskWrit.add((int)Math.floor(avgDISKWrit));
     }
 
     while (timeStamp.size() != 100) {

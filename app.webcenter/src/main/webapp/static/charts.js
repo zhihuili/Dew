@@ -5,7 +5,7 @@ function  chart1( json,jsonTime) {
 	            type: 'area'
 	        },
 	        title: {
-	            text: 'CPU Usage'
+	            text: 'CPU'
 	        },
 	        xAxis: {
 	            categories: jsonTime,
@@ -15,17 +15,16 @@ function  chart1( json,jsonTime) {
 	        },
 	        yAxis: {
 	        	 title: {
-		                text: 'Usage (%)'
-		            },
-	            min: 0,
-	            max:100
+		                text: '   '
+		            }
 	        },
 	        plotOptions: {
 	            area: {
+	            	stacking: 'percent',
 	                marker: {
 	                    enabled: false,
 	                    symbol: 'circle',
-	                    radius: 10
+	                    radius: 3
 	                }
 	            }
 	        },
@@ -40,7 +39,7 @@ function  chart2( json,jsonTime) {
 	            type: 'area'
 	        },
 	        title: {
-	            text: 'Memory Usage'
+	            text: 'Memory'
 	        },
 	        xAxis: {
 	            categories: jsonTime,
@@ -50,16 +49,17 @@ function  chart2( json,jsonTime) {
 	        },
 	        yAxis: {
 	        	 title: {
-		                text: 'Usage (%)'
+		                text: '   '
 		            },
-	            min: 0
+		            min:0
 	        },
 	        plotOptions: {
 	            area: {
+	            	stacking: 'normal',
 	                marker: {
 	                    enabled: false,
 	                    symbol: 'circle',
-	                    radius: 10
+	                    radius: 3
 	                }
 	            }
 	        },
@@ -70,7 +70,7 @@ function  chart2( json,jsonTime) {
 function  chart3 ( json,jsonTime) {
 	    $('#container3').highcharts({
 	        title: {
-	            text: 'Network Utility',
+	            text: 'Network',
 	            x: -20 //center
 	        },
 	        xAxis: {
@@ -80,6 +80,9 @@ function  chart3 ( json,jsonTime) {
 	            }
 	        },
 	        yAxis: {
+	        	title: {
+	        		text: '   '
+	        	},
 	            min:0,
 	            plotLines: [{
 	                value: 0,
@@ -95,7 +98,7 @@ function  chart3 ( json,jsonTime) {
 	            }
 	        },
 	        tooltip: {
-	            valueSuffix: '%'
+	            valueSuffix: ' '
 	        },
 	        series:json
 	    });
@@ -103,7 +106,7 @@ function  chart3 ( json,jsonTime) {
 function  chart4( json,jsonTime) {
     $('#container4').highcharts({
         title: {
-            text: 'Disk Utility',
+            text: 'Disk',
             x: -20 //center
         },
         xAxis: {
@@ -113,6 +116,9 @@ function  chart4( json,jsonTime) {
             }
         },
         yAxis: {
+        	title: {
+        		text: '   '
+        	},
             min:0,
             plotLines: [{
                 value: 0,
@@ -128,7 +134,7 @@ function  chart4( json,jsonTime) {
             }
         },
         tooltip: {
-            valueSuffix: '%'
+            valueSuffix: ' '
         },
         series:json
     });

@@ -2,7 +2,7 @@
 
 <div class='span3'></div>
 <div class='span9'>
-<h1>show the cluster sumary</h1>
+<h2>Cluster System Performance Metrics</h2>
 </div>
 <div class="row">
 	<div class="span6">
@@ -24,7 +24,7 @@
 <script type="text/javascript" src="../static/jquery-1.11.2.js"></script> 
 <script type="text/javascript" src="../static/highcharts.js"></script>
 <script type="text/javascript" src="../static/exporting.js"></script> 
- <script type="text/javascript" src="http://cdn.hcharts.cn/highcharts/highcharts-more.js"></script> 
+ <script type="text/javascript" src="../static/highcharts-more.js"></script> 
 <script type="text/javascript" src="../static/charts.js"></script> 
 <script type="text/javascript" src="../static/jquery.json-2.2.js"></script> 
 <script>
