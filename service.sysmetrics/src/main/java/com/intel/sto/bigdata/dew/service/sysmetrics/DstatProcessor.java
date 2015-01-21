@@ -31,7 +31,7 @@ public class DstatProcessor extends Thread {
               "/bin/sh",
               "-c",
               "dstat --mem --io --cpu --net -N eth0,eth1,total --disk --output " + tmpFileName
-                  + " | tail -f " + tmpFileName };
+                  + " > /dev/null | tail -f " + tmpFileName };
       process = Runtime.getRuntime().exec(cmd);
       BufferedReader br = new BufferedReader(new InputStreamReader(process.getInputStream()));
       String line;
