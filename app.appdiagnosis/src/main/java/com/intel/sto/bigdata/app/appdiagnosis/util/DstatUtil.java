@@ -27,4 +27,14 @@ public class DstatUtil {
 
     return parseResult;
   }
+
+  public static Map<String, Double> parseDstat(String[] line) {
+    Map<String, Double> parseResult = new HashMap<String, Double>();
+
+    for (int i = 0; i < line.length; i++) {
+      parseResult.put(metricsHead[i], Double.valueOf(line[i]));
+    }
+
+    return parseResult;
+  }
 }
