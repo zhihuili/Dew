@@ -1,8 +1,8 @@
 <%@ include file="head.jsp"%>
 
-<div class='span3'></div>
-<div class='span9'>
-<h2>Cluster System Performance Metrics</h2>
+<div class='span4'></div>
+<div class='span8'>
+<h2>Cluster System Performance</h2>
 </div>
 <div class="row">
 	<div class="span6">
