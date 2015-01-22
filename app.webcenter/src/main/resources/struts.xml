@@ -18,6 +18,10 @@
 			<result name="success">Main.jsp</result>
 			<result name="error">login.jsp</result>
 		</action>
+		<action name="getAgents"
+			class="com.intel.sto.bigdata.app.webcenter.logic.action.cluster.GetAgentsAction">
+			<result name="success">admin.jsp</result>
+		</action>
 		<action name="userList"
 			class="com.intel.sto.bigdata.app.webcenter.logic.action.user.UserAction"
 			method="list">

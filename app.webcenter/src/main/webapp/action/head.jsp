@@ -50,7 +50,7 @@ html, body {
 						<li class="active"><a href="/action/Main.jsp">Home</a></li>
 						<li><a href="/action/appList">App Management</a></li>
 						<li><a href="/action/jobList">Job Management</a></li>
-						<li><a href="#">Log Management</a></li>
+						<li><a href="/action/getAgents">Admin</a></li>
 					</ul>
 				</div>
 			</div>
