@@ -1,6 +1,8 @@
 package com.intel.sto.bigdata.app.webcenter.logic.action.cluster;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
@@ -34,6 +36,13 @@ public class GetAgentsAction extends ActionSupport {
     for (Map.Entry<AgentRegister, ActorRef> entry : agentActors.entrySet()) {
       agents.add(entry.getKey());
     }
+
+    Collections.sort(agents, new Comparator<AgentRegister>() {
+      public int compare(AgentRegister arg0, AgentRegister arg1) {
+        return arg0.getHostName().compareTo(arg1.getHostName());
+      }
+    });
+
     return SUCCESS;
   }
 }
