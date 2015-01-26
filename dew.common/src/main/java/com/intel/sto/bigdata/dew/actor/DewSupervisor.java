@@ -14,7 +14,7 @@ public class DewSupervisor extends UntypedActor {
       Duration.create("1 minute"), new Function<Throwable, Directive>() {
         @Override
         public Directive apply(Throwable t) {
-          if (t instanceof NullPointerException) {
+          if (t instanceof RuntimeException) {
             return resume();
           } else {
             return restart();
