@@ -89,7 +89,7 @@ public class MyAppDriver {
   public Map<AgentRegister, ActorRef> getAgents(AppDes appDes) throws Exception {
     ActorRef app =
         (ActorRef) Await.result(Patterns.ask(supervisor,
-            new ActorDef(Props.create(ServiceManager.class, master, null, appDes), "app"),
+            new ActorDef(Props.create(ServiceManager.class, master, null, appDes), makeUUIDAppName()),
             new Timeout(duration)), duration);
 
     Future<Object> future = Patterns.ask(app, new AgentInfo(), timeout);
@@ -101,7 +101,7 @@ public class MyAppDriver {
       throws Exception {
     ActorRef app =
         (ActorRef) Await.result(Patterns.ask(supervisor,
-            new ActorDef(Props.create(ServiceManager.class, master, appProcessor, appDes), "app"),
+            new ActorDef(Props.create(ServiceManager.class, master, appProcessor, appDes), makeUUIDAppName()),
             new Timeout(duration)), duration);
 
     Future<Object> future = Patterns.ask(app, request, timeout);
@@ -114,6 +114,10 @@ public class MyAppDriver {
     } finally {
       system.stop(app);
     }
+  }
+
+  private String makeUUIDAppName() {
+    return "app" + UUID.randomUUID();
   }
 
 }

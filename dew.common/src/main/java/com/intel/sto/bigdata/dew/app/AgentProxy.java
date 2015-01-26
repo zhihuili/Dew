@@ -1,5 +1,7 @@
 package com.intel.sto.bigdata.dew.app;
 
+import java.util.UUID;
+
 import scala.concurrent.Await;
 import scala.concurrent.Future;
 import scala.concurrent.duration.Duration;
@@ -32,7 +34,9 @@ public class AgentProxy {
                 .withValue("akka.remote.netty.tcp.port", ConfigValueFactory.fromAnyRef(0))
                 .withValue("akka.remote.netty.tcp.hostname",
                     ConfigValueFactory.fromAnyRef(Host.getName())));
-    app = system.actorOf(Props.create(AppDriver.class, url, appProcessor, appDes), "app");
+    app =
+        system.actorOf(Props.create(AppDriver.class, url, appProcessor, appDes),
+            "app" + UUID.randomUUID());
 
   }
 
