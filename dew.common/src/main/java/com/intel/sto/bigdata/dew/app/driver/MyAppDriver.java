@@ -20,6 +20,8 @@ import akka.actor.Props;
 import akka.pattern.Patterns;
 import akka.util.Timeout;
 
+import com.intel.sto.bigdata.dew.actor.ActorDef;
+import com.intel.sto.bigdata.dew.actor.DewSupervisor;
 import com.intel.sto.bigdata.dew.app.AppDes;
 import com.intel.sto.bigdata.dew.app.AppProcessor;
 import com.intel.sto.bigdata.dew.conf.DewConf;
@@ -34,6 +36,7 @@ import com.typesafe.config.ConfigValueFactory;
 public class MyAppDriver {
   private ActorRef master;
   private ActorSystem system;
+  private ActorRef supervisor;
   private Logger log = Logger.getLogger(MyAppDriver.class);
   private FiniteDuration duration = Duration.create(3, SECONDS);
   private static MyAppDriver instance;
@@ -49,9 +52,8 @@ public class MyAppDriver {
                 .withValue("akka.remote.netty.tcp.hostname",
                     ConfigValueFactory.fromAnyRef(Host.getName())));
     String masterUrl = DewConf.getDewConf().get("master");
-    String masterPath = "akka.tcp://Master@" + masterUrl + "/user/master";
-    log.warn("Build MyAppDriver with master url: "+masterPath);
-    
+    String masterPath = "akka.tcp://Master@" + masterUrl + "/user/dew/master";
+
     try {
       master =
           ((ActorIdentity) ask(system.actorSelection(masterPath), new Identify(masterPath), 3000)
@@ -60,6 +62,8 @@ public class MyAppDriver {
       log.error("Can't connect dew master:" + masterPath);
       throw new RuntimeException(e);
     }
+
+    supervisor = system.actorOf(Props.create(DewSupervisor.class), "dew");
   }
 
   public static synchronized MyAppDriver getMyAppDriver() {
@@ -84,8 +88,9 @@ public class MyAppDriver {
 
   public Map<AgentRegister, ActorRef> getAgents(AppDes appDes) throws Exception {
     ActorRef app =
-        system.actorOf(Props.create(ServiceManager.class, master, null, appDes),
-            "app" + UUID.randomUUID());
+        (ActorRef) Await.result(Patterns.ask(supervisor,
+            new ActorDef(Props.create(ServiceManager.class, master, null, appDes), "app"),
+            new Timeout(duration)), duration);
 
     Future<Object> future = Patterns.ask(app, new AgentInfo(), timeout);
     AgentInfo result = (AgentInfo) Await.result(future, timeout.duration());
@@ -95,8 +100,10 @@ public class MyAppDriver {
   public void requestService(AppProcessor appProcessor, AppDes appDes, ServiceRequest request)
       throws Exception {
     ActorRef app =
-        system.actorOf(Props.create(ServiceManager.class, master, appProcessor, appDes), "app"
-            + UUID.randomUUID());
+        (ActorRef) Await.result(Patterns.ask(supervisor,
+            new ActorDef(Props.create(ServiceManager.class, master, appProcessor, appDes), "app"),
+            new Timeout(duration)), duration);
+
     Future<Object> future = Patterns.ask(app, request, timeout);
     try {
       Await.result(future, timeout.duration());

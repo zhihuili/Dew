@@ -23,7 +23,7 @@ public class AgentProxy {
   private int processTimeout = 30;
 
   public AgentProxy(String masterUrl, AppProcessor appProcessor, AppDes appDes) {
-    String url = "akka.tcp://Master@" + masterUrl + "/user/master";
+    String url = "akka.tcp://Master@" + masterUrl + "/user/dew/master";
     system =
         ActorSystem.create(
             "App",
