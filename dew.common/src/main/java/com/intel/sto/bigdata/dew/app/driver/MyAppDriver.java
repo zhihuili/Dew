@@ -30,6 +30,7 @@ import com.intel.sto.bigdata.dew.message.AgentRegister;
 import com.intel.sto.bigdata.dew.message.ServiceRequest;
 import com.intel.sto.bigdata.dew.message.ServiceTimeout;
 import com.intel.sto.bigdata.dew.utils.Host;
+import com.intel.sto.bigdata.dew.utils.Util;
 import com.typesafe.config.ConfigFactory;
 import com.typesafe.config.ConfigValueFactory;
 
@@ -88,9 +89,10 @@ public class MyAppDriver {
 
   public Map<AgentRegister, ActorRef> getAgents(AppDes appDes) throws Exception {
     ActorRef app =
-        (ActorRef) Await.result(Patterns.ask(supervisor,
-            new ActorDef(Props.create(ServiceManager.class, master, null, appDes), "app"),
-            new Timeout(duration)), duration);
+        (ActorRef) Await.result(Patterns.ask(
+            supervisor,
+            new ActorDef(Props.create(ServiceManager.class, master, null, appDes), Util
+                .buildUUIDSuffix("app_")), new Timeout(duration)), duration);
 
     Future<Object> future = Patterns.ask(app, new AgentInfo(), timeout);
     AgentInfo result = (AgentInfo) Await.result(future, timeout.duration());
@@ -100,9 +102,10 @@ public class MyAppDriver {
   public void requestService(AppProcessor appProcessor, AppDes appDes, ServiceRequest request)
       throws Exception {
     ActorRef app =
-        (ActorRef) Await.result(Patterns.ask(supervisor,
-            new ActorDef(Props.create(ServiceManager.class, master, appProcessor, appDes), "app"),
-            new Timeout(duration)), duration);
+        (ActorRef) Await.result(Patterns.ask(
+            supervisor,
+            new ActorDef(Props.create(ServiceManager.class, master, appProcessor, appDes), Util
+                .buildUUIDSuffix("app_")), new Timeout(duration)), duration);
 
     Future<Object> future = Patterns.ask(app, request, timeout);
     try {
