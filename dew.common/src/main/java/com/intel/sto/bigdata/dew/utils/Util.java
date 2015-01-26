@@ -8,6 +8,7 @@ import java.io.InputStream;
 import java.net.URL;
 import java.util.Properties;
 import java.util.Set;
+import java.util.UUID;
 
 public class Util {
   // Because posting http stream use header to transfer parameter, add a
@@ -63,4 +64,7 @@ public class Util {
     return hosts;
   }
 
+  public static String buildUUIDSuffix(String name) {
+    return name + UUID.randomUUID();
+  }
 }

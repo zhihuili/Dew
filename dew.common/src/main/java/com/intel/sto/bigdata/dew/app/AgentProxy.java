@@ -14,6 +14,7 @@ import akka.util.Timeout;
 import com.intel.sto.bigdata.dew.message.ServiceRequest;
 import com.intel.sto.bigdata.dew.message.ServiceTimeout;
 import com.intel.sto.bigdata.dew.utils.Host;
+import com.intel.sto.bigdata.dew.utils.Util;
 import com.typesafe.config.ConfigFactory;
 import com.typesafe.config.ConfigValueFactory;
 
@@ -36,7 +37,7 @@ public class AgentProxy {
                     ConfigValueFactory.fromAnyRef(Host.getName())));
     app =
         system.actorOf(Props.create(AppDriver.class, url, appProcessor, appDes),
-            "app" + UUID.randomUUID());
+            Util.buildUUIDSuffix("app_"));
 
   }
 
