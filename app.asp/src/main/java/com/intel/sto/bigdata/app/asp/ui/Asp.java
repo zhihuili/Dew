@@ -11,7 +11,6 @@ public class Asp {
     if (args.length > 0) {
       if (args[0].equals("now")) {
         Executor.executeNow();
-        return;
       }
       if (args[0].equals("workload")) {
         Executor.executeWorkload();
@@ -24,6 +23,7 @@ public class Asp {
         System.err.println("workload  -execute workload only at noce.");
         System.err.println("draw  -draw asp chart at once.");
       }
+      return;
     }
     Timer timer = new Timer();
     timer.schedule(Util.loadConf().get("time"));

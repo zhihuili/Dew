@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>JSP Page</title>
+</head>
+<body>
+<h1>Spark Performance Monitored by Dew</h1>
+<p>
+This is a Intel Spark Dew Web Page, designed by Zhihui Team.
+</p>
+<h2>Description</h2>
+<hr />
+Each data point represents each workload runtime percent compared with the previous day. Different lines represents different workloads running on spark clusteter.</p>
+<h2> Overall Curve</h2>
+<hr />
+<p><table class="sticky-enabled">
+<thead><tr><th>Spark Benchmark</th><th>$datelist.get(1)</th><th>$datelist.get(2)</th><th>$datelist.get(3)</th><th>$datelist.get(4)</th><th>$datelist.get(5)</th><th>$datelist.get(6)</th><th>$datelist.get(7)</th><th>$datelist.get(8)</th></tr></thead>
+<tbody>
+<tr class="odd"><td><span class="qtip-link qtip-link-odd">$grouplist.get(0)</span></td><td>$avgdata.get($grouplist.get(0)).get(0)%</td><td>$avgdata.get($grouplist.get(0)).get(1)%</td><td>$avgdata.get($grouplist.get(0)).get(2)%</td><td>$avgdata.get($grouplist.get(0)).get(3)%</td><td>$avgdata.get($grouplist.get(0)).get(4)%</td><td>$avgdata.get($grouplist.get(0)).get(5)%</td><td>$avgdata.get($grouplist.get(0)).get(6)%</td><td>$avgdata.get($grouplist.get(0)).get(7)%</td> </tr>
+<tr class="even"><td><span class="qtip-link qtip-link-even">$grouplist.get(1)</span></td><td>$avgdata.get($grouplist.get(1)).get(0)%</td><td>$avgdata.get($grouplist.get(1)).get(1)%</td><td>$avgdata.get($grouplist.get(1)).get(2)%</td><td>$avgdata.get($grouplist.get(1)).get(3)%</td><td>$avgdata.get($grouplist.get(1)).get(4)%</td><td>$avgdata.get($grouplist.get(1)).get(5)%</td><td>$avgdata.get($grouplist.get(1)).get(6)%</td><td>$avgdata.get($grouplist.get(1)).get(7)%</td> </tr>
+</tbody>
+</table>
+<img border="0" src="image/overall.png"
+    width="600" height="400">    
+<h2> $grouplist.get(0)</h2>
+<hr />
+<p><table class="sticky-enabled">
+<thead><tr><th>WORKLOAD</th><th>$datelist.get(1)</th><th>$datelist.get(2)</th><th>$datelist.get(3)</th><th>$datelist.get(4)</th><th>$datelist.get(5)</th><th>$datelist.get(6)</th><th>$datelist.get(7)</th><th>$datelist.get(8)</th></tr></thead>
+<tbody>
+<tr class="odd"><td><span  class="qtip-link qtip-link-odd" title="MIssing workload info">$workloadlist.get(0)</span></td><td>$tabledata.get($grouplist.get(0)).get(0).get(0)%</td><td>$tabledata.get($grouplist.get(0)).get(0).get(1)%</td><td>$tabledata.get($grouplist.get(0)).get(0).get(2)%</td><td>$tabledata.get($grouplist.get(0)).get(0).get(3)%</td><td>$tabledata.get($grouplist.get(0)).get(0).get(4)%</td><td>$tabledata.get($grouplist.get(0)).get(0).get(5)%</td><td>$tabledata.get($grouplist.get(0)).get(0).get(6)%</td><td>$tabledata.get($grouplist.get(0)).get(0).get(7)%</td> </tr>
+<tr class="even"><td><span class="qtip-link qtip-link-even" title="MIssing workload info">$workloadlist.get(1)</span></td><td>$tabledata.get($grouplist.get(0)).get(1).get(0)%</td><td>$tabledata.get($grouplist.get(0)).get(1).get(1)%</td><td>$tabledata.get($grouplist.get(0)).get(1).get(2)%</td><td>$tabledata.get($grouplist.get(0)).get(1).get(3)%</td><td>$tabledata.get($grouplist.get(0)).get(1).get(4)%</td><td>$tabledata.get($grouplist.get(0)).get(1).get(5)%</td><td>$tabledata.get($grouplist.get(0)).get(1).get(6)%</td><td>$tabledata.get($grouplist.get(0)).get(1).get(7)%</td> </tr>
+<tr class="odd"><td><span  class="qtip-link qtip-link-odd" title="MIssing workload info">$workloadlist.get(2)</span></td><td>$tabledata.get($grouplist.get(0)).get(2).get(0)%</td><td>$tabledata.get($grouplist.get(0)).get(2).get(1)%</td><td>$tabledata.get($grouplist.get(0)).get(2).get(2)%</td><td>$tabledata.get($grouplist.get(0)).get(2).get(3)%</td><td>$tabledata.get($grouplist.get(0)).get(2).get(4)%</td><td>$tabledata.get($grouplist.get(0)).get(2).get(5)%</td><td>$tabledata.get($grouplist.get(0)).get(2).get(6)%</td><td>$tabledata.get($grouplist.get(0)).get(2).get(7)%</td></tr>
+</tbody>
+</table>
+<img border="0" src="image/${grouplist.get(0)}_workloads.png"
+    width="600" height="400">  
+<h2> $grouplist.get(1)</h2>
+<hr />
+<p><table class="sticky-enabled">
+<thead><tr><th>WORKLOAD</th><th>$datelist.get(1)</th><th>$datelist.get(2)</th><th>$datelist.get(3)</th><th>$datelist.get(4)</th><th>$datelist.get(5)</th><th>$datelist.get(6)</th><th>$datelist.get(7)</th><th>$datelist.get(8)</th></tr></thead>
+<tbody>
+<tr class="odd"><td><span  class="qtip-link qtip-link-odd" title="MIssing workload info">$workloadlist.get(0)</span></td><td>$tabledata.get($grouplist.get(1)).get(0).get(0)%</td><td>$tabledata.get($grouplist.get(1)).get(0).get(1)%</td><td>$tabledata.get($grouplist.get(1)).get(0).get(2)%</td><td>$tabledata.get($grouplist.get(1)).get(0).get(3)%</td><td>$tabledata.get($grouplist.get(1)).get(0).get(4)%</td><td>$tabledata.get($grouplist.get(1)).get(0).get(5)%</td><td>$tabledata.get($grouplist.get(0)).get(0).get(6)%</td><td>$tabledata.get($grouplist.get(1)).get(0).get(7)%</td> </tr>
+<tr class="even"><td><span class="qtip-link qtip-link-even" title="MIssing workload info">$workloadlist.get(1)</span></td><td>$tabledata.get($grouplist.get(1)).get(1).get(0)%</td><td>$tabledata.get($grouplist.get(1)).get(1).get(1)%</td><td>$tabledata.get($grouplist.get(1)).get(1).get(2)%</td><td>$tabledata.get($grouplist.get(1)).get(1).get(3)%</td><td>$tabledata.get($grouplist.get(1)).get(1).get(4)%</td><td>$tabledata.get($grouplist.get(1)).get(1).get(5)%</td><td>$tabledata.get($grouplist.get(0)).get(1).get(6)%</td><td>$tabledata.get($grouplist.get(1)).get(1).get(7)%</td> </tr>
+<tr class="odd"><td><span  class="qtip-link qtip-link-odd" title="MIssing workload info">$workloadlist.get(2)</span></td><td>$tabledata.get($grouplist.get(1)).get(2).get(0)%</td><td>$tabledata.get($grouplist.get(1)).get(2).get(1)%</td><td>$tabledata.get($grouplist.get(1)).get(2).get(2)%</td><td>$tabledata.get($grouplist.get(1)).get(2).get(3)%</td><td>$tabledata.get($grouplist.get(1)).get(2).get(4)%</td><td>$tabledata.get($grouplist.get(1)).get(2).get(5)%</td><td>$tabledata.get($grouplist.get(0)).get(2).get(6)%</td><td>$tabledata.get($grouplist.get(1)).get(2).get(7)%</td></tr>
+</tbody>
+</table>
+<img border="0" src="image/${grouplist.get(1)}_workloads.png"
+    width="600" height="400">
+</body>
+</html>
