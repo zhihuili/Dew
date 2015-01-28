@@ -14,8 +14,9 @@ import com.intel.sto.bigdata.app.appdiagnosis.util.DstatUtil;
 import com.intel.sto.bigdata.app.appdiagnosis.util.Constants;
 
 /**
- * Which nodes' computation resource(CPU, memory, disk, network) is wasted. 80% high, 50% middle,
- * 30% low
+ * Which nodes' computation resource(CPU) is wasted. 80% high, 50% middle,30% low
+ * calcaute the area of cpu utility(usr+sys) , the rest of area on the area chart is the resourcesWaste
+ * compare the resourcesWaste with set value , output result
  */
 public class ResourcesWasteDiagnosisStrategy implements DiagnosisStrategy {
   private static final double CPU_LOW = 30;
@@ -35,10 +36,12 @@ public class ResourcesWasteDiagnosisStrategy implements DiagnosisStrategy {
         List<String> dataRecord = new ArrayList<String>();
         dataRecord = hostDataSet.get(i).get(Constants.NULL).get(0);
         Map<String, Double> parseResult = DstatUtil.parseDstat(dataRecord);
+        //calculate the area cpu utility on area chart
         sumCpuUtility +=
             (parseResult.get(Constants.DSTAT_USR) + parseResult.get(Constants.DSTAT_SYS));
       }
 
+      //the rest area on chart is resourcesWaste
       double percent = 1 - sumCpuUtility / (100 * hostDataSet.size());
 
       DecimalFormat df = new DecimalFormat("######0.00");
@@ -49,6 +52,7 @@ public class ResourcesWasteDiagnosisStrategy implements DiagnosisStrategy {
       tmpResult.setDescribe("Cpu resources waste percent is " + percentage
           + "%. More time on non-computation task.");
       tmpResult.setAdvice("Improve node's disk and network performance.");
+      //compare the resourcesWaste with set value , output result
       if (percentage > CPU_HIGH) {
         tmpResult.setLevel(Level.high);
         wasteDiagnosisResult.add(tmpResult);

@@ -14,8 +14,11 @@ import com.intel.sto.bigdata.app.appdiagnosis.util.DstatUtil;
 import com.intel.sto.bigdata.app.appdiagnosis.util.Constants;
 
 /**
- * Which nodes' load is lower than average? 50% high, 35% middle, 20%
- * 
+ * Which nodes' load(cpu,mem,network,disk) is lower than average? 50% high, 35% middle, 20%
+ * Aim at one metric  , First calculate the  average of the metric on every node
+ * Second , calculate the average of whole cluster 
+ * Third , calculate the gap between the average of metric on one node and average of cluster
+ * Finally , compare the gap with set value , output result
  */
 public class LoadBalanceDiagnosisStrategy implements DiagnosisStrategy {
   private static final double LOW = 20;
@@ -29,6 +32,7 @@ public class LoadBalanceDiagnosisStrategy implements DiagnosisStrategy {
 
     Map<String, String> loadMetrics = new HashMap<String, String>();
 
+    //the metrics needed to be calculated and compared
     loadMetrics.put(Constants.DSTAT_USR, "load-CPU");
     loadMetrics.put(Constants.DSTAT_USED, "load-Mem");
     loadMetrics.put(Constants.DSTAT_TOTALRECV, "load-Net-Recv");
@@ -64,6 +68,7 @@ public class LoadBalanceDiagnosisStrategy implements DiagnosisStrategy {
         Map<String, Double> parseResult = DstatUtil.parseDstat(dataRecord);
         sumLoad += parseResult.get(loadName);
       }
+      //record the average of metric on one node
       avgLoad.put(hostName, sumLoad / hostDataSet.size());
     }
 
@@ -71,11 +76,14 @@ public class LoadBalanceDiagnosisStrategy implements DiagnosisStrategy {
     for (String nodeName : avgLoad.keySet()) {
       avgLoadNum += avgLoad.get(nodeName);
     }
+    //calculate the average of metric on whole cluster
     avgLoadNum = avgLoadNum / avgLoad.size();
 
     for (String host : avgLoad.keySet()) {
+      //calculate the gap between average of one node and average of cluster
       double percent =
           Double.valueOf(df.format((avgLoadNum - avgLoad.get(host)) / avgLoadNum * 100));
+      //compare the gap with set value
       if (percent > LOW) {
         DiagnosisResult tmpResult = new DiagnosisResult();
         tmpResult.setDiagnosisName(performanceIndex);
