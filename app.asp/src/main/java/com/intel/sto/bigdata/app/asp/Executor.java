@@ -43,6 +43,6 @@ public class Executor {
   }
 
   public static void draw() throws Exception {
-    DrawChart.draw(conf);
+    new DrawChart().draw(conf);
   }
 }
