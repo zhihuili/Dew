@@ -33,11 +33,11 @@ public class Util {
     Util.printProcessLog(process);
     int exitValue = process.waitFor();
     if (exitValue == 0) {
-      Util.printSplitLine("Successful:" + file.getAbsolutePath() + command);
+      Util.printSplitLine("Successful:" + file == null ? "" : file.getAbsolutePath() + command);
       return;
     }
-    Util.printSplitLine("Failed:" + file.getAbsolutePath() + command);
-    throw new Exception("Failed:" + file.getAbsolutePath() + command);
+    Util.printSplitLine("Failed:" + file == null ? "" : file.getAbsolutePath() + command);
+    throw new Exception("Failed:" + file == null ? "" : file.getAbsolutePath() + command);
   }
 
   public static Properties loadConf() throws Exception {

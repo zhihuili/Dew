@@ -73,7 +73,7 @@ public class DrawChart {
     createAvgLineData();
     plotAvgChart();
     createHtml(mapGroup, maplistAvg);
-    pushHtml();
+    pushHtml(conf);
 
     System.out.println("listGroup: " + listGroup);
     System.out.println("listJob: " + listJob);
@@ -100,9 +100,8 @@ public class DrawChart {
         for (int j = 1; j < listDate.size(); j++) {
           day = listDate.get(j);
           // only show mmdd date
-          day = day % 10000;
           str_day = Integer.toString(day);
-          date = convertStringToDate(str_day);
+          date = convertStringToDate(str_day.substring(4,8));
           try {
             day2 = listDate.get(j);
             day1 = listDate.get(j - 1);
@@ -168,9 +167,8 @@ public class DrawChart {
         double jobsum = 0, avg;
         int day, day1, day2;
         day = listDate.get(j);
-        day = day % 10000; // only show mmdd date
         String str_day = Integer.toString(day);
-        Date date = convertStringToDate(str_day);
+        Date date = convertStringToDate(str_day.substring(4,8));
         try {
           day2 = listDate.get(j);
           day1 = listDate.get(j - 1);
@@ -325,18 +323,20 @@ public class DrawChart {
     context.put("grouplist", listGroup);
     /* now render the template into a StringWriter */
     StringWriter writer = new StringWriter();
-    PrintWriter out = new PrintWriter("chart.html");
+    String path =  conf.getProperty("imagedir")+ "../";
+    PrintWriter out = new PrintWriter(path + "chart.html");
     t.merge(context, writer);
     out.println(writer.toString());
     out.close();
     System.out.println(writer.toString());
   }
 
-  private void pushHtml() throws Exception {
-    Util.execute("git add chart.html", null, null);
-    Util.execute("git add image", null, null);
-    Util.execute("git commit -m commit", null, null);
-    Util.execute("git push origin gh-pages", null, null);
+  private void pushHtml(Properties conf) throws Exception {
+    String path =  conf.getProperty("imagedir")+ "../";
+    Util.execute("git add chart.html", null, path);
+    Util.execute("git add image", null, path);
+    Util.execute("git commit -m commit", null, path);
+    Util.execute("git push origin gh-pages", null, path);
   }
 
 }
