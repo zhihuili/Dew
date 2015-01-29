@@ -141,16 +141,7 @@ public class DrawChart {
           true, // Use tooltips
           false // Configure chart to generate URLs?
           );
-      /*
-       * chart.setBackgroundPaint(Color.white); plot.setBackgroundPaint(Color.white);
-       * plot.setDomainGridlinePaint(Color.gray); plot.setRangeGridlinePaint(Color.gray);
-       */
-      XYPlot plot = (XYPlot) chart.getPlot();
-      DateAxis dateaxis = (DateAxis) plot.getDomainAxis();
-      dateaxis.setDateFormatOverride(new SimpleDateFormat("MMdd"));
-      int width = 500;
-      int height = 350;
-      BufferedImage workloadimage = chart.createBufferedImage(width, height);
+      BufferedImage workloadimage = chart.createBufferedImage(500, 350);
       saveToFile(conf, workloadimage, group + "_workloads.png");
     }
   }
@@ -206,16 +197,7 @@ public class DrawChart {
         true, // Use tooltips
         false // Configure chart to generate URLs?
         );
-    chart2.setBackgroundPaint(Color.white);
-    XYPlot plot2 = (XYPlot) chart2.getPlot();
-    plot2.setBackgroundPaint(Color.white);
-    plot2.setDomainGridlinePaint(Color.gray);
-    plot2.setRangeGridlinePaint(Color.gray);
-    DateAxis dateaxis2 = (DateAxis) plot2.getDomainAxis();
-    dateaxis2.setDateFormatOverride(new SimpleDateFormat("MMdd"));
-    int width2 = 550;
-    int height2 = 350;
-    BufferedImage avgimage = chart2.createBufferedImage(width2, height2);
+    BufferedImage avgimage = chart2.createBufferedImage(550, 350);
     saveToFile(conf, avgimage, "overall.png");
   }
 
