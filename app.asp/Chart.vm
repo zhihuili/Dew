@@ -3,16 +3,25 @@
 <html>
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <title>JSP Page</title>
+  <title>Apache Spark Performance</title>
 </head>
 <body>
-<h1>Spark Performance Monitored by Dew</h1>
-<p>
-This is a Intel Spark Dew Web Page, designed by Zhihui Team.
-</p>
+<h1>Apache Spark Performance</h1>
 <h2>Description</h2>
 <hr />
-Each data point represents each workload runtime percent compared with the previous day. Different lines represents different workloads running on spark clusteter.</p>
+Each data point represents each workload runtime percent compared with the previous week. Different lines represents different workloads running on spark yarn-client mode.</p>
+<h3>Hardware</h3>
+<hr />
+CPU type: 2P Quad-core Core 2 Duo<br />
+ 2 Duo CPU frequency: 2800Mhz<br />
+Internal name server/processor: lkp-st02-x8664<br />
+Description: 2P Quad-core Harpertown CPU, with 8G mem, and 12 SAS disks.<br />
+Memory: 8GBMb<br />
+Disk type: SAS<br />
+Number of disks: 12<br />
+Disk size: 300GB<br />
+Disk controller: SCSI<br />
+storage controller: LSI Logic / Symbios Logic SAS1068E PCI-Express Fusion-MPT SAS</p>
 <h2> Overall Curve</h2>
 <hr />
 <p><table class="sticky-enabled">
@@ -36,5 +45,28 @@ Each data point represents each workload runtime percent compared with the previ
 </table>
 <img border="0" src="image/${grouplist.get(0)}_workloads.png"
     width="600" height="400">  
+
+<h2>ABOUT <span>Linux Kernel Performance</span></h2>
+			<p>Our goal is to work with the Apache Spark community to further enhance the performance of the Apache Spark. The data available on this site allows community members to closely track performance gains and losses with every week version of the Apache Spark. Ultimately, we hope that this data will result in consistent performance increases.</p>
+
+
+<footer>
+	<div class="container">
+		<div class="container-inner">
+			<div class="left">
+		  					
+	<div class="otc-footer-share">
+	
+	</div>			</div>
+			<div class="right">
+		  		<div class="otc-footer-message title">
+		Copyright &copy 2015 Intel Corporation. All rights reserved.
+		<em>*Other names and brands may be claimed as the property of others.</em>
+	</div>
+			</div>
+		</div>
+	</div>
+</footer> 
+
 </body>
 </html>
