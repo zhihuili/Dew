@@ -6,14 +6,15 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Properties;
 
 public class DataPrinter {
 
-  public static String print(Map<String, String> conf, Map<String, Long> workresult) throws Exception {
+  public static String print(Properties conf, Map<String, Long> workresult) throws Exception {
     Date date = new Date(System.currentTimeMillis());
     SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
     String time = sdf.format(date);
-    String output = conf.get("output");
+    String output = conf.getProperty("output");
     FileWriter fw = null;
     try {
       fw = new FileWriter(new File(output, time));

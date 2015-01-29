@@ -26,7 +26,7 @@ public class Asp {
       return;
     }
     Timer timer = new Timer();
-    timer.schedule(Util.loadConf().get("time"));
+    timer.schedule(Util.loadConf().getProperty("time"));
   }
 
 }

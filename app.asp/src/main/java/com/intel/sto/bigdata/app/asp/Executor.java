@@ -3,12 +3,13 @@ package com.intel.sto.bigdata.app.asp;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Properties;
 
 import com.intel.sto.bigdata.app.asp.util.Util;
 
 public class Executor {
 
-  private static Map<String, String> conf;
+  private static Properties conf;
   private static final int MAX_X_SIZE = 9;
   static {
     try {
