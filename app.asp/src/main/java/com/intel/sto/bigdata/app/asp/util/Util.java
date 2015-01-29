@@ -29,11 +29,11 @@ public class Util {
     Util.printProcessLog(process);
     int exitValue = process.waitFor();
     if (exitValue == 0) {
-      Util.printSplitLine("Successful:" + command);
+      Util.printSplitLine("Successful:" + file.getAbsolutePath() + command);
       return;
     }
-    Util.printSplitLine("Failed:" + command);
-    throw new Exception("Failed:" + command);
+    Util.printSplitLine("Failed:" + file.getAbsolutePath() + command);
+    throw new Exception("Failed:" + file.getAbsolutePath() + command);
   }
 
   public static Map<String, String> loadConf() throws Exception {
