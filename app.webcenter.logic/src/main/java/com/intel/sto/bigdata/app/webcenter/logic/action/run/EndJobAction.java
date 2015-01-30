@@ -74,12 +74,12 @@ public class EndJobAction extends ActionSupport {
     while ((line = br.readLine()) != null) {
       sb.append(line + System.getProperty("line.separator"));
     }
+    br.close();
     BufferedWriter bw = new BufferedWriter(new FileWriter(backupPath));
     bw.write(sb.toString());
+    bw.close();
     FSDataOutputStream os = fs.create(logFilePath);
     os.write(sb.toString().getBytes());
-    br.close();
     os.close();
-    bw.close();
   }
 }
