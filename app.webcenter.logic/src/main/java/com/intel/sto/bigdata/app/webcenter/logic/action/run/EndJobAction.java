@@ -60,7 +60,6 @@ public class EndJobAction extends ActionSupport {
         new BufferedReader(new InputStreamReader(new FileInputStream(driverLogFile)));
     String backupPath =
         Utils.getWorkloadPath() + File.separator + appId + File.separator + "driver.log";
-    BufferedWriter bw = new BufferedWriter(new FileWriter(backupPath));
     StringBuffer sb = new StringBuffer();
 
     Path logPath = new Path(File.separator + "dewlog" + File.separator + appId);
@@ -70,12 +69,14 @@ public class EndJobAction extends ActionSupport {
       fs.mkdirs(logPath);
     }
     Path logFilePath = new Path(logPath, "driver.log");
-    FSDataOutputStream os = fs.create(logFilePath);
+
     String line;
     while ((line = br.readLine()) != null) {
       sb.append(line + System.getProperty("line.separator"));
     }
+    BufferedWriter bw = new BufferedWriter(new FileWriter(backupPath));
     bw.write(sb.toString());
+    FSDataOutputStream os = fs.create(logFilePath);
     os.write(sb.toString().getBytes());
     br.close();
     os.close();

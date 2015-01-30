@@ -11,7 +11,7 @@ import com.opensymphony.xwork2.ActionSupport;
 public class AppDriverLog extends ActionSupport {
   private static final long serialVersionUID = -6053798337594038264L;
   private String enginAppID;
-  private String driverLogContext;
+  private String driverLogContent;
 
   public String getEnginAppID() {
     return enginAppID;
@@ -21,12 +21,12 @@ public class AppDriverLog extends ActionSupport {
     this.enginAppID = enginAppID;
   }
 
-  public String getDriverLogContext() {
-    return driverLogContext;
+  public String getDriverLogContent() {
+    return driverLogContent;
   }
 
-  public void setDriverLogContext(String driverLogContext) {
-    this.driverLogContext = driverLogContext;
+  public void setDriverLogContent(String driverLogContent) {
+    this.driverLogContent = driverLogContent;
   }
 
   public String execute() throws Exception {
@@ -42,7 +42,7 @@ public class AppDriverLog extends ActionSupport {
         sb.append(line + "\n");
       }
       br.close();
-      driverLogContext = sb.toString();
+      driverLogContent = sb.toString();
       return SUCCESS;
     } else {
       return ERROR;
