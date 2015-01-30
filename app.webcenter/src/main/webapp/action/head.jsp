@@ -14,9 +14,22 @@
 </head>
 
 <body style="padding-top: 0px;">
-	<div id="logobar"></div>
+	<div id="logobar">
+		<div
+			style="width: 120px; height: 80px; float: left; display: block; overflow: hidden">
+			<img src="../static/Logo.jpg" />
+		</div>
+		<div
+			style="height: 80px; float: left; display: block; font-family: '' Cambria '">
+			<span
+				style="display: block; margin-top: 45px; font-size: 22px; font-weight: bold; color: #0B60A3; font-style: italic;">
+
+				Big Data Cloud Management Plateform</span>
+		</div>
+
+	</div>
 	<nav class="navbar navbar-inverse navbar-fixed-top"
-		style="position: relative; margin: 0px">
+		style="position: relative; margin: 0px; clear: both;">
 		<div class="container-fluid">
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle collapsed"
