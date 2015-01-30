@@ -50,5 +50,5 @@
 		</div>
 	</nav>
 
-	<div class="container-fluid" style="position: relative; height: 700px;">
+	<div class="container-fluid" style="position: relative; min-height: 700px;">
 		<div class="row">
