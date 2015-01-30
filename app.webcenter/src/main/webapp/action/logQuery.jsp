@@ -4,21 +4,23 @@
 	<form action="logQuery" method="post">
 		<div>
 			<input type="hidden" name="appRecordId"
-				value="<c:out value="${appRecordId}" default="11" />"> </input> <input
-				type="text" name="queryWords"
-				placeholder="<c:out value="${queryWords}" default="Exception" />"></input>
-			<button type="submit" class="btn">Search</button>
+				value="<c:out value="${appRecordId}" default="11" />"> </input>
 		</div>
-		<style type='text/css'>
-textarea {
-	min-height: 100%;
-}
-</style>
-		<div>
-			<h4>Query Result:</h4>
-			<textarea row="20" class="input-block-level"><c:out
-					value="${logResult}" default="..." /></textarea>
 
+		<div class="form-group">
+			<div class="col-sm-3">
+				<input type="text" name="queryWords" class="form-control"
+					placeholder="<c:out value="${queryWords}" default="Exception" />" />
+			</div>
+			<div class="col-sm-2">
+				<button type="submit" class="btn btn-default">Search</button>
+			</div>
+		</div>
+
+		<div class="form-group" style="clear: both;">
+			<label style="margin: 12px; font-size: 20px;">Query Result</label>
+			<textarea class="form-control" style="margin-left: 12px;" rows="20"><c:out
+					value="${logResult}" default="..." /></textarea>
 		</div>
 	</form>
 </div>

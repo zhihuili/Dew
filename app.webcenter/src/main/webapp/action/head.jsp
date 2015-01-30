@@ -1,60 +1,41 @@
- <%@ page contentType="text/html" language="java"%>
- <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
- <%@taglib prefix="s" uri="/struts-tags" %>
-<!DOCTYPE html>
+<%@ page contentType="text/html" language="java"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="s" uri="/struts-tags"%>
+<html>
 <head>
-<title>Dew Web Center</title>
-<link href="/static/bootstrap-combined.min.css"
-	rel="stylesheet">
+<meta charset="utf-8">
+<link href="../static/bootstrap.min.css" rel="stylesheet">
+<link href="../static/dashboard.css" rel="stylesheet">
+<link href="../static/index.css" rel="stylesheet">
 
-<style type='text/css'>
-html, body {
-	background-color: #CCC;
-	margin: 0;
-	padding: 0;
-	height: 100%;
-}
+<script src="../static/jquery-1.11.2.js"></script>
+<script src="../static/bootstrap.min.js"></script>
 
-#container {
-	min-height: 100%;
-	height: auto !important;
-	height: 100%;
-	position: relative;
-}
-
-#container.header {
-	padding: 10px;
-}
-
-#container.page {
-	padding-bottom: 60px;
-}
-
-#container.footer {
-	position: absolute;
-	bottom: 0;
-	width: 100%;
-	height: 60px;
-	clear: both;
-}
-</style>
 </head>
-<body>
-	<div class='container'>
-		<div class='header'></div>
-		<div class='page'>
-			<img src="/static/logo.jpg">
-			<div class='navbar navbar-inverse'>
-				<div class='navbar-inner nav-collapse' style="height: auto;">
-					<ul class="nav">
-						<li class="active"><a href="/action/Main.jsp">Home</a></li>
-						<li><a href="/action/appList">App Management</a></li>
-						<li><a href="/action/jobList">Job Management</a></li>
-						<li><a href="/action/getAgents">Admin</a></li>
-					</ul>
-				</div>
+
+<body style="padding-top: 0px;">
+	<div id="logobar"></div>
+	<nav class="navbar navbar-inverse navbar-fixed-top"
+		style="position: relative; margin: 0px">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed"
+					data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+					aria-controls="navbar">
+					<span class="sr-only">Toggle navigation</span> <span
+						class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="/action/Main.jsp">Home</a>
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="/action/appList">App Management</a></li>
+					<li><a href="/action/jobList">Job Management</a></li>
+					<li><a href="/action/getAgents">Admin</a></li>
+				</ul>
 			</div>
-			<div>
-			<p> Welcome ${sessionScope.currentUser}, enjoy it.</p>
-			</div>
-			<div id='content' class='row-fluid'>
+			<div id="navbar" class="navbar-collapse collapse"></div>
+		</div>
+	</nav>
+
+	<div class="container-fluid" style="position: relative; height: 700px;">
+		<div class="row">

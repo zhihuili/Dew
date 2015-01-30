@@ -1,5 +1,6 @@
 <%@ include file="head.jsp"%>
 <%@ include file="appMenu.jsp"%>
+<h1 id='DashBoardTitle' class="page-header">Application List</h1>
 <div class='span9 main'>
 	<table
 		class="table table-striped table-bordered table-hover table-condensed">
