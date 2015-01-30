@@ -12,10 +12,10 @@ public class Asp {
       if (args[0].equals("now")) {
         Executor.executeNow();
       }
-      if (args[0].equals("workload")) {
+      else if (args[0].equals("workload")) {
         Executor.executeWorkload();
       }
-      if (args[0].equals("draw")) {
+      else if (args[0].equals("draw")) {
         Executor.draw();
       } else {
         System.err.println("Useage:");
@@ -26,7 +26,7 @@ public class Asp {
       return;
     }
     Timer timer = new Timer();
-    timer.schedule(Util.loadConf().get("time"));
+    timer.schedule(Util.loadConf().getProperty("time"));
   }
 
 }

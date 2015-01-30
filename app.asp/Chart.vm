@@ -3,23 +3,31 @@
 <html>
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <title>JSP Page</title>
+  <title>Apache Spark Performance</title>
 </head>
 <body>
-<h1>Spark Performance Monitored by Dew</h1>
-<p>
-This is a Intel Spark Dew Web Page, designed by Zhihui Team.
-</p>
+<h1>Apache Spark Performance</h1>
 <h2>Description</h2>
 <hr />
-Each data point represents each workload runtime percent compared with the previous day. Different lines represents different workloads running on spark clusteter.</p>
+Each data point represents each workload runtime percent compared with the previous week. Different lines represents different workloads running on spark yarn-client mode.</p>
+<h3>Hardware</h3>
+<hr />
+CPU type: 2P Quad-core Core 2 Duo<br />
+ 2 Duo CPU frequency: 2800Mhz<br />
+Internal name server/processor: lkp-st02-x8664<br />
+Description: 2P Quad-core Harpertown CPU, with 8G mem, and 12 SAS disks.<br />
+Memory: 8GBMb<br />
+Disk type: SAS<br />
+Number of disks: 12<br />
+Disk size: 300GB<br />
+Disk controller: SCSI<br />
+storage controller: LSI Logic / Symbios Logic SAS1068E PCI-Express Fusion-MPT SAS</p>
 <h2> Overall Curve</h2>
 <hr />
 <p><table class="sticky-enabled">
 <thead><tr><th>Spark Benchmark</th><th>$datelist.get(1)</th><th>$datelist.get(2)</th><th>$datelist.get(3)</th><th>$datelist.get(4)</th><th>$datelist.get(5)</th><th>$datelist.get(6)</th><th>$datelist.get(7)</th><th>$datelist.get(8)</th></tr></thead>
 <tbody>
 <tr class="odd"><td><span class="qtip-link qtip-link-odd">$grouplist.get(0)</span></td><td>$avgdata.get($grouplist.get(0)).get(0)%</td><td>$avgdata.get($grouplist.get(0)).get(1)%</td><td>$avgdata.get($grouplist.get(0)).get(2)%</td><td>$avgdata.get($grouplist.get(0)).get(3)%</td><td>$avgdata.get($grouplist.get(0)).get(4)%</td><td>$avgdata.get($grouplist.get(0)).get(5)%</td><td>$avgdata.get($grouplist.get(0)).get(6)%</td><td>$avgdata.get($grouplist.get(0)).get(7)%</td> </tr>
-<tr class="even"><td><span class="qtip-link qtip-link-even">$grouplist.get(1)</span></td><td>$avgdata.get($grouplist.get(1)).get(0)%</td><td>$avgdata.get($grouplist.get(1)).get(1)%</td><td>$avgdata.get($grouplist.get(1)).get(2)%</td><td>$avgdata.get($grouplist.get(1)).get(3)%</td><td>$avgdata.get($grouplist.get(1)).get(4)%</td><td>$avgdata.get($grouplist.get(1)).get(5)%</td><td>$avgdata.get($grouplist.get(1)).get(6)%</td><td>$avgdata.get($grouplist.get(1)).get(7)%</td> </tr>
 </tbody>
 </table>
 <img border="0" src="image/overall.png"
@@ -32,21 +40,33 @@ Each data point represents each workload runtime percent compared with the previ
 <tr class="odd"><td><span  class="qtip-link qtip-link-odd" title="MIssing workload info">$workload.get($grouplist.get(0)).get(0)</span></td><td>$tabledata.get($grouplist.get(0)).get(0).get(0)%</td><td>$tabledata.get($grouplist.get(0)).get(0).get(1)%</td><td>$tabledata.get($grouplist.get(0)).get(0).get(2)%</td><td>$tabledata.get($grouplist.get(0)).get(0).get(3)%</td><td>$tabledata.get($grouplist.get(0)).get(0).get(4)%</td><td>$tabledata.get($grouplist.get(0)).get(0).get(5)%</td><td>$tabledata.get($grouplist.get(0)).get(0).get(6)%</td><td>$tabledata.get($grouplist.get(0)).get(0).get(7)%</td> </tr>
 <tr class="even"><td><span class="qtip-link qtip-link-even" title="MIssing workload info">$workload.get($grouplist.get(0)).get(1)</span></td><td>$tabledata.get($grouplist.get(0)).get(1).get(0)%</td><td>$tabledata.get($grouplist.get(0)).get(1).get(1)%</td><td>$tabledata.get($grouplist.get(0)).get(1).get(2)%</td><td>$tabledata.get($grouplist.get(0)).get(1).get(3)%</td><td>$tabledata.get($grouplist.get(0)).get(1).get(4)%</td><td>$tabledata.get($grouplist.get(0)).get(1).get(5)%</td><td>$tabledata.get($grouplist.get(0)).get(1).get(6)%</td><td>$tabledata.get($grouplist.get(0)).get(1).get(7)%</td> </tr>
 <tr class="odd"><td><span  class="qtip-link qtip-link-odd" title="MIssing workload info">$workload.get($grouplist.get(0)).get(2)</span></td><td>$tabledata.get($grouplist.get(0)).get(2).get(0)%</td><td>$tabledata.get($grouplist.get(0)).get(2).get(1)%</td><td>$tabledata.get($grouplist.get(0)).get(2).get(2)%</td><td>$tabledata.get($grouplist.get(0)).get(2).get(3)%</td><td>$tabledata.get($grouplist.get(0)).get(2).get(4)%</td><td>$tabledata.get($grouplist.get(0)).get(2).get(5)%</td><td>$tabledata.get($grouplist.get(0)).get(2).get(6)%</td><td>$tabledata.get($grouplist.get(0)).get(2).get(7)%</td></tr>
+<tr class="even"><td><span class="qtip-link qtip-link-even" title="MIssing workload info">$workload.get($grouplist.get(0)).get(3)</span></td><td>$tabledata.get($grouplist.get(0)).get(3).get(0)%</td><td>$tabledata.get($grouplist.get(0)).get(3).get(1)%</td><td>$tabledata.get($grouplist.get(0)).get(3).get(2)%</td><td>$tabledata.get($grouplist.get(0)).get(3).get(3)%</td><td>$tabledata.get($grouplist.get(0)).get(3).get(4)%</td><td>$tabledata.get($grouplist.get(0)).get(3).get(5)%</td><td>$tabledata.get($grouplist.get(0)).get(3).get(6)%</td><td>$tabledata.get($grouplist.get(0)).get(3).get(7)%</td> </tr>
 </tbody>
 </table>
 <img border="0" src="image/${grouplist.get(0)}_workloads.png"
     width="600" height="400">  
-<h2> $grouplist.get(1)</h2>
-<hr />
-<p><table class="sticky-enabled">
-<thead><tr><th>WORKLOAD</th><th>$datelist.get(1)</th><th>$datelist.get(2)</th><th>$datelist.get(3)</th><th>$datelist.get(4)</th><th>$datelist.get(5)</th><th>$datelist.get(6)</th><th>$datelist.get(7)</th><th>$datelist.get(8)</th></tr></thead>
-<tbody>
-<tr class="odd"><td><span  class="qtip-link qtip-link-odd" title="MIssing workload info">$workload.get($grouplist.get(1)).get(0)</span></td><td>$tabledata.get($grouplist.get(1)).get(0).get(0)%</td><td>$tabledata.get($grouplist.get(1)).get(0).get(1)%</td><td>$tabledata.get($grouplist.get(1)).get(0).get(2)%</td><td>$tabledata.get($grouplist.get(1)).get(0).get(3)%</td><td>$tabledata.get($grouplist.get(1)).get(0).get(4)%</td><td>$tabledata.get($grouplist.get(1)).get(0).get(5)%</td><td>$tabledata.get($grouplist.get(0)).get(0).get(6)%</td><td>$tabledata.get($grouplist.get(1)).get(0).get(7)%</td> </tr>
-<tr class="even"><td><span class="qtip-link qtip-link-even" title="MIssing workload info">$workload.get($grouplist.get(1)).get(1)</span></td><td>$tabledata.get($grouplist.get(1)).get(1).get(0)%</td><td>$tabledata.get($grouplist.get(1)).get(1).get(1)%</td><td>$tabledata.get($grouplist.get(1)).get(1).get(2)%</td><td>$tabledata.get($grouplist.get(1)).get(1).get(3)%</td><td>$tabledata.get($grouplist.get(1)).get(1).get(4)%</td><td>$tabledata.get($grouplist.get(1)).get(1).get(5)%</td><td>$tabledata.get($grouplist.get(0)).get(1).get(6)%</td><td>$tabledata.get($grouplist.get(1)).get(1).get(7)%</td> </tr>
-<tr class="odd"><td><span  class="qtip-link qtip-link-odd" title="MIssing workload info">$workload.get($grouplist.get(1)).get(2)</span></td><td>$tabledata.get($grouplist.get(1)).get(2).get(0)%</td><td>$tabledata.get($grouplist.get(1)).get(2).get(1)%</td><td>$tabledata.get($grouplist.get(1)).get(2).get(2)%</td><td>$tabledata.get($grouplist.get(1)).get(2).get(3)%</td><td>$tabledata.get($grouplist.get(1)).get(2).get(4)%</td><td>$tabledata.get($grouplist.get(1)).get(2).get(5)%</td><td>$tabledata.get($grouplist.get(0)).get(2).get(6)%</td><td>$tabledata.get($grouplist.get(1)).get(2).get(7)%</td></tr>
-</tbody>
-</table>
-<img border="0" src="image/${grouplist.get(1)}_workloads.png"
-    width="600" height="400">
+
+<h2>ABOUT <span>Linux Kernel Performance</span></h2>
+			<p>Our goal is to work with the Apache Spark community to further enhance the performance of the Apache Spark. The data available on this site allows community members to closely track performance gains and losses with every week version of the Apache Spark. Ultimately, we hope that this data will result in consistent performance increases.</p>
+
+
+<footer>
+	<div class="container">
+		<div class="container-inner">
+			<div class="left">
+		  					
+	<div class="otc-footer-share">
+	
+	</div>			</div>
+			<div class="right">
+		  		<div class="otc-footer-message title">
+		Copyright &copy 2015 Intel Corporation. All rights reserved.
+		<em>*Other names and brands may be claimed as the property of others.</em>
+	</div>
+			</div>
+		</div>
+	</div>
+</footer> 
+
 </body>
 </html>

@@ -6,12 +6,12 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
+import java.util.Properties;
 
 public class ListBuilder {
 
-  public static void buildList(Map<String, String> conf, int max, String newLine) throws Exception {
-    String path = conf.get("output");
+  public static void buildList(Properties conf, int max, String newLine) throws Exception {
+    String path = conf.getProperty("output");
     File listFile = new File(path, "list");
     List<String> list = new LinkedList<String>();
     if (listFile.exists()) {

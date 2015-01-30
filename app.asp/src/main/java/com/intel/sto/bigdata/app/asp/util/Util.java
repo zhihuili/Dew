@@ -1,7 +1,11 @@
 package com.intel.sto.bigdata.app.asp.util;
 
+import java.io.BufferedInputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
 import java.util.Map;
+import java.util.Properties;
 
 import com.intel.sto.bigdata.dew.utils.Files;
 import com.intel.sto.bigdata.dew.utils.PrintStreamThread;
@@ -29,15 +33,19 @@ public class Util {
     Util.printProcessLog(process);
     int exitValue = process.waitFor();
     if (exitValue == 0) {
-      Util.printSplitLine("Successful:" + file.getAbsolutePath() + command);
+      Util.printSplitLine("Successful:" + file == null ? "" : file.getAbsolutePath() + command);
       return;
     }
-    Util.printSplitLine("Failed:" + file.getAbsolutePath() + command);
-    throw new Exception("Failed:" + file.getAbsolutePath() + command);
+    Util.printSplitLine("Failed:" + file == null ? "" : file.getAbsolutePath() + command);
+    throw new Exception("Failed:" + file == null ? "" : file.getAbsolutePath() + command);
   }
 
-  public static Map<String, String> loadConf() throws Exception {
-    return Files.loadPropertiesFile("/asp.conf");
+  public static Properties loadConf() throws Exception {
+    InputStream in = ClassLoader.getSystemResourceAsStream("asp.conf");
+    Properties props = new Properties();
+    props.load(in);
+    in.close();
+    return props;
   }
 
   public static Map<String, String> loadWorkload() throws Exception {
