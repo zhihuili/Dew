@@ -5,7 +5,7 @@ the Web UI for Dew management
 Quick Start
 ---------------
 ##### Deploy and Run Dew in cluster.
-##### Download DERBY Database and set DERBY_HOME in environment variables and set DERBY_HOME/bin in CLASSPATH
+##### Download DERBY Database and set DERBY_HOME in environment variables and set DERBY_HOME/bin in PATH
 ##### Create Database : cd app.webcenter and 
 		
 		./create-db.sh
