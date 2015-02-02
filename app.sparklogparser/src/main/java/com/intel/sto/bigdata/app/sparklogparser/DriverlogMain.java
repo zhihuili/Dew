@@ -27,7 +27,7 @@ public class DriverlogMain {
         .println("Complete analysis, please check output file(/tmp/job.csv, stage.csv, task.csv)");
   }
 
-  public static App parseLogFile(String fileName){
+  public static App parseLogFile(String fileName) {
     App app = new App();
     BufferedReader br = null;
     try {
