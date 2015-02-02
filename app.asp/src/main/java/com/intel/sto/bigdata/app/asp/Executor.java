@@ -32,8 +32,12 @@ public class Executor {
     for (Entry<String, String> entry : workload.entrySet()) {
       String workloadName = entry.getKey();
       String workloadCommand = entry.getValue();
-      long duration = Workload.run(workloadCommand);
-      workresult.put(workloadName, duration);
+      try {
+        long duration = Workload.run(workloadCommand);
+        workresult.put(workloadName, duration);
+      } catch (Exception e) {
+        System.out.println("==========error in " + workloadName + "==========");
+      }
     }
     String time = DataPrinter.print(conf, workresult);
     ListBuilder.buildList(conf, MAX_X_SIZE, time);
