@@ -47,6 +47,8 @@ public class Util {
       printProcessLogFile(process, logFile);
     }
     int exitValue = process.waitFor();
+    // wait for printing process log
+    Thread.sleep(20 * 1000);
     if (exitValue == 0) {
       Util.printSplitLine("Successful:" + file == null ? "" : file.getAbsolutePath() + command);
       return;

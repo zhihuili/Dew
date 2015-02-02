@@ -37,6 +37,8 @@ public class Executor {
         workresult.put(workloadName, duration);
       } catch (Exception e) {
         System.out.println("==========error in " + workloadName + "==========");
+        System.out.println(e.getMessage());
+        e.printStackTrace();
       }
     }
     String time = DataPrinter.print(conf, workresult);
