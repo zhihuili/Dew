@@ -2,6 +2,7 @@ package com.intel.sto.bigdata.app.sparklogparser;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.IOException;
 import java.util.concurrent.Executors;
 
 import com.intel.sto.bigdata.app.sparklogparser.model.App;
@@ -26,12 +27,12 @@ public class DriverlogMain {
         .println("Complete analysis, please check output file(/tmp/job.csv, stage.csv, task.csv)");
   }
 
-  public static App parseLogFile(String fileName) throws Exception {
+  public static App parseLogFile(String fileName){
+    App app = new App();
     BufferedReader br = null;
     try {
       br = new BufferedReader(new FileReader(fileName));
       String line;
-      App app = new App();
       while ((line = br.readLine()) != null) {
         TimeAdjuster.recordTime(line);
         Processor processor = Matcher.build(line);
@@ -41,15 +42,19 @@ public class DriverlogMain {
         processor.apply(line).process(app);
       }
       TimeAdjuster.adjustTime(app);
-      return app;
     } catch (Exception e) {
       e.printStackTrace();
-      throw e;
     } finally {
       if (br != null) {
-        br.close();
+        try {
+          br.close();
+        } catch (IOException e) {
+          // TODO Auto-generated catch block
+          e.printStackTrace();
+        }
       }
     }
+    return app;
   }
 
   public static void printApp(App app, String path) throws Exception {
