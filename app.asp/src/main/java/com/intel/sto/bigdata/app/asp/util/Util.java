@@ -43,7 +43,7 @@ public class Util {
     if (logFile == null) {
       Util.printProcessLog(process);
     } else {
-      fw = new FileWriter(file);
+      fw = new FileWriter(logFile);
       printProcessLogFile(process, fw);
     }
     int exitValue = process.waitFor();
