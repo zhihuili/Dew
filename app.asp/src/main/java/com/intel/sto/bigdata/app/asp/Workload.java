@@ -6,10 +6,10 @@ import com.intel.sto.bigdata.app.asp.util.Util;
 
 public class Workload {
 
-  public static long run(String name, String command) throws Exception {
+  public static long run(String workloadName, String command) throws Exception {
     String[] s = command.split(";");
     long start = System.currentTimeMillis();
-    String logFile = buildLogFilePath(name);
+    String logFile = buildLogFilePath(workloadName);
     Util.execute(s[1], null, s[0], logFile);
     long end = System.currentTimeMillis();
     return end - start;
