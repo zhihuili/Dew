@@ -20,7 +20,7 @@ public class Workload {
     String dewHome = com.intel.sto.bigdata.dew.utils.Util.getDewHome();
     String logPath = dewHome + "/app.asp/logs/" + time;
     File logPathFile = new File(logPath);
-    if (logPathFile.exists()) {
+    if (!logPathFile.exists()) {
       logPathFile.mkdirs();
     }
     return logPath + "/" + name;
