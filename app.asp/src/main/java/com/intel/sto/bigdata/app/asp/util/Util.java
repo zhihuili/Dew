@@ -1,8 +1,8 @@
 package com.intel.sto.bigdata.app.asp.util;
 
-import java.io.BufferedInputStream;
 import java.io.File;
-import java.io.FileInputStream;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.Map;
 import java.util.Properties;
@@ -11,9 +11,14 @@ import com.intel.sto.bigdata.dew.utils.Files;
 import com.intel.sto.bigdata.dew.utils.PrintStreamThread;
 
 public class Util {
-  public static void printProcessLog(Process process) {
+  private static void printProcessLog(Process process) {
     new PrintStreamThread(process.getInputStream());
     new PrintStreamThread(process.getErrorStream());
+  }
+
+  private static void printProcessLogFile(Process process, FileWriter fw) throws IOException {
+    new PrintStreamThread(process.getInputStream(), fw);
+    new PrintStreamThread(process.getErrorStream(), fw);
   }
 
   public static void printSplitLine(String comments) {
@@ -23,15 +28,30 @@ public class Util {
   }
 
   public static void execute(String command, String[] env, String path) throws Exception {
+    execute(command, env, path, null);
+  }
 
+  public static void execute(String command, String[] env, String path, String logFile)
+      throws Exception {
+    FileWriter fw = null;
     Runtime runtime = Runtime.getRuntime();
     File file = null;
     if (path != null) {
       file = new File(path);
     }
     Process process = runtime.exec(command, env, file);
-    Util.printProcessLog(process);
+    if (logFile == null) {
+      Util.printProcessLog(process);
+    } else {
+      fw = new FileWriter(logFile);
+      printProcessLogFile(process, fw);
+    }
     int exitValue = process.waitFor();
+    // wait for printing process log
+    Thread.sleep(5 * 1000);
+    if (fw != null) {
+      fw.close();
+    }
     if (exitValue == 0) {
       Util.printSplitLine("Successful:" + file == null ? "" : file.getAbsolutePath() + command);
       return;

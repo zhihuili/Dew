@@ -6,6 +6,8 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Properties;
 import java.util.Set;
 import java.util.UUID;
@@ -42,6 +44,10 @@ public class Util {
     return null;
   }
 
+  public static String getDewHome() {
+    return System.getenv("DEW_HOME");
+  }
+
   public static Properties buildProperties(String conf) throws IOException {
     InputStream in = new BufferedInputStream(new FileInputStream(conf));
     Properties props = new Properties();
@@ -66,5 +72,12 @@ public class Util {
 
   public static String buildUUIDSuffix(String name) {
     return name + UUID.randomUUID();
+  }
+
+  public static String getCurrentYYYYMMDD() {
+    Date date = new Date(System.currentTimeMillis());
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+    String time = sdf.format(date);
+    return time;
   }
 }
