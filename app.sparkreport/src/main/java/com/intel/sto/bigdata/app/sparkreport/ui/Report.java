@@ -6,6 +6,7 @@ public class Report {
     if (args.length < 1) {
       System.out.println("Usage:");
       System.out.println("report.sh targetDirectory");
+      System.exit(1);
     }
 
     new Executor().execute(args[0]);
