@@ -1,5 +1,5 @@
 #Dew#
-A lightweight distributed computation framework
+Big Data Cloud Management Plateform
 
 ##Quick Start##
 - Build
