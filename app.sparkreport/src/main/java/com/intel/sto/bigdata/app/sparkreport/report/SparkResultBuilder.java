@@ -23,11 +23,11 @@ public class SparkResultBuilder {
       return result;
     }
     result.setAppId(app.getAppId());
-    if (app.getAppStartTime() != 0) {
-      result.setStartTime(new Date(app.getAppStartTime()).toString());
+    if (app.getStartTime() != 0) {
+      result.setStartTime(new Date(app.getStartTime()).toString());
     }
-    if (app.getAppEndTime() != 0) {
-      result.setEndTime(new Date(app.getAppEndTime()).toString());
+    if (app.getEndTime() != 0) {
+      result.setEndTime(new Date(app.getEndTime()).toString());
     }
     if (app.getDuration() != null) {
       result.setDuration(app.getDuration());
