@@ -28,6 +28,7 @@ public class TimeAdjuster {
   public static void adjustTime(App app) {
     app.setStartTime(appStartTime);
     app.setEndTime(appEndTime);
+    app.setDuration(String.valueOf(appEndTime - appStartTime));
     for (Job job : app.getChildren()) {
       job.setAppStartTime(appStartTime);
       job.setAppEndTime(appEndTime);
