@@ -12,15 +12,23 @@ import com.intel.sto.bigdata.app.sparkreport.report.SparkResultBuilder;
 public class Executor {
 
   public void execute(String path) {
+    StringBuilder out = executeReport(path);
+    if (out != null) {
+      OutputBuilder.getInstance().printSystem(out);
+    }
+  }
+
+  public StringBuilder executeReport(String path) {
+
     File dir = new File(path);
     if (!dir.exists() || !dir.isDirectory()) {
       System.out.println("Target directory is not exists");
-      return;
+      return null;
     }
     File[] files = dir.listFiles();
     if (files == null || files.length == 0) {
       System.out.println("Target directory is not include any files.");
-      return;
+      return null;
     }
 
     // process
@@ -46,7 +54,7 @@ public class Executor {
 
     // output
     StringBuilder out = OutputBuilder.getInstance().build(resultList);
-    OutputBuilder.getInstance().printSystem(out);
+    return out;
 
   }
 
