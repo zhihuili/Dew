@@ -37,7 +37,7 @@ public class OutputBuilder {
     sb.append("<a href='http://" + hostName + ":" + webPort + "/action/showAnalysisResult?enginID="
         + appId + "'>Performance</a>");
     sb.append("<br>");
-    sb.append("<a href='http://" + hostName + ":" + webPort + "/action/logQuery?enginID=" + appId
+    sb.append("<a href='http://" + hostName + ":" + webPort + "/action/logQuery?appRecordId=" + appId
         + "'>LogQuery</a>");
     sb.append("<br>");
     sb.append("<a href='http://" + hostName + ":" + webPort
