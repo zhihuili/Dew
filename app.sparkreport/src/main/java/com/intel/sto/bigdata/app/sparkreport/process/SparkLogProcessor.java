@@ -2,6 +2,7 @@ package com.intel.sto.bigdata.app.sparkreport.process;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import com.intel.sto.bigdata.app.logmanager.LogCollection;
@@ -30,7 +31,7 @@ public class SparkLogProcessor {
     String confPath = (new File(dewHome, "app.sparkpowermeter/conf.properties")).getAbsolutePath();
     String desPath = (new File(dewHome, "app.sparkpowermeter/runner.des")).getAbsolutePath();
 
-    OfflineExecutor.execute(confPath, desPath, app, null);
+    OfflineExecutor.execute(confPath, desPath, app, new HashMap<String, String>());
   }
 
   private void collectSparkLog(String appId) throws Exception {
