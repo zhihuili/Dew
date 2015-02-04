@@ -1,0 +1,93 @@
+#framework{
+	 text-align:center;
+}
+
+
+#logobar{
+	border:1px solid #ccc;
+	height: 80px;
+	width: 100%;
+	display: block;
+	text-align:left;
+}
+
+#navigatebar
+{
+	border:1px solid #ccc;
+	height: 52px;
+	width: 100%;
+	background-color: #333;
+}
+
+.menubar
+{
+	
+}
+.menubar li
+{
+	float:left;
+	display: inline-block;
+	min-width: 100px;
+	text-decoration: none;
+	height: 50px;
+	line-height: 50px;
+	margin-left: 10px;
+}
+
+.menubar li a
+{
+	color: #9d9d9d;
+}
+
+
+.menubar li a :hover
+{
+	color: #fff;
+	text-decoration: none;
+}
+
+.menubar li a:visited
+{
+	color: #fff;
+	text-decoration: none;
+}
+
+
+#divCharts
+{
+	margin-top: 10px;
+	margin-bottom:5px;
+	margin-left:auto;
+	margin-right:auto;
+	width: 1100px;
+	height: auto;
+	display: block;
+}
+
+.chart-panel
+{
+	width: 500px;
+	height: 310px;
+	padding: 10px;
+	border:1px solid #ccc;
+	float: left;
+	display: block;
+	margin-top: 10px;
+	margin-left: 10px;
+}
+
+
+.chartContainer
+{
+	width: 450px;
+	height: 250px;
+}
+
+.table-hover>tbody>tr:hover{
+	background-color:#7fffd4
+}
+
+#divFooter
+{
+}
+

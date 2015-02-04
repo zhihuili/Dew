@@ -1,52 +1,83 @@
-<%@ include file="head.jsp"%>
+<html>
+<head>
+<meta charset="utf-8">
+<link href="../static/bootstrap.min.css" rel="stylesheet">
+<link href="../static/index.css" rel="stylesheet">
 
-<div class='span4'></div>
-<div class='span8'>
-<h2>Cluster System Performance</h2>
-</div>
-<div class="row">
-	<div class="span6">
-		<div id="container1" style="width:100%;height:200px"></div>
-    </div>
-    <div class="span6">.
-		<div id="container2" style="width:100%;height:200px"></div>
-    </div>
- </div>
- 
- <div class="row">
- 	<div class="span6">
- 		<div id="container3" style="width:100%;;height:200px"></div>
-    </div>
-    <div class="span6">.
-       <div id="container4" style="width:100%;height:200px"></div>
-    </div>
-</div>
-<script type="text/javascript" src="../static/jquery-1.11.2.js"></script> 
-<script type="text/javascript" src="../static/highcharts.js"></script>
-<script type="text/javascript" src="../static/exporting.js"></script> 
- <script type="text/javascript" src="../static/highcharts-more.js"></script> 
-<script type="text/javascript" src="../static/charts.js"></script> 
-<script type="text/javascript" src="../static/jquery.json-2.2.js"></script> 
-<script>
- function getData(){
-		$.ajax({
-			url: "/action/getClusterData.action", 
-			type:"post",
-			dataType:"json",
-			context: document.body, 
-			success: function(result){
-				var dataCPU = eval('(' + result.jsonCPU + ')');
-				var dataMEM = eval('(' + result.jsonMEM + ')');
-				var dataNETWORK = eval('(' + result.jsonNETWORK + ')');
-				var dataDISK = eval('(' + result.jsonDISK + ')');
-				var dataTIME = eval('(' + result.jsonTIME + ')');
-				chart1(dataCPU,dataTIME);
-				chart2(dataMEM,dataTIME);
-				chart3(dataNETWORK,dataTIME);
-				chart4(dataDISK,dataTIME);
-	        }})
-		   setTimeout('getData()', 5000 )
-	}
-	getData();
- </script>
-<%@ include file="end.jsp"%>
+<script src="../static/jquery-1.11.2.js"></script>
+<script src="../static/bootstrap.min.js"></script>
+<script src="../static/highcharts.js"></script>
+<script src="../static/exporting.js"></script>
+
+<script src="../static/charts.js"></script>
+<script src="../static/index.js"></script>
+</head>
+
+<body>
+	<div id="framework">
+		<div id="logobar">
+			<div
+				style="width: 120px; height: 80px; float: left; display: block; overflow: hidden">
+				<img src="../static/Logo.jpg" />
+			</div>
+			<div
+				style="height: 80px; float: left; display: block; font-family: '' Cambria '">
+				<span
+					style="display: block; margin-top: 45px; font-size: 22px; font-weight: bold; color: #0B60A3; font-style: italic;">
+
+					Big Data Cloud Management Plateform</span>
+			</div>
+		</div>
+
+		<nav class="navbar navbar-inverse navbar-fixed-top"
+			style="position: relative">
+			<div class="container-fluid"
+				style="width: 80%; margin-left: 0px; margin-right: 0px; float: left">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed"
+						data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+						aria-controls="navbar">
+						<span class="sr-only">Toggle navigation</span> <span
+							class="icon-bar"></span> <span class="icon-bar"></span> <span
+							class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="/action/Main.jsp">Home</a>
+					<ul class="nav navbar-nav navbar-right">
+						<li><a href="/action/appList">App Management</a></li>
+						<li><a href="/action/jobList">Job Management</a></li>
+						<li><a href="/action/getAgents">Admin</a></li>
+					</ul>
+				</div>
+				<div id="navbar" class="navbar-collapse collapse"></div>
+			</div>
+			<div class="container-fluid"
+				style="width: 15%; margin-left: 0px; margin-right: 0px; text-align: right; float: left; line-height: 50px">
+				<label style="color: white">Welcome, Admin</label>
+			</div>
+		</nav>
+
+
+		<div id="divCharts">
+			<div class="chart-panel">
+				<div id="container1" class="chartContainer"></div>
+			</div>
+			<div class="chart-panel chart-panel-35">
+				<div id="container2" class="chartContainer"></div>
+			</div>
+			<div class="chart-panel">
+				<div id="container3" class="chartContainer"></div>
+			</div>
+			<div class="chart-panel chart-panel-35">
+				<div id="container4" class="chartContainer"></div>
+			</div>
+		</div>
+
+		<br style="clear: both;" />
+
+
+		<div id="divFooter"
+			style="clear: both; margin-top: 15px; border-top: solid 1px #ccc; text-align: right; color: #ccc; padding: 5px;'">
+			Dew@intel</div>
+	</div>
+</body>
+</html>

@@ -175,10 +175,10 @@ public class GetClusterData extends ActionSupport {
       avgDISKRead = avgDISKRead / map.size();
       avgDISKWrit = avgDISKWrit / map.size();
 
-      metricUsr.add(Math.rint(avgCPUUsr));
-      metricSys.add(Math.rint(avgCPUSys));
-      metricIdl.add(Math.rint(avgCPUIdl));
-      metricWai.add(Math.rint(avgCPUWai));
+      metricUsr.add(avgCPUUsr);
+      metricSys.add(avgCPUSys);
+      metricIdl.add(avgCPUIdl);
+      metricWai.add(avgCPUWai);
 
       metricUsed.add(Math.rint(avgMEMUsed));
       metricBuffer.add(Math.rint(avgMEMBuffer));
