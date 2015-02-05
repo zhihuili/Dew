@@ -8,10 +8,10 @@ import com.intel.sto.bigdata.app.sparklogparser.model.TaskSet;
 
 public class TimeAdjuster {
 
-  public static Long appStartTime;
-  public static Long appEndTime;
+  private Long appStartTime;
+  private Long appEndTime;
 
-  public static void recordTime(String logLine) {
+  public void recordTime(String logLine) {
     if (logLine.matches("[0-9][0-9]/[0-1][0-9]/[0-3][0-9](.*)")) {
       try {
         long time = Util.transformTime(logLine.substring(0, 17));
@@ -25,7 +25,7 @@ public class TimeAdjuster {
     }
   }
 
-  public static void adjustTime(App app) {
+  public void adjustTime(App app) {
     app.setStartTime(appStartTime);
     app.setEndTime(appEndTime);
     app.setDuration(String.valueOf(appEndTime - appStartTime));

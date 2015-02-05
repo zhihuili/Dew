@@ -47,8 +47,6 @@ public class Util {
       printProcessLogFile(process, fw);
     }
     int exitValue = process.waitFor();
-    // wait for printing process log
-    Thread.sleep(5 * 1000);
     if (fw != null) {
       fw.close();
     }
