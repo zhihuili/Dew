@@ -47,6 +47,7 @@
     <module>app.logmanager</module>
     <module>app.webcenter.logic</module>
     <module>app.webcenter</module>
+    <module>app.sparkreport</module>
     <module>dew.assembly</module>
   </modules>
 <build>  

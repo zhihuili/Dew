@@ -3,7 +3,6 @@ package com.intel.sto.bigdata.app.sparklogparser;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.concurrent.Executors;
 
 import com.intel.sto.bigdata.app.sparklogparser.model.App;
 import com.intel.sto.bigdata.app.sparklogparser.processor.Processor;
@@ -29,19 +28,20 @@ public class DriverlogMain {
 
   public static App parseLogFile(String fileName) {
     App app = new App();
+    TimeAdjuster timer = new TimeAdjuster();
     BufferedReader br = null;
     try {
       br = new BufferedReader(new FileReader(fileName));
       String line;
       while ((line = br.readLine()) != null) {
-        TimeAdjuster.recordTime(line);
+        timer.recordTime(line);
         Processor processor = Matcher.build(line);
         if (processor == null) {
           continue;
         }
         processor.apply(line).process(app);
       }
-      TimeAdjuster.adjustTime(app);
+      timer.adjustTime(app);
     } catch (Exception e) {
       e.printStackTrace();
     } finally {
