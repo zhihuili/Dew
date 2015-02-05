@@ -14,8 +14,8 @@ public class OutputBuilder {
 
   public StringBuilder build(List<Result> resultList) {
     StringBuilder out = new StringBuilder();
-    out.append("<table>");
-    out.append("<tr><td>App Name</td><td>Start Time</td><td>End Time</td><td>Duration</td><td>Exception Message</td><td>Detail</td></tr>");
+    out.append("<table border=\"1\" style=\"width:100%\">");
+    out.append("<tr><th>App Name</th><th>Start Time</th><th>End Time</th><th>Duration(ms)</th><th>Exception Message</th><th>Detail</th></tr>");
     for (Result result : resultList) {
       out.append("<tr>");
       out.append("<td>" + result.getAppName() + "</td>");
