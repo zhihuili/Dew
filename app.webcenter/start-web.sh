@@ -8,4 +8,5 @@ for file in ${lib}/*.jar
 do
 classpath="$classpath":"$file"
 done
-java -cp $classpath com.intel.sto.bigdata.app.webcenter.logic.ui.JettyServerStart ${cur}/target/app.webcenter-web/
+nohup java -cp $classpath com.intel.sto.bigdata.app.webcenter.logic.ui.JettyServerStart ${cur}/target/app.webcenter-web/ > webcenter.log 2>&1 < /dev/null &
+
