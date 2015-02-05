@@ -22,7 +22,7 @@ public class OutputBuilder {
       out.append("<td>" + result.getStartTime() + "</td>");
       out.append("<td>" + result.getEndTime() + "</td>");
       out.append("<td>" + result.getDuration() + "</td>");
-      out.append("<td>" + result.getExcepitonMessage() + "</td>");
+      out.append("<td>" + result.getExceptionMessage() + "</td>");
       out.append(buildDetail(result.getAppId()));
       out.append("</tr>");
     }
@@ -41,7 +41,7 @@ public class OutputBuilder {
         + "'>LogQuery</a>");
     sb.append("<br>");
     sb.append("<a href='http://" + hostName + ":" + webPort
-        + "/action/showDiagnosisResult?enginID=" + appId + "'>LogQuery</a>");
+        + "/action/showDiagnosisResult?enginID=" + appId + "'>Diagnosis</a>");
     sb.append("</td>");
     return sb;
   }

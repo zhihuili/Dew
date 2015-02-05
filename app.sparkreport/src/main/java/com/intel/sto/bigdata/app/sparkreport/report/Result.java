@@ -5,7 +5,7 @@ public class Result {
   private String appId;
   private String startTime;
   private String endTime;
-  private String ExcepitonMessage;
+  private String exceptionMessage;
   private String duration;
 
   public String getAppName() {
@@ -40,12 +40,12 @@ public class Result {
     this.endTime = endTime;
   }
 
-  public String getExcepitonMessage() {
-    return ExcepitonMessage;
+  public String getExceptionMessage() {
+    return exceptionMessage == null ? "N/A" : exceptionMessage;
   }
 
-  public void setExcepitonMessage(String excepitonMessage) {
-    ExcepitonMessage = excepitonMessage;
+  public void setExceptionMessage(String exceptionMessage) {
+    exceptionMessage = exceptionMessage;
   }
 
   public String getDuration() {

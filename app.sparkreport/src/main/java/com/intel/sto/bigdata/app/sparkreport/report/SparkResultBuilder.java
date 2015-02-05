@@ -32,7 +32,7 @@ public class SparkResultBuilder {
     if (app.getDuration() != null) {
       result.setDuration(app.getDuration());
     }
-    result.setExcepitonMessage(findException(file));
+    result.setExceptionMessage(findException(file));
     return result;
   }
 
