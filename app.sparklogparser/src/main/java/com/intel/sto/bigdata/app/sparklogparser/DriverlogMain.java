@@ -57,10 +57,16 @@ public class DriverlogMain {
     return app;
   }
 
-  public static void printApp(App app, String path) throws Exception {
-    ExecutorsPrinter.print(app, path);
-    NodePrinter.print(app, path);
-    MemPrinter.print(app, path);
+  public static void printApp(App app, String path) {
+    try {
+      ExecutorsPrinter.print(app, path);
+      NodePrinter.print(app, path);
+      MemPrinter.print(app, path);
+    } catch (Exception e) {
+      System.out.println(e.getMessage());
+      e.printStackTrace();
+    }
+
   }
 
   public static void processFile(String fileStr) throws Exception {
