@@ -32,14 +32,14 @@ public class Executor {
     }
 
     // process
-//    for (File file : files) {
-//      try {
-//        SparkLogProcessor.getInstance().process(file);
-//      } catch (Exception e) {
-//        System.out.println(e.getMessage());
-//        e.printStackTrace();
-//      }
-//    }
+    for (File file : files) {
+      try {
+        SparkLogProcessor.getInstance().process(file);
+      } catch (Exception e) {
+        System.out.println(e.getMessage());
+        e.printStackTrace();
+      }
+    }
 
     // build
     List<Result> resultList = new ArrayList<Result>();
