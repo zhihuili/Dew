@@ -43,6 +43,7 @@ public class DriverlogMain {
       }
       timer.adjustTime(app);
     } catch (Exception e) {
+      System.out.println("WARN: " + e.getMessage());
       e.printStackTrace();
     } finally {
       if (br != null) {
@@ -57,9 +58,9 @@ public class DriverlogMain {
   }
 
   public static void printApp(App app, String path) throws Exception {
+    ExecutorsPrinter.print(app, path);
     NodePrinter.print(app, path);
     MemPrinter.print(app, path);
-    ExecutorsPrinter.print(app, path);
   }
 
   public static void processFile(String fileStr) throws Exception {

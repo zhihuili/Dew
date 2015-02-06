@@ -40,6 +40,13 @@ public class OfflineExecutor {
   public static void execute(String confPath, String desPath, long startTime, long endTime)
       throws Exception {
     String workPath = init(confPath, String.valueOf(startTime), new HashMap<String, String>());
+    Set<String> hosts = loadSlaveSet();
+    analyzePerformance(workPath, desPath, hosts, startTime, endTime);
+
+    diagnose(workPath, hosts); // Do you need it?
+  }
+
+  private static Set<String> loadSlaveSet() throws Exception {
     String slaveFilePath = WorkloadConf.get(Constants.SPARK_CLUSTER_SLAVE);
     if (slaveFilePath == null) {
       String dewHome = System.getenv("DEW_HOME");
@@ -51,9 +58,7 @@ public class OfflineExecutor {
     }
     InputStream is = new FileInputStream(slaveFilePath);
     Set<String> hosts = Files.loadResourceFile(is);
-    analyzePerformance(workPath, desPath, hosts, startTime, endTime);
-
-    diagnose(workPath, hosts); // Do you need it?
+    return hosts;
   }
 
   private static String init(String confPath, String appId, Map<String, String> conf)
@@ -96,11 +101,16 @@ public class OfflineExecutor {
     System.out.println("Output analysis chart to " + workPath);
   }
 
-  private static void diagnose(String workPath, Set<String> hosts) throws Exception {
-    List<DiagnosisResult> diagnosisResultList =
-        Diagnostician.diagnose(buildDiagnosisContext(workPath, hosts));
-    File analysisFile = new File(workPath, "analysis.result");
-    FileUtil.printAnalysisResult(diagnosisResultList, analysisFile);
+  private static void diagnose(String workPath, Set<String> hosts) {
+    try {
+      List<DiagnosisResult> diagnosisResultList =
+          Diagnostician.diagnose(buildDiagnosisContext(workPath, hosts));
+      File analysisFile = new File(workPath, "analysis.result");
+      FileUtil.printAnalysisResult(diagnosisResultList, analysisFile);
+    } catch (Exception e) {
+      System.out.println("WARN: " + e.getMessage());
+      e.printStackTrace();
+    }
   }
 
   public static void execute(String confPath, String desPath, App app, Map<String, String> conf)
@@ -112,8 +122,11 @@ public class OfflineExecutor {
     DriverlogMain.printApp(app, workPath);
     WorkloadConf.set(Constants.SPARK_CLUSTER_SLAVE,
         new File(workPath, "executors.csv").getAbsolutePath());
-
-    analyzePerformance(workPath, desPath, app.getExecutors(), app.getStartTime(), app.getEndTime());
+    Set<String> hosts = app.getExecutors();
+    if (hosts == null || hosts.isEmpty()) {
+      hosts = loadSlaveSet();
+    }
+    analyzePerformance(workPath, desPath, hosts, app.getStartTime(), app.getEndTime());
 
     diagnose(workPath, app.getExecutors());
   }
