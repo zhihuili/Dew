@@ -65,6 +65,11 @@
 			method="query">
 			<result>logQuery.jsp</result>
 		</action>
+		<action name="driverLog"
+			class="com.intel.sto.bigdata.app.webcenter.logic.action.appinfo.AppDriverLog">
+			<result name="success">driverLog.jsp</result>
+			<result name="error">appRecordList.action</result>
+		</action>
 		<action name="appSearch"
 			class="com.intel.sto.bigdata.app.webcenter.logic.action.appinfo.AppAction"
 			method="search">
