@@ -69,4 +69,19 @@ public class Util {
   public static Map<String, String> loadWorkload() throws Exception {
     return Files.loadPropertiesFile("/workload.conf");
   }
+
+  public static String buildLogPath() {
+    String time = com.intel.sto.bigdata.dew.utils.Util.getCurrentYYYYMMDD();
+    String dewHome = com.intel.sto.bigdata.dew.utils.Util.getDewHome();
+    String logPath = dewHome + "/app.asp/logs/" + time;
+    File logPathFile = new File(logPath);
+    if (!logPathFile.exists()) {
+      logPathFile.mkdirs();
+    }
+    return logPathFile.getAbsolutePath();
+  }
+
+  public static String buildLogFilePath(String name) {
+    return buildLogPath() + "/" + name;
+  }
 }

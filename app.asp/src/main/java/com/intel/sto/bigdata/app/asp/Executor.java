@@ -22,6 +22,7 @@ public class Executor {
   public static void execute() throws Exception {
     executeWorkload();
     draw();
+    report();
   }
 
   public static void executeWorkload() throws Exception {
@@ -51,5 +52,16 @@ public class Executor {
 
   public static void draw() throws Exception {
     new DrawChart().draw(conf);
+  }
+
+  public static void report() {
+    String path = com.intel.sto.bigdata.dew.utils.Util.getDewHome() + "/app.sparkreport";
+    String command = "./report.sh " + Util.buildLogPath();
+    try {
+      Util.execute(command, null, path);
+    } catch (Exception e) {
+      System.out.println(e.getMessage());
+      e.printStackTrace();
+    }
   }
 }
