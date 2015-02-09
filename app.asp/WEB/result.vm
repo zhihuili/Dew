@@ -1,0 +1,50 @@
+#include("./WEB/head.html")
+
+<h2>Description</h2>
+<hr />
+Each data point represents each workload runtime percent compared with the previous week. Different lines represents different workloads running on spark yarn-client mode.</p>
+<h3>Hardware</h3>
+<hr />
+CPU type: 2P Quad-core Core 2 Duo<br />
+ 2 Duo CPU frequency: 2800Mhz<br />
+Internal name server/processor: lkp-st02-x8664<br />
+Description: 2P Quad-core Harpertown CPU, with 8G mem, and 12 SAS disks.<br />
+Memory: 8GBMb<br />
+Disk type: SAS<br />
+Number of disks: 12<br />
+Disk size: 300GB<br />
+Disk controller: SCSI<br />
+storage controller: LSI Logic / Symbios Logic SAS1068E PCI-Express Fusion-MPT SAS</p>
+
+#foreach($group in $grouplist)
+<h2>$group</h2>
+<hr />
+<p>
+
+<table id="tWorkLoadData" class="sticky-enabled table">
+	<thead>
+		<tr>
+			<th>JOB</th>
+			#foreach($file in $filelist)
+			<th> $file </th>
+			#end
+		</tr>
+	</thead>
+	<tbody>
+		#set($count=-1)
+		#foreach($job in $workload.get($group))
+  		#set($count = $count+1)
+		<tr class="odd">
+			<td> $job </td>
+			#foreach($value in $tabledata.get($group).get($count))
+			<td>$!value%</td>
+		#end
+		</tr>
+		#end
+	</tbody>
+</table>
+Comments: null means no such workload running in this week.</p>
+<img border="0" src="image/${group}_workloads.png" width="600" height="400">  
+#end
+
+#include("./WEB/footer.html")
