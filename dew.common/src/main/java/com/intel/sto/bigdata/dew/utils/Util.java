@@ -3,11 +3,13 @@ package com.intel.sto.bigdata.dew.utils;
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 import java.util.UUID;
@@ -79,5 +81,25 @@ public class Util {
     SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
     String time = sdf.format(date);
     return time;
+  }
+
+  public static String getConfGlobal(String key, String... paths) {
+    String dewHome = getDewHome();
+    for (String path : paths) {
+      File confFile = new File(dewHome, path);
+      if (confFile.exists()) {
+        try {
+          Map<String, String> conf = Files.loadPropertiesFile(new FileInputStream(confFile));
+          String value = conf.get(key);
+          if (value != null) {
+            return value;
+          }
+        } catch (Exception e) {
+          System.out.println(e);
+          e.printStackTrace();
+        }
+      }
+    }
+    return null;
   }
 }
