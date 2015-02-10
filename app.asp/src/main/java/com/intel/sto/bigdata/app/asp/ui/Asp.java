@@ -11,11 +11,9 @@ public class Asp {
     if (args.length > 0) {
       if (args[0].equals("now")) {
         Executor.executeNow();
-      }
-      else if (args[0].equals("workload")) {
+      } else if (args[0].equals("workload")) {
         Executor.executeWorkload();
-      }
-      else if (args[0].equals("draw")) {
+      } else if (args[0].equals("draw")) {
         Executor.draw();
       } else {
         System.err.println("Useage:");

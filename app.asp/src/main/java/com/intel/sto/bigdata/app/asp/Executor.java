@@ -19,39 +19,49 @@ public class Executor {
     }
   }
 
-  public static void execute() throws Exception {
+  public static void execute() {
     executeWorkload();
     draw();
     report();
   }
 
-  public static void executeWorkload() throws Exception {
-    Update.update(conf);
-    Build.build(conf);
-    Map<String, String> workload = Util.loadWorkload();
-    Map<String, Long> workresult = new HashMap<String, Long>();
-    for (Entry<String, String> entry : workload.entrySet()) {
-      String workloadName = entry.getKey();
-      String workloadCommand = entry.getValue();
-      try {
-        long duration = Workload.run(workloadName, workloadCommand);
-        workresult.put(workloadName, duration);
-      } catch (Exception e) {
-        System.out.println("==========error in " + workloadName + "==========");
-        System.out.println(e.getMessage());
-        e.printStackTrace();
+  public static void executeWorkload() {
+    try {
+      Update.update(conf);
+      Build.build(conf);
+      Map<String, String> workload = Util.loadWorkload();
+      Map<String, Long> workresult = new HashMap<String, Long>();
+      for (Entry<String, String> entry : workload.entrySet()) {
+        String workloadName = entry.getKey();
+        String workloadCommand = entry.getValue();
+        try {
+          long duration = Workload.run(workloadName, workloadCommand);
+          workresult.put(workloadName, duration);
+        } catch (Exception e) {
+          System.out.println("==========error in " + workloadName + "==========");
+          System.out.println(e.getMessage());
+          e.printStackTrace();
+        }
       }
+      String time = DataPrinter.print(conf, workresult);
+      ListBuilder.buildList(conf, MAX_X_SIZE, time);
+    } catch (Exception e) {
+      System.out.println(e.getMessage());
+      e.printStackTrace();
     }
-    String time = DataPrinter.print(conf, workresult);
-    ListBuilder.buildList(conf, MAX_X_SIZE, time);
   }
 
-  public static void executeNow() throws Exception {
+  public static void executeNow() {
     execute();
   }
 
-  public static void draw() throws Exception {
-    new DrawChart().draw(conf);
+  public static void draw() {
+    try {
+      new DrawChart().draw(conf);
+    } catch (Exception e) {
+      System.out.println(e.getMessage());
+      e.printStackTrace();
+    }
   }
 
   public static void report() {
