@@ -24,7 +24,7 @@
 			<span
 				style="display: block; margin-top: 45px; font-size: 22px; font-weight: bold; color: #0B60A3; font-style: italic;">
 
-				Big Data Cloud Management Plateform</span>
+				Big Data Cloud Management Platform</span>
 		</div>
 
 	</div>
