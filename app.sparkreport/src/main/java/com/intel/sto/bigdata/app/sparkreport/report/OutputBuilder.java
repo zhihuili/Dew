@@ -1,5 +1,8 @@
 package com.intel.sto.bigdata.app.sparkreport.report;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.List;
 
 import com.intel.sto.bigdata.dew.utils.Host;
@@ -37,8 +40,8 @@ public class OutputBuilder {
     sb.append("<a href='http://" + hostName + ":" + webPort + "/action/showAnalysisResult?enginID="
         + appId + "'>Performance</a>");
     sb.append("<br>");
-    sb.append("<a href='http://" + hostName + ":" + webPort + "/action/logQuery?appRecordId=" + appId
-        + "'>LogQuery</a>");
+    sb.append("<a href='http://" + hostName + ":" + webPort + "/action/logQuery?appRecordId="
+        + appId + "'>LogQuery</a>");
     sb.append("<br>");
     sb.append("<a href='http://" + hostName + ":" + webPort
         + "/action/showDiagnosisResult?enginID=" + appId + "'>Diagnosis</a>");
@@ -55,6 +58,22 @@ public class OutputBuilder {
   }
 
   public void saveFile(StringBuilder out) {
+    String backupPath =
+        com.intel.sto.bigdata.dew.utils.Util.getConfGlobal("workload.output.path",
+            "app.webcenter/conf.properties", "app.sparkpowermeter/conf.properties");
 
+    if (backupPath == null) {
+      System.out.println("ERROR: Can't find path to store report file.");
+      return;
+    }
+    String fileName = com.intel.sto.bigdata.dew.utils.Util.getCurrentYYYYMMDD();
+    try {
+      FileWriter fw = new FileWriter(new File(backupPath, fileName));
+      fw.write(out.toString());
+      fw.close();
+    } catch (IOException e) {
+      System.out.println(e.getMessage());
+      e.printStackTrace();
+    }
   }
 }

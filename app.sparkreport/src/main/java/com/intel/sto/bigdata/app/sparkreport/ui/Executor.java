@@ -15,6 +15,7 @@ public class Executor {
     StringBuilder out = executeReport(path);
     if (out != null) {
       OutputBuilder.getInstance().printSystem(out);
+      OutputBuilder.getInstance().saveFile(out);
     }
   }
 
