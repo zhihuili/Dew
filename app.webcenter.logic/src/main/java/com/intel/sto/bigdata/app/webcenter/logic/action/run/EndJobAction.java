@@ -46,9 +46,24 @@ public class EndJobAction extends ActionSupport {
     App currentApp = Utils.parseSparkDriverLog(id);
     String appId = currentApp.getAppId();
     operator.changeAppStatus(id, status, appId);
-    Utils.collectSparkLog(appId);
-    Utils.runSparkPowerMeter(currentApp);
-    processDriverLog(appId);
+    try {
+      Utils.collectSparkLog(appId);
+    } catch (Exception e) {
+      System.out.println("Collect distributed log failed.");
+      e.printStackTrace();
+    }
+    try {
+      Utils.runSparkPowerMeter(currentApp);
+    } catch (Exception e) {
+      System.out.println("Run SparkPowerMeter failed.");
+      e.printStackTrace();
+    }
+    try {
+      processDriverLog(appId);
+    } catch (Exception e) {
+      System.out.println("Collect Spark driver log failed.");
+      e.printStackTrace();
+    }
     return SUCCESS;
   }
 

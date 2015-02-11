@@ -15,7 +15,7 @@ import com.intel.sto.bigdata.app.webcenter.logic.WebCenterContext;
 
 public class Utils {
 
-  public static App parseSparkDriverLog(String uuid) throws Exception {
+  public static App parseSparkDriverLog(String uuid) {
     String path = WebCenterContext.getConf().get(Constants.SPARK_LOG_PATH);
     App app = DriverlogMain.parseLogFile((new File(path, uuid)).getAbsolutePath());
     return app;
