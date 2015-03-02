@@ -62,7 +62,7 @@ public class RunJobAction extends ActionSupport {
     return SUCCESS;
   }
 
-  public static ArrayList<String> getApps(String defination) {
+  private ArrayList<String> getApps(String defination) {
     ArrayList<String> result = new ArrayList<String>();
 
     String tmp[] = defination.split(",");

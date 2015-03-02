@@ -1,6 +1,7 @@
 package com.intel.sto.bigdata.app.webcenter.logic.action.job;
 
 import com.intel.sto.bigdata.app.webcenter.logic.db.DBOperator;
+import com.intel.sto.bigdata.app.webcenter.logic.timer.Timer;
 import com.opensymphony.xwork2.ActionSupport;
 
 public class JobStoreAction extends ActionSupport{
@@ -36,6 +37,7 @@ public class JobStoreAction extends ActionSupport{
   public String execute() throws Exception {
     DBOperator operator = new DBOperator();
     operator.addNewJob(name, defination, cycle, userId);
+    Timer.getInstance().schedule(name, cycle);
     return SUCCESS;
   }
 }
