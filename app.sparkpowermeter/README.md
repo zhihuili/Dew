@@ -15,6 +15,8 @@ OR
 
     ./analyze.sh startTime(yy/MM/dd HH:mm:ss) endTime(yy/MM/dd HH:mm:ss)
 (Just analyze the cluster performance during the time without data flow model.)
+For example:
+    ./analyze.sh 15/01/01 00:00:00 15/01/01 01:00:00
 
 
 good luck
