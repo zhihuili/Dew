@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Properties;
 
+import com.intel.sto.bigdata.app.asp.chart.ChartProcessor;
 import com.intel.sto.bigdata.app.asp.util.Util;
 
 public class Executor {
@@ -57,7 +58,7 @@ public class Executor {
 
   public static void draw() {
     try {
-      new DrawChart().draw(conf);
+      new ChartProcessor().process(conf);
     } catch (Exception e) {
       System.out.println(e.getMessage());
       e.printStackTrace();
