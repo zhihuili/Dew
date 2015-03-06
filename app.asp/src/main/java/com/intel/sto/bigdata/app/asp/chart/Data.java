@@ -4,6 +4,9 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
+import java.text.Format;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -28,12 +31,16 @@ public class Data {
   private Map<String, List<List<Float>>> groupDetail = new HashMap<String, List<List<Float>>>();
   // Map<groupName,List<%>>
   private Map<String, List<Float>> groupAvg = new HashMap<String, List<Float>>();
+  private List<String> groupList = new ArrayList<String>();
   private String dataDir;
   private String imgDir;
   private String plat;
   private String type;
 
+  private DecimalFormat format = new DecimalFormat("###.#");
+
   public void buildData(Properties conf, String type) throws Exception {
+    format.setRoundingMode(RoundingMode.FLOOR);
     String output = conf.getProperty("output");
     String imagedir = conf.getProperty("imagedir");
     plat = conf.getProperty("plat");
@@ -105,6 +112,7 @@ public class Data {
       List<String> lineList = new ArrayList<String>();
       lineList.addAll(setEntry.getValue());
       groupLines.put(setEntry.getKey(), lineList);
+      groupList.add(setEntry.getKey());
     }
   }
 
@@ -153,10 +161,11 @@ public class Data {
               baseValue.set(i, performance);
             }
           }
-          detailListList.get(i).add(percentage);
+          detailListList.get(i).add(
+              percentage == null ? null : Float.valueOf(format.format(percentage)));
         }
         avg = avg / performances.size();
-        avgList.add(100 * (avg - baseAvg) / avg);
+        avgList.add(Float.valueOf(format.format(100 * (avg - baseAvg) / avg)));
       }
     }
   }
@@ -231,6 +240,14 @@ public class Data {
 
   public void setImgDir(String imgDir) {
     this.imgDir = imgDir;
+  }
+
+  public List<String> getGroupList() {
+    return groupList;
+  }
+
+  public void setGroupList(List<String> groupList) {
+    this.groupList = groupList;
   }
 
 }

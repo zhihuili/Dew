@@ -18,9 +18,6 @@ Number of disks: 12<br />
 Disk size: 300GB<br />
 Disk controller: SCSI<br />
 storage controller: LSI Logic / Symbios Logic SAS1068E PCI-Express Fusion-MPT SAS</p>
-<h3>Software</h3>
-<hr />
-
 
 #include("./WEB/result_time.html")
 #include("./WEB/result_release.html")

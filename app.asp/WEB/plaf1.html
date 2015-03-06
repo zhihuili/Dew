@@ -1,0 +1,256 @@
+<html>
+<head>
+	<meta charset="utf-8">
+
+  <title>Apache Spark Performance</title>
+	 <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/index2.css" rel="stylesheet">
+ 
+	
+    <script src="js/jquery-1.11.2.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/index2.js"></script>
+
+</head>
+<body>
+	<div id="framework">
+		<div id="divlogo">
+		<h1>Apache Spark Performance</h1>
+		</div>
+		
+		<nav class="navbar navbar-inverse" role="navigation" style="border-radius:0px">
+			<div id="divNavBar" class="container">
+      			<ul class="nav navbar-nav">
+        			<li><a href="index.html" onclick="SwitchResultList(false)">Home</a></li>
+        			<li><a href="result.html" onclick="SwitchResultList(true)" >Result</a></li>
+         			<li><a href="about.html" onclick="SwitchResultList(false)">Documentation</a></li>
+      			</ul>
+	 		</div>
+		</nav>
+
+		<div id="divContainer">
+			<div id="divContainer-left">
+
+			<ul id="ResultList" class="list-group" style="display:none">
+			  <li class="list-group-item"><a href="plaf1.html">Plaf A</a></li>
+			  <li class="list-group-item"><a href="plaf2.html">Plaf B</a></li>
+			  <li class="list-group-item"><a href="plaf3.html">Plaf C</a></li>	
+			  <li class="list-group-item"><a href="plaf4.html">Plaf D</a></li>
+			</ul>	
+
+
+			<ul  class="list-group">
+			  <li class="list-group-item"><a href="index.html" onclick="SwitchResultList(false)">Home</a></li>
+			  <li class="list-group-item"><a href="result.html" onclick="SwitchResultList(true)" >Result</a></li>
+			  <li class="list-group-item"><a href="about.html" onclick="SwitchResultList(false)" >Documentation</a></li> 
+			</ul>
+			
+			<!--Anchor-->
+			<ul id="anchors" class="list-group" style="position:fixed;top:200px;right:300px;display:none">
+			  <li class="list-group-item"><a href="#time" >Time</a></li>
+			  <li class="list-group-item"><a href="#release" >Release</a></li>
+			</ul>
+
+			</div>
+			<div id="divContainer-right">
+
+				
+<input id="ResultModule" type="hidden"  />
+
+<h1>Apache Spark Performance</h1>		
+<h2> Description</h2>
+<hr />
+Each data point represents each workload runtime percent compared with the previous week. Different lines represents different workloads running on spark yarn-client mode.</p>
+<h3>Hardware</h3>
+<hr />
+CPU type: 2P Quad-core Core 2 Duo<br />
+ 2 Duo CPU frequency: 2800Mhz<br />
+Internal name server/processor: lkp-st02-x8664<br />
+Description: 2P Quad-core Harpertown CPU, with 8G mem, and 12 SAS disks.<br />
+Memory: 8GBMb<br />
+Disk type: SAS<br />
+Number of disks: 12<br />
+Disk size: 300GB<br />
+Disk controller: SCSI<br />
+storage controller: LSI Logic / Symbios Logic SAS1068E PCI-Express Fusion-MPT SAS</p>
+
+<html>
+
+<div id="time">
+<h2> Time Based </h2>
+</div>
+<h3>Summary </h3>
+The lower percent the better performance.</p>
+<hr />
+<p><table  class="sticky-enabled table">
+<thead><tr><th> Group</th><th>  20150225 </th><th>  20150226 </th><th>  20150227 </th><th>  20150228 </th><th>  20150301 </th><th>  20150302 </th><th>  20150303 </th><th>  20150304 </th><th>  20150305 </th></tr></thead>
+<tbody>
+<tr class="odd"><td><span class="qtip-link qtip-link-odd">sparkbench</span></td><td>-0.1%</td><td>-8.0%</td><td>-0.2%</td><td>-0.3%</td><td>-0.1%</td><td>8.1%</td><td>1.0%</td><td>-14.4%</td></tr> 
+</tbody>
+</table>
+<img border="0" src="image/plaf1.time/overall.png" width="600" height="300"> 
+
+<h3> Detail </h3>
+<h4>sparkbench</h4>
+<hr />
+<p>
+
+<table id="tWorkLoadData" class="sticky-enabled table">
+	<thead>
+		<tr>
+			<th>JOB</th>
+						<th> 20150225 </th>
+						<th> 20150226 </th>
+						<th> 20150227 </th>
+						<th> 20150228 </th>
+						<th> 20150301 </th>
+						<th> 20150302 </th>
+						<th> 20150303 </th>
+						<th> 20150304 </th>
+						<th> 20150305 </th>
+					</tr>
+	</thead>
+	<tbody>
+						<tr class="odd">
+			<td> aggregation </td>
+						<td>%</td>
+					<td>%</td>
+					<td>%</td>
+					<td>%</td>
+					<td>%</td>
+					<td>%</td>
+					<td>%</td>
+					<td>%</td>
+				</tr>
+				<tr class="odd">
+			<td> sort </td>
+						<td>-0.4%</td>
+					<td>-0.7%</td>
+					<td>-0.7%</td>
+					<td>0.1%</td>
+					<td>-0.4%</td>
+					<td>17.7%</td>
+					<td>-11.3%</td>
+					<td>-7.6%</td>
+				</tr>
+				<tr class="odd">
+			<td> pagerank </td>
+						<td>0.1%</td>
+					<td>%</td>
+					<td>0.0%</td>
+					<td>-0.1%</td>
+					<td>0.0%</td>
+					<td>0.0%</td>
+					<td>-0.3%</td>
+					<td>-0.4%</td>
+				</tr>
+				<tr class="odd">
+			<td> kmeans </td>
+						<td>0.0%</td>
+					<td>0.4%</td>
+					<td>0.5%</td>
+					<td>-1.7%</td>
+					<td>0.2%</td>
+					<td>0.6%</td>
+					<td>-2.3%</td>
+					<td>13.0%</td>
+				</tr>
+				<tr class="odd">
+			<td> scan </td>
+						<td>%</td>
+					<td>%</td>
+					<td>%</td>
+					<td>%</td>
+					<td>%</td>
+					<td>%</td>
+					<td>%</td>
+					<td>%</td>
+				</tr>
+				<tr class="odd">
+			<td> join </td>
+						<td>%</td>
+					<td>%</td>
+					<td>%</td>
+					<td>%</td>
+					<td>%</td>
+					<td>%</td>
+					<td>%</td>
+					<td>%</td>
+				</tr>
+				<tr class="odd">
+			<td> wordcount </td>
+						<td>-0.1%</td>
+					<td>-0.0%</td>
+					<td>0.0%</td>
+					<td>0.0%</td>
+					<td>0.0%</td>
+					<td>13.0%</td>
+					<td>23.2%</td>
+					<td>22.5%</td>
+				</tr>
+			</tbody>
+</table>
+Comments: null means no such workload running in this week.</p>
+<img border="0" src="image/plaf1.time/sparkbench_workloads.png" width="600" height="400">  
+
+<html>
+
+<div id="release">
+<h2> Release Based </h2>
+</div>
+<h3>Summary </h3>
+The lower percent the better performance.</p>
+<hr />
+<p><table  class="sticky-enabled table">
+<thead><tr><th> Group</th><th>  1.0.0 </th><th>  2.2.2 </th><th>  3.1.0 </th><th>  4.0.0 </th><th>  5.4.2 </th></tr></thead>
+<tbody>
+<tr class="odd"><td><span class="qtip-link qtip-link-odd">spark-perf</span></td><td>0.4%</td><td>-1.0%</td><td>-1.4%</td><td>1.0%</td></tr> 
+</tbody>
+</table>
+<img border="0" src="image/plaf1.release/overall.png" width="600" height="300"> 
+
+<h3> Detail </h3>
+<h4>spark-perf</h4>
+<hr />
+<p>
+
+<table id="tWorkLoadData" class="sticky-enabled table">
+	<thead>
+		<tr>
+			<th>JOB</th>
+						<th> 1.0.0 </th>
+						<th> 2.2.2 </th>
+						<th> 3.1.0 </th>
+						<th> 4.0.0 </th>
+						<th> 5.4.2 </th>
+					</tr>
+	</thead>
+	<tbody>
+						<tr class="odd">
+			<td> job </td>
+						<td>0.4%</td>
+					<td>-0.9%</td>
+					<td>-1.4%</td>
+					<td>1.0%</td>
+				</tr>
+			</tbody>
+</table>
+Comments: null means no such workload running in this week.</p>
+<img border="0" src="image/plaf1.release/spark-perf_workloads.png" width="600" height="400">  
+
+
+
+	</div>
+		<hr style="clear:both" />
+		<div id="footer">
+		
+			Copyright &copy 2015 Intel Corporation. All rights reserved.
+		<em>*Other names and brands may be claimed as the property of others.</em>
+		
+		</div>
+
+	</div>
+</body>
+
+</html>

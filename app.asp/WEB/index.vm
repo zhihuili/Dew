@@ -1,21 +1,9 @@
 #include("./WEB/head.html")
 
+<h1>Apache Spark Performance</h1>
+<img border="0" src="image/${platform}.release/overall.png" width="500" height="200"> 
 
-
-<h2> Overall Curve</h2>
-The lower percent the better performance.</p>
-<hr />
-<p><table  class="sticky-enabled table">
-<thead><tr><th> Group</th>#foreach($file in $filelist)<th>  $file </th>#end</tr></thead>
-<tbody>
-#foreach($group in $grouplist)
-<tr class="odd"><td><span class="qtip-link qtip-link-odd">$group</span></td>#foreach($avgvalue in $avgdata.get($group))<td>$avgvalue%</td>#end</tr> 
-#end
-</tbody>
-</table>
-<img border="0" src="image/overall.png" width="300" height="200"> 
-
-<h2>ABOUT <span>Spark Workload Performance</span></h2>
+<h2>ABOUT <span>Apache Spark Performance</span></h2>
 <p>Our goal is to work with the Apache Spark community to further enhance the performance of the Apache Spark. The data available on this site allows community members to closely track performance gains and losses with every week version of the Apache Spark. Ultimately, we hope that this data will result in consistent performance increases.</p>
 
 #include("./WEB/footer.html")

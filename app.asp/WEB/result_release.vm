@@ -1,0 +1,50 @@
+<html>
+
+<div id="release">
+<h2> Release Based </h2>
+</div>
+<h3>Summary </h3>
+The lower percent the better performance.</p>
+<hr />
+<p><table  class="sticky-enabled table">
+<thead><tr><th> Group</th>#foreach($file in $filelist)<th>  $file </th>#end</tr></thead>
+<tbody>
+#foreach($group in $grouplist)
+<tr class="odd"><td><span class="qtip-link qtip-link-odd">$group</span></td>#foreach($avgvalue in $avgdata.get($group))<td>$avgvalue%</td>#end</tr> 
+#end
+</tbody>
+</table>
+<img border="0" src="image/${platform}.release/overall.png" width="600" height="300"> 
+
+<h3> Detail </h3>
+#foreach($group in $grouplist)
+<h4>$group</h4>
+<hr />
+<p>
+
+<table id="tWorkLoadData" class="sticky-enabled table">
+	<thead>
+		<tr>
+			<th>JOB</th>
+			#foreach($file in $filelist)
+			<th> $file </th>
+			#end
+		</tr>
+	</thead>
+	<tbody>
+		#set($count=-1)
+		#foreach($job in $workload.get($group))
+  		#set($count = $count+1)
+		<tr class="odd">
+			<td> $job </td>
+			#foreach($value in $tabledata.get($group).get($count))
+			<td>$!value%</td>
+		#end
+		</tr>
+		#end
+	</tbody>
+</table>
+Comments: null means no such workload running in this week.</p>
+<img border="0" src="image/${platform}.release/${group}_workloads.png" width="600" height="400">  
+#end
+
