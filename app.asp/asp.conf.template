@@ -9,3 +9,4 @@ output=/home/frank/temp/asp/
 imagedir=/home/frank/Asp/image/
 type=release
 plat=plaf1
+giturl=https://yanqinghuang:PASSWORD@github.com/yanqinghuang/Asp.git
