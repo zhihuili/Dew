@@ -8,19 +8,22 @@
 Each data point represents each workload runtime percent compared with the previous week. Different lines represents different workloads running on spark yarn-client mode.</p>
 <h3>Hardware</h3>
 <hr />
-CPU type: 2P Quad-core Core 2 Duo<br />
- 2 Duo CPU frequency: 2800Mhz<br />
-Internal name server/processor: lkp-st02-x8664<br />
-Description: 2P Quad-core Harpertown CPU, with 8G mem, and 12 SAS disks.<br />
-Memory: 8GBMb<br />
-Disk type: SAS<br />
-Number of disks: 12<br />
-Disk size: 300GB<br />
-Disk controller: SCSI<br />
-storage controller: LSI Logic / Symbios Logic SAS1068E PCI-Express Fusion-MPT SAS</p>
+CPU type: Intel(R) Xeon(R) CPU E5-2697 v2 @ 2.70GHz <br />
+Memory: 192GBMb<br />
+Disk Type: SSD<br />
+Number of SSD disk: 2<br />
+Disk size: 400G<br />
+Disk Type: HDD<br />
+Number of HDD disk: 8<br />
+Disk size: 1TB<br />
+Disk controller: SATA</p>
 <h3>Software</h3>
 <hr />
-
+JAVA version: 1.8.0_25<br />
+Hadoop version: 2.2.0<br />
+HiBench version: 3.0<br />
+Spark version: 1.3.0<br />
+Spark on yarn mode</p>
 
 #include("./WEB/result_time.html")
 #include("./WEB/result_release.html")
