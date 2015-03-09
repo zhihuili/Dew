@@ -5,7 +5,7 @@ build=mvn -Pyarn -Phadoop-2.2 -Dhadoop.version=2.2.0 -DskipTests clean package
 #build=sbt/sbt -Pyarn -Phadoop-2.2 assembly
 #build=ls
 time=52 30 22 * * ?
-output=/Users/lizhihui/work/temp/tmp
-imagedir=/Users/lizhihui/work/temp/image/
+output=/home/frank/temp/asp/
+imagedir=/home/frank/Asp/image/
 type=release
 plat=plaf1

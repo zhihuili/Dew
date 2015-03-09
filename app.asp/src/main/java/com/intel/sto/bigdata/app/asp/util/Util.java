@@ -1,6 +1,7 @@
 package com.intel.sto.bigdata.app.asp.util;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
@@ -59,7 +60,9 @@ public class Util {
   }
 
   public static Properties loadConf() throws Exception {
-    InputStream in = ClassLoader.getSystemResourceAsStream("asp.conf");
+    String dewHome = com.intel.sto.bigdata.dew.utils.Util.getDewHome();
+    File aspConfFile = new File(dewHome + "/app.asp", "asp.conf");
+    InputStream in = new FileInputStream(aspConfFile);
     Properties props = new Properties();
     props.load(in);
     in.close();
