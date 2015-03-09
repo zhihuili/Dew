@@ -70,7 +70,10 @@ public class Util {
   }
 
   public static Map<String, String> loadWorkload() throws Exception {
-    return Files.loadPropertiesFile("/workload.conf");
+    String dewHome = com.intel.sto.bigdata.dew.utils.Util.getDewHome();
+    File workloadFile = new File(dewHome + "/app.asp", "workload.conf");
+    InputStream in = new FileInputStream(workloadFile);
+    return Files.loadPropertiesFile(in);
   }
 
   public static String buildLogPath() {
