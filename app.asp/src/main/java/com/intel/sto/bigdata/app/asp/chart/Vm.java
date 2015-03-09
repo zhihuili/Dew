@@ -20,7 +20,7 @@ public class Vm {
     /* create a context and add data */
     VelocityContext context = new VelocityContext();
     context.put("tabledata", data.getGroupDetail());
-    context.put("avgdata", data.getGroupAvg());
+    context.put("avgdata", data.getNewGroupAvg());
     context.put("filelist", data.getFileList().subList(1, data.getFileList().size()));
     context.put("workload", data.getGroupLines());
     context.put("grouplist", data.getGroupList());

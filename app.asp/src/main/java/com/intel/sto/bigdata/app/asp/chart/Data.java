@@ -6,7 +6,6 @@ import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
-import java.text.Format;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -29,8 +28,10 @@ public class Data {
   private Map<String, List<String>> groupLines = new HashMap<String, List<String>>();
   // Map<groupName,List<List<%>>>
   private Map<String, List<List<Float>>> groupDetail = new HashMap<String, List<List<Float>>>();
-  // Map<groupName,List<%>>
+  // Map<groupName,List<%>> deprecated
   private Map<String, List<Float>> groupAvg = new HashMap<String, List<Float>>();
+  // Map<groupName,List<%>>
+  private Map<String, List<Float>> newGroupAvg = new HashMap<String, List<Float>>();
   private List<String> groupList = new ArrayList<String>();
   private String dataDir;
   private String imgDir;
@@ -122,9 +123,11 @@ public class Data {
       // workload(line) per row
       List<List<Float>> detailListList = new ArrayList<List<Float>>();
       List<Float> avgList = new ArrayList<Float>();
+      List<Float> newAvgList = new ArrayList<Float>();
       String groupName = groupLineEntry.getKey();
       groupDetail.put(groupName, detailListList);
       groupAvg.put(groupName, avgList);
+      newGroupAvg.put(groupName, newAvgList);
       List<String> lines = groupLineEntry.getValue();
       List<Float> baseValue = null;
       Float baseAvg = 0F;
@@ -148,6 +151,8 @@ public class Data {
           continue;// skip the first day
         }
         Float avg = 0F;
+        Float newAvg = 0F;
+        int count = 0;
         for (int i = 0; i < lines.size(); i++) {
           Float performance = performances.get(lines.get(i));
           Float percentage = null;
@@ -156,6 +161,8 @@ public class Data {
             Float base = baseValue.get(i);
             if (base != null) {
               percentage = 100 * (performance - base) / base;
+              newAvg += percentage;
+              count++;
             } else {
               // reset base
               baseValue.set(i, performance);
@@ -165,7 +172,13 @@ public class Data {
               percentage == null ? null : Float.valueOf(format.format(percentage)));
         }
         avg = avg / performances.size();
+        if (count != 0) {
+          newAvg = newAvg / count;
+        } else {
+          newAvg = null;
+        }
         avgList.add(Float.valueOf(format.format(100 * (avg - baseAvg) / avg)));
+        newAvgList.add(newAvg == null ? null : Float.valueOf(format.format(newAvg)));
       }
     }
   }
@@ -248,6 +261,14 @@ public class Data {
 
   public void setGroupList(List<String> groupList) {
     this.groupList = groupList;
+  }
+
+  public Map<String, List<Float>> getNewGroupAvg() {
+    return newGroupAvg;
+  }
+
+  public void setNewGroupAvg(Map<String, List<Float>> newGroupAvg) {
+    this.newGroupAvg = newGroupAvg;
   }
 
 }

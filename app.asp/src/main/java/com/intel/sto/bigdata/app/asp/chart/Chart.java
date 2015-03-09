@@ -46,7 +46,7 @@ public class Chart {
 
   private void plotAvgChart(Data data) throws Exception {
     DefaultTableXYDataset dataSet = new DefaultTableXYDataset();
-    for (Entry<String, List<Float>> entry : data.getGroupAvg().entrySet()) {
+    for (Entry<String, List<Float>> entry : data.getNewGroupAvg().entrySet()) {
       XYSeries lineData = new XYSeries(entry.getKey(), false, false);
       List<Float> list = entry.getValue();
       for (int i = 0; i < list.size(); i++) {
@@ -61,7 +61,7 @@ public class Chart {
     ValueAxis yAxis = new NumberAxis();
     ValueAxis xAxis =
         new SymbolAxis("", data.getFileList().subList(1, data.getFileList().size())
-            .toArray(new String[data.getFileList().size()-1]));
+            .toArray(new String[data.getFileList().size() - 1]));
     XYItemRenderer renderer = new XYLineAndShapeRenderer();
     XYPlot plot = new XYPlot(dataSet, xAxis, yAxis, renderer);
     JFreeChart chart = new JFreeChart(title, new Font("Dialog", Font.PLAIN, 15), plot, true);
