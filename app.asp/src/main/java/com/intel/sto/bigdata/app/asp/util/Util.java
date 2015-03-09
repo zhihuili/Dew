@@ -1,6 +1,7 @@
 package com.intel.sto.bigdata.app.asp.util;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
@@ -59,7 +60,9 @@ public class Util {
   }
 
   public static Properties loadConf() throws Exception {
-    InputStream in = ClassLoader.getSystemResourceAsStream("asp.conf");
+    String dewHome = com.intel.sto.bigdata.dew.utils.Util.getDewHome();
+    File aspConfFile = new File(dewHome + "/app.asp", "asp.conf");
+    InputStream in = new FileInputStream(aspConfFile);
     Properties props = new Properties();
     props.load(in);
     in.close();
@@ -67,7 +70,10 @@ public class Util {
   }
 
   public static Map<String, String> loadWorkload() throws Exception {
-    return Files.loadPropertiesFile("/workload.conf");
+    String dewHome = com.intel.sto.bigdata.dew.utils.Util.getDewHome();
+    File workloadFile = new File(dewHome + "/app.asp", "workload.conf");
+    InputStream in = new FileInputStream(workloadFile);
+    return Files.loadPropertiesFile(in);
   }
 
   public static String buildLogPath() {
@@ -83,5 +89,13 @@ public class Util {
 
   public static String buildLogFilePath(String name) {
     return buildLogPath() + "/" + name;
+  }
+
+  public static String buildOutputPath(Properties conf) {
+    String output = conf.getProperty("output");
+    String type = conf.getProperty("type");
+    String plat = conf.getProperty("plat");
+    String path = new File(output, plat + "." + type).getAbsolutePath();
+    return path;
   }
 }

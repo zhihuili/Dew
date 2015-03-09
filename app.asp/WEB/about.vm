@@ -1,60 +1,4 @@
-<html>
-<head>
-	<meta charset="utf-8">
-
-  <title>Apache Spark Performance</title>
-	 <!-- Bootstrap -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/index2.css" rel="stylesheet">
- 
-	
-    <script src="js/jquery-1.11.2.min.js"></script>
-	<script src="js/bootstrap.min.js"></script>
-	<script src="js/index2.js"></script>
-
-</head>
-<body>
-	<div id="framework">
-		<div id="divlogo">
-		<h1>Apache Spark Performance</h1>
-		</div>
-		
-		<nav class="navbar navbar-inverse" role="navigation" style="border-radius:0px">
-			<div id="divNavBar" class="container">
-      			<ul class="nav navbar-nav">
-        			<li><a href="index.html" onclick="SwitchResultList(false)">Home</a></li>
-        			<li><a href="result.html" onclick="SwitchResultList(true)" >Result</a></li>
-         			<li><a href="about.html" onclick="SwitchResultList(false)">Documentation</a></li>
-      			</ul>
-	 		</div>
-		</nav>
-
-		<div id="divContainer">
-			<div id="divContainer-left">
-
-			<ul id="ResultList" class="list-group" style="display:none">
-			  <li class="list-group-item"><a href="plaf1.html">Plaf A</a></li>
-			  <li class="list-group-item"><a href="plaf2.html">Plaf B</a></li>
-			  <li class="list-group-item"><a href="plaf3.html">Plaf C</a></li>	
-			  <li class="list-group-item"><a href="plaf4.html">Plaf D</a></li>
-			</ul>	
-
-
-			<ul  class="list-group">
-			  <li class="list-group-item"><a href="index.html" onclick="SwitchResultList(false)">Home</a></li>
-			  <li class="list-group-item"><a href="result.html" onclick="SwitchResultList(true)" >Result</a></li>
-			  <li class="list-group-item"><a href="about.html" onclick="SwitchResultList(false)" >Documentation</a></li> 
-			</ul>
-			
-			<!--Anchor-->
-			<ul id="anchors" class="list-group" style="position:fixed;top:200px;right:300px;display:none">
-			  <li class="list-group-item"><a href="#time" >Time</a></li>
-			  <li class="list-group-item"><a href="#release" >Release</a></li>
-			</ul>
-
-			</div>
-			<div id="divContainer-right">
-
+#include("./WEB/head.html")
 
 <h1>Apache Spark Performance</h1>
 <h2>ABOUT</h2>
@@ -106,16 +50,4 @@ Sweeps sets of parameters to test against multiple Spark and test configurations
 Automatically downloads and builds Spark:</br>
 Maintains a cache of successful builds to enable rapid testing against multiple Spark versions.</p>
 
-	</div>
-		<hr style="clear:both" />
-		<div id="footer">
-		
-			Copyright &copy 2015 Intel Corporation. All rights reserved.
-		<em>*Other names and brands may be claimed as the property of others.</em>
-		
-		</div>
-
-	</div>
-</body>
-
-</html>
+#include("./WEB/footer.html")
