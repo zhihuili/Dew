@@ -8,13 +8,15 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Properties;
 
+import com.intel.sto.bigdata.app.asp.util.Util;
+
 public class DataPrinter {
 
   public static String print(Properties conf, Map<String, Long> workresult) throws Exception {
     Date date = new Date(System.currentTimeMillis());
     SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
     String time = sdf.format(date);
-    String output = conf.getProperty("output");
+    String output = Util.buildOutputPath(conf);
     FileWriter fw = null;
     try {
       fw = new FileWriter(new File(output, time));

@@ -90,4 +90,12 @@ public class Util {
   public static String buildLogFilePath(String name) {
     return buildLogPath() + "/" + name;
   }
+
+  public static String buildOutputPath(Properties conf) {
+    String output = conf.getProperty("output");
+    String type = conf.getProperty("type");
+    String plat = conf.getProperty("plat");
+    String path = new File(output, plat + "." + type).getAbsolutePath();
+    return path;
+  }
 }

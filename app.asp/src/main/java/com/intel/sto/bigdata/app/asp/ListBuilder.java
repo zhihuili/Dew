@@ -8,10 +8,12 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Properties;
 
+import com.intel.sto.bigdata.app.asp.util.Util;
+
 public class ListBuilder {
 
   public static void buildList(Properties conf, int max, String newLine) throws Exception {
-    String path = conf.getProperty("output");
+    String path = Util.buildOutputPath(conf);
     File listFile = new File(path, "list");
     List<String> list = new LinkedList<String>();
     if (listFile.exists()) {
