@@ -10,9 +10,6 @@ Each data point represents each workload runtime percent compared with the previ
 <hr />
 CPU type: Intel(R) Xeon(R) CPU E5-2697 v2 @ 2.70GHz <br />
 Memory: 192GBMb<br />
-Disk Type: SSD<br />
-Number of SSD disk: 2<br />
-Disk size: 400G<br />
 Disk Type: HDD<br />
 Number of HDD disk: 8<br />
 Disk size: 1TB<br />
@@ -22,8 +19,12 @@ Disk controller: SATA</p>
 JAVA version: 1.8.0_25<br />
 Hadoop version: 2.2.0<br />
 HiBench version: 3.0<br />
-Spark version: 1.3.0<br />
-Spark on yarn mode</p>
+Spark on yarn-client mode</p>
+<h3>Cluster</h3>
+<hr />
+1 node for Master<br/>
+10 nodes for Slave<br/>
+ 
 #include("./WEB/result_time.html")
 #include("./WEB/result_release.html")
 
