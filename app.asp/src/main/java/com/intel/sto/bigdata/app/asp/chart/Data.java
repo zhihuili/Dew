@@ -105,6 +105,7 @@ public class Data {
         }
 
       }
+      br.close();
       oData.add(groupPerformance);
     }
 
