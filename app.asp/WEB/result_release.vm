@@ -14,7 +14,7 @@ The lower percent the better performance.</p>
 #end
 </tbody>
 </table>
-<img border="0" src="image/${platform}.release/overall.png" width="600" height="300"> 
+<img border="0" src="image/${platform}.release/overall.png" width="500" height="200"> 
 
 <h3> Detail </h3>
 #foreach($group in $grouplist)
@@ -45,6 +45,6 @@ The lower percent the better performance.</p>
 	</tbody>
 </table>
 Comments: null means no such workload running in this week.</p>
-<img border="0" src="image/${platform}.release/${group}_workloads.png" width="600" height="400">  
+<img border="0" src="image/${platform}.release/${group}_workloads.png" width="500" height="200">  
 #end
 
