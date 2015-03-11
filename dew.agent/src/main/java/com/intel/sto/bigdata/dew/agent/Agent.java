@@ -31,7 +31,7 @@ public class Agent extends UntypedActor {
 
   public Agent(String masterUrl, ServiceManager serviceManager, String serviceDes) {
     this.serviceManager = serviceManager;
-    this.dewConf =  DewConf.getDewConf();
+    this.dewConf = DewConf.getDewConf();
     this.masterUrl = masterUrl;
     if (serviceDes != null) {
       defaultServiceDes = new ServiceDes();
@@ -105,6 +105,7 @@ public class Agent extends UntypedActor {
       try {
         Service service = (Service) cl.loadClass(sd.getServiceClass()).newInstance();
         service.setDewConf(dewConf);
+        service.setContext(sd.getContext());
         serviceManager.putService(sd.getServiceName(), service);
         new Thread(service).start();
       } catch (Exception e) {

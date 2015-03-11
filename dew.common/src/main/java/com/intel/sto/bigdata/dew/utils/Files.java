@@ -83,6 +83,7 @@ public class Files {
       String serviceClass = serviceDes[0];
       des.setServiceClass(serviceClass);
       des.setServiceType(serviceType);
+      des.getContext().put(Constants.MASTER_CURRENT_TIME, String.valueOf(System.currentTimeMillis()));
       list.add(des);
     }
     return list;

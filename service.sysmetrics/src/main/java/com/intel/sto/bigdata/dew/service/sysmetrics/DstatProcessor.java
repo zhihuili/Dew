@@ -15,12 +15,21 @@ public class DstatProcessor extends Thread {
   private Process process;
   private File basePath = Files.getDstatDataPath();
   private String currentDstat;
+  private String fileName;
+
+  public DstatProcessor() {
+
+  }
+
+  public DstatProcessor(String timeStamp) {
+    this.fileName = timeStamp;
+  }
 
   @Override
   public void run() {
 
     try {
-      File tmpFile = new File(basePath, String.valueOf(System.currentTimeMillis()));
+      File tmpFile = new File(basePath, fileName);
       if (tmpFile.exists()) {
         tmpFile.delete();
       }
