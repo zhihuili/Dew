@@ -9,12 +9,12 @@ public class Git {
     String path = conf.getProperty("imagedir") + "../";
     String giturl = conf.getProperty("giturl");
     try {
-      Util.execute("git pull " + giturl + " gh-pages", null, path);
+      gitPull(path, giturl);
     } catch (Exception e1) {
       try {
-        Util.execute("git pull " + giturl + " gh-pages", null, path);
+        gitPull(path, giturl);
       } catch (Exception e2) {
-        Util.execute("git pull " + giturl + " gh-pages", null, path);
+        gitPull(path, giturl);
       }
     }
     Util.execute("git add index.html", null, path);
@@ -28,14 +28,21 @@ public class Git {
     Util.execute("git commit -m commit", null, path);
     // Util.execute("git push origin gh-pages", null, path);
     try {
-      Util.execute("git push " + giturl, null, path);
+      gitPush(path, giturl);
     } catch (Exception e1) {
       try {
-        Util.execute("git push " + giturl, null, path);
+        gitPush(path, giturl);
       } catch (Exception e2) {
-        Util.execute("git push " + giturl, null, path);
+        gitPush(path, giturl);
       }
     }
+  }
 
+  private static void gitPull(String path, String giturl) throws Exception {
+    Util.execute("git pull " + giturl + " gh-pages", null, path);
+  }
+
+  private static void gitPush(String path, String giturl) throws Exception {
+    Util.execute("git push " + giturl, null, path);
   }
 }
