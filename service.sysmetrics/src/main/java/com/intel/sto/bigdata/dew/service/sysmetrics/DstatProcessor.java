@@ -10,6 +10,7 @@ import java.util.List;
 
 import com.intel.sto.bigdata.dew.exception.ServiceException;
 import com.intel.sto.bigdata.dew.utils.Files;
+import com.intel.sto.bigdata.dew.utils.PrintStreamThread;
 
 public class DstatProcessor extends Thread {
   private Process processDstat;
@@ -43,11 +44,13 @@ public class DstatProcessor extends Thread {
               "dstat --mem --io --cpu --net -N eth0,eth1,total --disk --output " + tmpFileName
                   + " > /dev/null" };
       String[] cmdTail = { "/bin/sh", "-c", "tail -f " + tmpFileName };
-      //TODO 
+      // TODO
       processDstat =
           Runtime.getRuntime().exec(
               "python /usr/bin/dstat --mem --io --cpu --net -N eth0,eth1,total --disk --output "
-                  + tmpFileName + " > /dev/null");
+                  + tmpFileName);
+      new PrintStreamThread(processDstat.getInputStream(), null);
+      new PrintStreamThread(processDstat.getErrorStream(), null);
       Thread.sleep(1100);// wait for dstat creating file
       processTail = Runtime.getRuntime().exec(cmdTail);
       BufferedReader br = new BufferedReader(new InputStreamReader(processTail.getInputStream()));

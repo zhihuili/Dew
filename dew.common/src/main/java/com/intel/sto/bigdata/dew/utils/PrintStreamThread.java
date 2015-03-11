@@ -23,13 +23,15 @@ public class PrintStreamThread extends Thread {
 
   public PrintStreamThread(InputStream is, final FileWriter fw) {
     this.is = is;
-    printer = new Printer() {
-      @Override
-      public void print(String s) throws IOException {
-        //FIXME thread safety
-        fw.write(s + System.getProperty("line.separator"));
-      }
-    };
+    if (fw != null) {
+      printer = new Printer() {
+        @Override
+        public void print(String s) throws IOException {
+          // FIXME thread safety
+          fw.write(s + System.getProperty("line.separator"));
+        }
+      };
+    }
     this.start();
   }
 
@@ -39,7 +41,9 @@ public class PrintStreamThread extends Thread {
     String line;
     try {
       while ((line = br.readLine()) != null) {
-        printer.print(line);
+        if (printer != null) {
+          printer.print(line);
+        }
       }
     } catch (IOException e) {
       e.printStackTrace();
