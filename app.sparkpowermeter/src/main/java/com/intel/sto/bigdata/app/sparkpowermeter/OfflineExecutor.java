@@ -55,6 +55,7 @@ public class OfflineExecutor {
         throw new Exception("Cannot find slave file.");
       }
       slaveFilePath = slaveFile.getAbsolutePath();
+      WorkloadConf.set(Constants.SPARK_CLUSTER_SLAVE, slaveFilePath);
     }
     InputStream is = new FileInputStream(slaveFilePath);
     Set<String> hosts = Files.loadResourceFile(is);
