@@ -8,7 +8,15 @@ public class Git {
   public static void push(Properties conf) throws Exception {
     String path = conf.getProperty("imagedir") + "../";
     String giturl = conf.getProperty("giturl");
-    Util.execute("git pull " + giturl + " gh-pages", null, path);
+    try {
+      Util.execute("git pull " + giturl + " gh-pages", null, path);
+    } catch (Exception e1) {
+      try {
+        Util.execute("git pull " + giturl + " gh-pages", null, path);
+      } catch (Exception e2) {
+        Util.execute("git pull " + giturl + " gh-pages", null, path);
+      }
+    }
     Util.execute("git add index.html", null, path);
     Util.execute("git add result.html", null, path);
     Util.execute("git add result_time.html", null, path);
@@ -19,6 +27,15 @@ public class Git {
     Util.execute("git add image", null, path);
     Util.execute("git commit -m commit", null, path);
     // Util.execute("git push origin gh-pages", null, path);
-    Util.execute("git push " + giturl, null, path);
+    try {
+      Util.execute("git push " + giturl, null, path);
+    } catch (Exception e1) {
+      try {
+        Util.execute("git push " + giturl, null, path);
+      } catch (Exception e2) {
+        Util.execute("git push " + giturl, null, path);
+      }
+    }
+
   }
 }
