@@ -43,7 +43,11 @@ public class DstatProcessor extends Thread {
               "dstat --mem --io --cpu --net -N eth0,eth1,total --disk --output " + tmpFileName
                   + " > /dev/null" };
       String[] cmdTail = { "/bin/sh", "-c", "tail -f " + tmpFileName };
-      processDstat = Runtime.getRuntime().exec(cmd);
+      //TODO 
+      processDstat =
+          Runtime.getRuntime().exec(
+              "python /usr/bin/dstat --mem --io --cpu --net -N eth0,eth1,total --disk --output "
+                  + tmpFileName + " > /dev/null");
       Thread.sleep(1100);// wait for dstat creating file
       processTail = Runtime.getRuntime().exec(cmdTail);
       BufferedReader br = new BufferedReader(new InputStreamReader(processTail.getInputStream()));
