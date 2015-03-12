@@ -1,6 +1,8 @@
 package com.intel.sto.bigdata.dew.service;
 
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ServiceDes implements Serializable {
 
@@ -8,6 +10,8 @@ public class ServiceDes implements Serializable {
   private String serviceName;
   private String serviceClass;
   private String serviceType;
+  // more KV style description
+  private Map<String, String> context = new HashMap<String, String>();
 
   public String getServiceName() {
     return serviceName;
@@ -35,6 +39,14 @@ public class ServiceDes implements Serializable {
 
   public String serialize() {
     return this.serviceName + "," + this.serviceType + "," + this.serviceClass;
+  }
+
+  public Map<String, String> getContext() {
+    return context;
+  }
+
+  public void setContext(Map<String, String> context) {
+    this.context = context;
   }
 
   public void deSerialize(String desString) {

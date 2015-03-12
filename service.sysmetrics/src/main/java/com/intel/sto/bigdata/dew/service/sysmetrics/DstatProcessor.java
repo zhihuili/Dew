@@ -10,17 +10,28 @@ import java.util.List;
 
 import com.intel.sto.bigdata.dew.exception.ServiceException;
 import com.intel.sto.bigdata.dew.utils.Files;
+import com.intel.sto.bigdata.dew.utils.PrintStreamThread;
 
 public class DstatProcessor extends Thread {
-  private Process process;
+  private Process processDstat;
+  private Process processTail;
   private File basePath = Files.getDstatDataPath();
   private String currentDstat;
+  private String fileName;
+
+  public DstatProcessor() {
+
+  }
+
+  public DstatProcessor(String timeStamp) {
+    this.fileName = timeStamp;
+  }
 
   @Override
   public void run() {
 
     try {
-      File tmpFile = new File(basePath, String.valueOf(System.currentTimeMillis()));
+      File tmpFile = new File(basePath, fileName);
       if (tmpFile.exists()) {
         tmpFile.delete();
       }
@@ -31,9 +42,18 @@ public class DstatProcessor extends Thread {
               "/bin/sh",
               "-c",
               "dstat --mem --io --cpu --net -N eth0,eth1,total --disk --output " + tmpFileName
-                  + " > /dev/null | tail -f " + tmpFileName };
-      process = Runtime.getRuntime().exec(cmd);
-      BufferedReader br = new BufferedReader(new InputStreamReader(process.getInputStream()));
+                  + " > /dev/null" };
+      String[] cmdTail = { "/bin/sh", "-c", "tail -f " + tmpFileName };
+      // TODO
+      processDstat =
+          Runtime.getRuntime().exec(
+              "python /usr/bin/dstat --mem --io --cpu --net -N eth0,eth1,total --disk --output "
+                  + tmpFileName);
+      new PrintStreamThread(processDstat.getInputStream(), null);
+      new PrintStreamThread(processDstat.getErrorStream(), null);
+      Thread.sleep(1100);// wait for dstat creating file
+      processTail = Runtime.getRuntime().exec(cmdTail);
+      BufferedReader br = new BufferedReader(new InputStreamReader(processTail.getInputStream()));
       String line;
       while ((line = br.readLine()) != null) {
         currentDstat = line;
@@ -93,9 +113,13 @@ public class DstatProcessor extends Thread {
   }
 
   public void kill() {
-    if (process != null) {
-      process.destroy();
-      process = null;
+    if (processDstat != null) {
+      processDstat.destroy();
+      processDstat = null;
+    }
+    if (processTail != null) {
+      processTail.destroy();
+      processTail = null;
     }
   }
 

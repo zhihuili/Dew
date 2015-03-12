@@ -21,7 +21,11 @@ public class DstatService extends Service {
 
   @Override
   public void run() {
-    dp = new DstatProcessor();
+    String timeStamp = context.get(com.intel.sto.bigdata.dew.utils.Constants.MASTER_CURRENT_TIME);
+    if (!Constants.USE_MASTER_TIME || timeStamp == null) {
+      timeStamp = String.valueOf(System.currentTimeMillis());
+    }
+    dp = new DstatProcessor(timeStamp);
     dp.startThread();
     while (run) {
       try {
