@@ -45,7 +45,7 @@ public class Result {
   }
 
   public void setExceptionMessage(String exceptionMessage) {
-    exceptionMessage = exceptionMessage;
+    this.exceptionMessage = exceptionMessage;
   }
 
   public String getDuration() {

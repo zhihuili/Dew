@@ -15,6 +15,8 @@ public class Asp {
         Executor.executeWorkload();
       } else if (args[0].equals("draw")) {
         Executor.draw();
+      } else if (args[0].equals("report")) {
+        Executor.report();
       } else {
         System.err.println("Useage:");
         System.err.println("now  -execute asp at once.");
