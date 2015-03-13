@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 import com.intel.sto.bigdata.app.logmanager.LogCollection;
 import com.intel.sto.bigdata.app.sparklogparser.model.App;
 import com.intel.sto.bigdata.app.sparkpowermeter.OfflineExecutor;
@@ -12,6 +14,7 @@ import com.intel.sto.bigdata.app.sparkreport.utils.Util;
 import com.intel.sto.bigdata.dew.conf.DewConf;
 
 public class SparkLogProcessor {
+  private static Logger log = Logger.getLogger(SparkLogProcessor.class);
   private static SparkLogProcessor instance = new SparkLogProcessor();
 
   public static SparkLogProcessor getInstance() {
@@ -56,7 +59,7 @@ public class SparkLogProcessor {
     if (logPath != null) {
       logPathList.add(logPath);
     }
-
+    log.info("collec yarn log " + appId + " from:" + logPathList);
     LogCollection.collect(appId, logPathList, DewConf.getDewConf().get("master"));
   }
 }
