@@ -139,7 +139,7 @@ public class Data {
         if (baseValue == null) {
           baseValue = new ArrayList<Float>();
           for (String lineName : lines) {
-            Float performance = performances.get(lineName);
+            Float performance = performances == null ? null : performances.get(lineName);
             if (performance == null) {
               baseValue.add(null);
             } else {
