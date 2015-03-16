@@ -9,6 +9,7 @@ public class ChartProcessor {
     data.buildData(conf, "time");
     new Chart().draw(data);
     vm.createHtml(data, "./WEB/result_" + data.getType() + ".vm", conf);
+    vm.createHtml(data, "./WEB/detail.vm", conf);
 
     data = new Data();
     data.buildData(conf, "release");
@@ -19,7 +20,6 @@ public class ChartProcessor {
     vm.createHtml(data, "./WEB/index.vm", conf);
     vm.createHtml(data, "./WEB/result.vm", conf);
     vm.createHtml(data, "./WEB/" + data.getPlat() + ".vm", conf);
-    
     Git.push(conf);
   }
 }
