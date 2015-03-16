@@ -23,6 +23,7 @@ public class Git {
     Util.execute("git add result_release.html", null, path);
     Util.execute("git add about.html", null, path);
     Util.execute("git add plaf1.html", null, path);
+    Util.execute("git add detail.html", null, path);
     // Util.execute("git add css", null, path);
     Util.execute("git add image", null, path);
     Util.execute("git commit -m commit", null, path);
