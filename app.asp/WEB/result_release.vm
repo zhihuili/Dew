@@ -17,6 +17,7 @@ The lower percent the better performance.</p>
 <img border="0" src="image/${platform}.release/overall.png" width="500" height="200"> 
 
 <h3> Detail </h3>
+<hr />
 #foreach($group in $grouplist)
 <h4>$group</h4>
 <hr />
