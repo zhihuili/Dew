@@ -139,7 +139,7 @@ public class Data {
         if (baseValue == null) {
           baseValue = new ArrayList<Float>();
           for (String lineName : lines) {
-            Float performance = performances.get(lineName);
+            Float performance = performances == null ? null : performances.get(lineName);
             if (performance == null) {
               baseValue.add(null);
             } else {
@@ -148,14 +148,14 @@ public class Data {
             }
             detailListList.add(new ArrayList<Float>());
           }
-          baseAvg = baseAvg / performances.size();
+          baseAvg = performances == null ? null : baseAvg / performances.size();
           continue;// skip the first day
         }
         Float avg = 0F;
         Float newAvg = 0F;
         int count = 0;
         for (int i = 0; i < lines.size(); i++) {
-          Float performance = performances.get(lines.get(i));
+          Float performance = performances == null ? null : performances.get(lines.get(i));
           Float percentage = null;
           if (performance != null) {
             avg += performance;
@@ -172,13 +172,14 @@ public class Data {
           detailListList.get(i).add(
               percentage == null ? null : Float.valueOf(format.format(percentage)));
         }
-        avg = avg / performances.size();
+        avg = performances == null ? null : avg / performances.size();
         if (count != 0) {
           newAvg = newAvg / count;
         } else {
           newAvg = null;
         }
-        avgList.add(Float.valueOf(format.format(100 * (avg - baseAvg) / avg)));
+        avgList.add((avg == null || baseAvg == null) ? null : Float.valueOf(format.format(100
+            * (avg - baseAvg) / avg)));
         newAvgList.add(newAvg == null ? null : Float.valueOf(format.format(newAvg)));
       }
     }
