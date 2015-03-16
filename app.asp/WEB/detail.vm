@@ -1,4 +1,26 @@
 <html>
+<h1>Apache Spark Performance</h1>
+<h2> Description</h2>
+<hr />
+Each data point represents each workload runtime percent compared with the previous week. Different lines represents different workloads running on spark yarn-client mode.</p>
+<h3>Hardware</h3>
+<hr />
+CPU type: Intel(R) Xeon(R) CPU E5-2697 v2 @ 2.70GHz <br />
+Memory: 192GBMb<br />
+Disk Type: HDD<br />
+Number of HDD disk: 8<br />
+Disk size: 1TB<br />
+Disk controller: SATA</p>
+<h3>Software</h3>
+<hr />
+JAVA version: 1.8.0_25<br />
+Hadoop version: 2.2.0<br />
+HiBench version: 3.0<br />
+Spark on yarn-client mode</p>
+<h3>Cluster</h3>
+<hr />
+1 node for Master<br/>
+10 nodes for Slave<br/>
 <h3> Detail </h3>
 <hr />
 #foreach($group in $grouplist)
