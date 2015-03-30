@@ -27,7 +27,7 @@ public class OutputBuilder {
       out.append("<td>" + result.getDuration() + "</td>");
       out.append("<td>" + result.getExceptionMessage() + "</td>");
       out.append(buildDetail(result.getAppId()));
-      out.append("</tr>");
+      out.append("</tr>"+"\r\n");
     }
     out.append("</table>");
     return out;
