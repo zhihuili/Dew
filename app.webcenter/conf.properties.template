@@ -8,4 +8,4 @@ dew.webcenter.applogfile.path=/tmp/webcenter
 workload.output.path=/tmp/
 #spark.log.path=/
 
-#dew.master.url=Dew_Master_Host_Name:6066
+#dew.master.url=Dew_Master_Host_Name:6766
