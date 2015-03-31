@@ -5,5 +5,5 @@
 
 <h2>ABOUT <span>Apache Spark Performance</span></h2>
 <p>Our goal is to work with the Apache Spark community to further enhance the performance of the Apache Spark. The data available on this site allows community members to closely track performance gains and losses with every week version of the Apache Spark. Ultimately, we hope that this data will result in consistent performance increases.</p>
-
+<p>Currently, the firstly adopted benchmarks include <b>HiBench</b> (a benchmark suite to evaluate big data framework like Hadoop MR, Spark from Intel®), <b>Spark-perf</b> (a performance testing framework for Apache Spark from Databricks®). In the future, more benchmarks will be added as the further complement.</p>
 #include("./WEB/footer.html")
