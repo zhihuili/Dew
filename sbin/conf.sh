@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 if [ "$DEW_MASTER_PORT" = "" ]; then
-  export DEW_MASTER_PORT=6066
+  export DEW_MASTER_PORT=6766
 fi
 
 if [ "$DEW_MASTER_NAME" = "" ]; then
