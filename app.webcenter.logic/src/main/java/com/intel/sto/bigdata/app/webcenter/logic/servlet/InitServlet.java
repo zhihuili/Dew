@@ -52,6 +52,13 @@ public class InitServlet extends HttpServlet {
         conf.putAll(userConf);
       }
       WebCenterContext.putConf(conf);
+      
+      try {
+        dbExist();
+      } catch (SQLException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+      }
 
       // init cluster system performance data for home page
       CircleLink cl = CircleLink.getInstance();
@@ -72,12 +79,6 @@ public class InitServlet extends HttpServlet {
     } catch (Exception e) {
       log.error(e.getMessage());
 
-    }
-    try {
-      dbExist();
-    } catch (SQLException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
     }
   }
 
