@@ -36,11 +36,12 @@ public class ChartUtil {
 
   static Double xMax = 0.0;
 
-  public static JFreeChart lineChart(ChartSource cs) {
+  public static JFreeChart lineChart(ChartSource cs, String slave) {
     DefaultTableXYDataset dataset = createXYDataset(cs);
     JFreeChart chart =
-        ChartFactory.createXYLineChart(cs.chartName.toUpperCase() + " THROUGHOUTPUT", cs.xAxisName,
-            cs.yAxisName, dataset, PlotOrientation.VERTICAL, true, false, false);
+        ChartFactory.createXYLineChart(slave.toUpperCase() + " " + cs.chartName.toUpperCase()
+            + " THROUGHOUTPUT", cs.xAxisName, cs.yAxisName, dataset, PlotOrientation.VERTICAL,
+            true, false, false);
     XYPlot plot = (XYPlot) chart.getPlot();
     chart.setBackgroundPaint(Color.white);
     plot.setBackgroundPaint(Color.white);
@@ -101,11 +102,12 @@ public class ChartUtil {
       }
   }
 
-  public static JFreeChart stackChart(ChartSource cs) {
+  public static JFreeChart stackChart(ChartSource cs, String slave) {
     DefaultTableXYDataset dataset = createXYDataset(cs);
     JFreeChart chart =
-        ChartFactory.createStackedXYAreaChart(cs.chartName.toUpperCase() + " UTILIZATION",
-            cs.xAxisName, cs.yAxisName, dataset, PlotOrientation.VERTICAL, true, false, false);
+        ChartFactory.createStackedXYAreaChart(
+            slave.toUpperCase() + " " + cs.chartName.toUpperCase() + " UTILIZATION", cs.xAxisName,
+            cs.yAxisName, dataset, PlotOrientation.VERTICAL, true, false, false);
     chart.setBackgroundPaint(Color.white);
     XYPlot plot = (XYPlot) chart.getPlot();
     plot.setForegroundAlpha(0.6f);

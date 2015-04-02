@@ -35,10 +35,10 @@ public class XChart extends SparkChart implements SystemChart {
           ChartSource cs = getChartSource(chd, cd, dataList);
           cs.setRemainder(xp.getRemainder());
           if (chd.getChartType().equals(ChartType.line)) {
-            outputGraph(command[i] + "_" + cs.chartName + "_" + slave, ChartUtil.lineChart(cs),
+            outputGraph(command[i] + "_" + cs.chartName + "_" + slave, ChartUtil.lineChart(cs,slave),
                 width, height);
           } else if (chd.getChartType().equals(ChartType.stack)) {
-            outputGraph(command[i] + "_" + cs.chartName + "_" + slave, ChartUtil.stackChart(cs),
+            outputGraph(command[i] + "_" + cs.chartName + "_" + slave, ChartUtil.stackChart(cs,slave),
                 width, height);
           } else {
             System.out.println("WRONG CHART TYPE: " + chd.getChartType());
