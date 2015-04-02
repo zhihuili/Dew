@@ -9,9 +9,6 @@
 </head>
 <body>
 	<s:iterator value="piclink" id="column">
-		<H3>
-			<s:property value="column" />
-		</H3>
 		<br>
 		<img src='/servlet/image?fileName=<s:property value="column"/>'
 			width="800" height="300" />
