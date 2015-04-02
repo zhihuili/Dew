@@ -86,16 +86,17 @@ public class InitServlet extends HttpServlet {
 
   private void dbExist() throws SQLException {
     Map<String, String> jdbcConf = WebCenterContext.getConf();
-    String dbDriver = jdbcConf.get(Constants.DB_URL);
+    String dbDriver = jdbcConf.get(Constants.DB_DRIVER);
+    String dbURL = jdbcConf.get(Constants.DB_URL);
     String dbUsername = jdbcConf.get(Constants.DB_USERNAME);
     String dbPassword = jdbcConf.get(Constants.DB_PASSWORD);
     try {
-      Class.forName(Constants.DB_DRIVER).newInstance();
-      Connection conn = DriverManager.getConnection(dbDriver, dbUsername, dbPassword);
+      Class.forName(dbDriver).newInstance();
+      Connection conn = DriverManager.getConnection(dbURL, dbUsername, dbPassword);
       conn.close();
     } catch (Exception e) {
       Connection conn =
-          DriverManager.getConnection(dbDriver + ";create=true;user=" + dbUsername + ";password="
+          DriverManager.getConnection(dbURL + ";create=true;user=" + dbUsername + ";password="
               + dbPassword);
       Statement st = conn.createStatement();
       st.execute("create table userinfo(user_id int generated always as identity,name "
