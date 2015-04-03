@@ -4,6 +4,7 @@ A tool which analyze spark application performance base on spark data flow.
 
 Quick Start
 ---------------
+##### Prerequest: please check your cluster and confirm dstat is installed.
 ##### Deploy Dew in cluster.
 ##### Rename conf.properties.template to conf.properties then reset it.
 ##### Run SparkPowerMeter.
@@ -18,5 +19,6 @@ OR
 For example:
     ./analyze.sh 15/01/01 00:00:00 15/01/01 01:00:00
 
+Analysis result will be output to workload.output.path set in conf.properties.
 
 good luck
