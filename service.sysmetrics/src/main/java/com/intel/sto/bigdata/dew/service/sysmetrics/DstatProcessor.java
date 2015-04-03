@@ -47,7 +47,7 @@ public class DstatProcessor extends Thread {
       // TODO
       processDstat =
           Runtime.getRuntime().exec(
-              "python /usr/bin/dstat --mem --io --cpu --net -N eth0,eth1,total --disk --output "
+              "python /usr/bin/dstat --mem --io --cpu --net --disk --output "
                   + tmpFileName);
       new PrintStreamThread(processDstat.getInputStream(), null);
       new PrintStreamThread(processDstat.getErrorStream(), null);

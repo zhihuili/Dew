@@ -7,8 +7,7 @@ import java.util.Map;
 public class DstatUtil {
 
   public static String[] metricsHead = { "used", "buffer", "cached", "free", "ioread", "iowrit",
-      "usr", "sys", "idl", "wai", "hiq", "siq", "eth0recv", "eth0send", "eth1recv", "eth1send",
-      "totalrecv", "totalsend", "diskread", "diskwrit" };
+      "usr", "sys", "idl", "wai", "hiq", "siq", "totalrecv", "totalsend", "diskread", "diskwrit" };
 
   private DstatUtil() {
   }
