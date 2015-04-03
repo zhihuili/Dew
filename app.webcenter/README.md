@@ -1,6 +1,6 @@
 app.webcenter
 ==============
-the Web UI for Dew management
+the Web UI for big data application management
 
 Quick Start
 ---------------
