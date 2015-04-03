@@ -4,7 +4,7 @@ A tool which analyze spark application performance base on spark data flow.
 
 Quick Start
 ---------------
-##### Prerequest: please check your cluster and confirm dstat is installed.
+##### Prerequisites: please check your cluster and confirm dstat is installed.
 ##### Deploy and run Dew in cluster.
 ##### Rename conf.properties.template to conf.properties then reset it.
 ##### Run SparkPowerMeter.
