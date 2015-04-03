@@ -1,2 +1,3 @@
 hdfs=hdfs://localhost:9000
-master=locahost:6766
+#please use host name
+master=master_host_name:6766
