@@ -45,7 +45,7 @@ The lower percent the better performance.</p>
 		#end
 	</tbody>
 </table>
-Comments: null means no such workload running in this week.</p>
+Comments: null means no such workload running or workload failed in this time.</p>
 <img border="0" src="image/${platform}.release/${group}_workloads.png" width="500" height="200">  
 #end
 
