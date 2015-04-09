@@ -54,17 +54,20 @@ public class InitServlet extends HttpServlet {
       WebCenterContext.putConf(conf);
 
       // init cluster system performance data for home page
-      CircleLink cl = new CircleLink();
+      CircleLink cl = CircleLink.getInstance();
       dstatApp = GroupMetricsApp.getInstance();
       dstatApp.startCollectCulsterDstat(cl, DSTAT_INTERVAL);
-      WebCenterContext.put(Constants.DSTAT_CIRCLELINK, cl);
 
       // init quartz scheduler
       Timer timer = Timer.getInstance();
       DBOperator operator = new DBOperator();
       ArrayList<JobBean> jobs = operator.getAllJob();
       for (JobBean job : jobs) {
-        timer.schedule(job.getName(), job.getCycle());
+        try {
+          timer.schedule(job.getName(), job.getCycle());
+        } catch (Throwable e) {
+          log.error(e.getMessage());
+        }
       }
     } catch (Exception e) {
       log.error(e.getMessage());

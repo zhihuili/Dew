@@ -12,7 +12,7 @@ public class CurrentDstatMain {
 
   public static void main(String[] args) throws Exception {
     try {
-      CircleLink cl = new CircleLink();
+      CircleLink cl = CircleLink.getInstance();
       dstatApp = GroupMetricsApp.getInstance();
       dstatApp.startCollectCulsterDstat(cl, DSTAT_INTERVAL);
       PrintThread pt = new PrintThread(cl);

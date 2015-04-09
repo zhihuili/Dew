@@ -18,13 +18,24 @@ public class DstatProcessor extends Thread {
   private File basePath = Files.getDstatDataPath();
   private String currentDstat;
   private String fileName;
+  private static DstatProcessor instance;
 
-  public DstatProcessor() {
-
+  private DstatProcessor() {
   }
 
-  public DstatProcessor(String timeStamp) {
+  private DstatProcessor(String timeStamp) {
     this.fileName = timeStamp;
+  }
+
+  public static synchronized DstatProcessor getInstance(String timeStamp) {
+    if (instance == null) {
+      instance = new DstatProcessor(timeStamp);
+    }
+    return instance;
+  }
+
+  public static synchronized DstatProcessor getInstance() {
+    return instance;// maybe null;
   }
 
   @Override
@@ -47,8 +58,7 @@ public class DstatProcessor extends Thread {
       // TODO
       processDstat =
           Runtime.getRuntime().exec(
-              "python /usr/bin/dstat --mem --io --cpu --net --disk --output "
-                  + tmpFileName);
+              "python /usr/bin/dstat --mem --io --cpu --net --disk --output " + tmpFileName);
       new PrintStreamThread(processDstat.getInputStream(), null);
       new PrintStreamThread(processDstat.getErrorStream(), null);
       Thread.sleep(1100);// wait for dstat creating file

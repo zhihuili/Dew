@@ -10,8 +10,8 @@ import java.util.Map;
 import com.intel.sto.bigdata.app.appdiagnosis.DiagnosisContext;
 import com.intel.sto.bigdata.app.appdiagnosis.DiagnosisResult;
 import com.intel.sto.bigdata.app.appdiagnosis.DiagnosisResult.Level;
-import com.intel.sto.bigdata.app.appdiagnosis.util.DstatUtil;
 import com.intel.sto.bigdata.app.appdiagnosis.util.Constants;
+import com.intel.sto.bigdata.dew.utils.DstatUtil;
 
 /**
  * Which nodes' load(cpu,mem,network,disk) is lower than average? 50% high, 35% middle, 20%

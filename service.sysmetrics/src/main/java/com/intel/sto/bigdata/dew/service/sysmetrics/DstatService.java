@@ -25,7 +25,7 @@ public class DstatService extends Service {
     if (!Constants.USE_MASTER_TIME || timeStamp == null) {
       timeStamp = String.valueOf(System.currentTimeMillis());
     }
-    dp = new DstatProcessor(timeStamp);
+    dp = DstatProcessor.getInstance(timeStamp);
     dp.startThread();
     while (run) {
       try {
