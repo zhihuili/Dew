@@ -5,7 +5,7 @@ Big Data Cloud Management Plateform
 
 ###Start dew cluster###
 - Build
--- mvn install -Dhadoop-version=your_deployed_hadoop_version
+-- mvn clean install -Dhadoop-version=your_deployed_hadoop_version -DskipTests
 
 - Set conf/slaves include your cluster's all nodes
 - Set conf/dew.conf
@@ -15,5 +15,5 @@ Big Data Cloud Management Plateform
 
 ###Execute dew app###
 - [app.sparkpowermeter](/app.sparkpowermeter) execute spark performance analysis
-- [app.webcenter](/app.webcenter) start dew web cosole
+- [app.webcenter](/app.webcenter) start dew web console
 
