@@ -11,6 +11,15 @@ public class CircleLink {
   // sleep some milliseconds to wait collecting data
   private static final int WAIT_COLLECTION_TIME = 300;
 
+  private static CircleLink instance = new CircleLink();
+
+  private CircleLink() {
+  }
+
+  public static CircleLink getInstance() {
+    return instance;
+  }
+
   /**
    * for user API with lock
    * 

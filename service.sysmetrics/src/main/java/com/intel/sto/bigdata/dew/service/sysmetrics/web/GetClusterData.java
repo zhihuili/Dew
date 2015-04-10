@@ -1,4 +1,4 @@
-package com.intel.sto.bigdata.app.webcenter.logic.action.cluster;
+package com.intel.sto.bigdata.dew.service.sysmetrics.web;
 
 import java.text.DateFormat;
 import java.util.ArrayList;
@@ -6,20 +6,16 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.Random;
-
-import org.apache.log4j.Logger;
 
 import net.sf.json.JSONSerializer;
 
-import com.intel.sto.bigdata.app.appdiagnosis.util.DstatUtil;
-import com.intel.sto.bigdata.app.webcenter.logic.Constants;
-import com.intel.sto.bigdata.app.webcenter.logic.WebCenterContext;
+import org.apache.log4j.Logger;
+
 import com.intel.sto.bigdata.dew.service.sysmetrics.app.CircleLink;
 import com.intel.sto.bigdata.dew.service.sysmetrics.app.CircleLinkNode;
-import com.opensymphony.xwork2.ActionSupport;
+import com.intel.sto.bigdata.dew.utils.DstatUtil;
 
-public class GetClusterData extends ActionSupport {
+public class GetClusterData {
   private static final long serialVersionUID = 3820407751289666665L;
 
   private String jsonCPU;
@@ -71,7 +67,7 @@ public class GetClusterData extends ActionSupport {
   }
 
   public String execute() throws Exception {
-    CircleLink cl = (CircleLink) WebCenterContext.get(Constants.DSTAT_CIRCLELINK);
+    CircleLink cl = CircleLink.getInstance();
     List<CircleLinkNode> dstatList = cl.buildList();
 
     List<String> timeStamp = new ArrayList<String>();

@@ -1,4 +1,4 @@
-package com.intel.sto.bigdata.app.appdiagnosis.util;
+package com.intel.sto.bigdata.dew.utils;
 
 import java.util.HashMap;
 import java.util.List;

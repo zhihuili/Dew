@@ -1,15 +1,14 @@
 package com.intel.sto.bigdata.app.appdiagnosis.strategy;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import com.intel.sto.bigdata.app.appdiagnosis.DiagnosisContext;
 import com.intel.sto.bigdata.app.appdiagnosis.DiagnosisResult;
 import com.intel.sto.bigdata.app.appdiagnosis.DiagnosisResult.Level;
-import com.intel.sto.bigdata.app.appdiagnosis.util.DstatUtil;
 import com.intel.sto.bigdata.app.appdiagnosis.util.Constants;
+import com.intel.sto.bigdata.dew.utils.DstatUtil;
 
 /**
  * Which nodes' max cpu utility (user + sys) is low? 50% high, 70% middle, 90% low

@@ -127,7 +127,7 @@
 	</package>
 	<package name="jsontest" extends="json-default" namespace="/action">
 		<action name="getClusterData"
-			class="com.intel.sto.bigdata.app.webcenter.logic.action.cluster.GetClusterData">
+			class="com.intel.sto.bigdata.dew.service.sysmetrics.web.GetClusterData">
 			<result type="json"></result>
 		</action>
 	</package>
