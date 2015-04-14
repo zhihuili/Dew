@@ -8,7 +8,7 @@ public class Workload {
     String[] s = command.split(";");
     long start = System.currentTimeMillis();
     String logFile = Util.buildLogFilePath(workloadName);
-    Util.execute(s[1], null, s[0], logFile);
+    Util.execute(s[1], null, s[0], logFile, 1800L);
     long end = System.currentTimeMillis();
     return end - start;
   }

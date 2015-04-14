@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Map;
 import java.util.Properties;
+import java.util.concurrent.TimeUnit;
 
 import com.intel.sto.bigdata.dew.utils.Files;
 import com.intel.sto.bigdata.dew.utils.PrintStreamThread;
@@ -29,10 +30,10 @@ public class Util {
   }
 
   public static void execute(String command, String[] env, String path) throws Exception {
-    execute(command, env, path, null);
+    execute(command, env, path, null,null);
   }
 
-  public static void execute(String command, String[] env, String path, String logFile)
+  public static void execute(String command, String[] env, String path, String logFile, Long timeout)
       throws Exception {
     FileWriter fw = null;
     Runtime runtime = Runtime.getRuntime();
@@ -47,7 +48,13 @@ public class Util {
       fw = new FileWriter(logFile);
       printProcessLogFile(process, fw);
     }
-    int exitValue = process.waitFor();
+    int exitValue;
+    if (timeout == null) {
+      exitValue = process.waitFor();
+    } else {
+      exitValue = process.waitFor(timeout, TimeUnit.SECONDS) == true ? 0 : 1;
+      process.destroyForcibly();
+    }
     if (fw != null) {
       fw.close();
     }
