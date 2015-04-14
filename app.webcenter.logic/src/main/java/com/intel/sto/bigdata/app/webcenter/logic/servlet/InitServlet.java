@@ -38,6 +38,14 @@ public class InitServlet extends HttpServlet {
   public void init(ServletConfig config) throws ServletException {
 
     try {
+
+      try {
+        dbExist();
+      } catch (SQLException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+      }
+
       // init file stream http server
       server = new JettyStreamServer(new FileSaveCallback());
       WebCenterContext.put(Constants.FILE_SERVER_PORT, server.getPort());
@@ -72,12 +80,6 @@ public class InitServlet extends HttpServlet {
     } catch (Exception e) {
       log.error(e.getMessage());
 
-    }
-    try {
-      dbExist();
-    } catch (SQLException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
     }
   }
 
