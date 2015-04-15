@@ -39,13 +39,6 @@ public class InitServlet extends HttpServlet {
 
     try {
 
-      try {
-        dbExist();
-      } catch (SQLException e) {
-        // TODO Auto-generated catch block
-        e.printStackTrace();
-      }
-
       // init file stream http server
       server = new JettyStreamServer(new FileSaveCallback());
       WebCenterContext.put(Constants.FILE_SERVER_PORT, server.getPort());
@@ -60,6 +53,13 @@ public class InitServlet extends HttpServlet {
         conf.putAll(userConf);
       }
       WebCenterContext.putConf(conf);
+
+      try {
+        dbExist();
+      } catch (SQLException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+      }
 
       // init cluster system performance data for home page
       CircleLink cl = CircleLink.getInstance();
