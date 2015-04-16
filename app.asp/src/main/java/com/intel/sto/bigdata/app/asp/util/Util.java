@@ -53,7 +53,7 @@ public class Util {
       exitValue = process.waitFor();
     } else {
       exitValue = process.waitFor(timeout, TimeUnit.SECONDS) == true ? 0 : 1;
-      process.destroyForcibly();
+      process.destroy();
     }
     if (fw != null) {
       fw.close();

@@ -1,5 +1,8 @@
 package com.intel.sto.bigdata.app.asp;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -42,6 +45,22 @@ public class Executor {
           System.out.println("==========error in " + workloadName + "==========");
           System.out.println(e.getMessage());
           e.printStackTrace();
+        } finally { // kill spark process
+          Runtime runtime = Runtime.getRuntime();
+          Process process = runtime.exec("jps");
+          java.io.InputStream is = process.getInputStream();
+          BufferedReader br = new BufferedReader(new InputStreamReader(is));
+          String line;
+          try {
+            while ((line = br.readLine()) != null) {
+              if(line.contains("SparkSubmit")) {              
+                String killCmd = "kill -9 "+line.split(" ")[0];
+                runtime.exec(killCmd);
+              }
+            }
+          } catch (IOException e) {
+            e.printStackTrace();
+          }
         }
       }
       String time = DataPrinter.print(conf, workresult);
