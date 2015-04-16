@@ -32,6 +32,7 @@ public class PrintStreamThread extends Thread {
         }
       };
     }
+    this.setDaemon(true);
     this.start();
   }
 
