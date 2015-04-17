@@ -4,6 +4,6 @@
 <img border="0" src="image/${platform}.release/overall.png" width="500" height="200"> 
 
 <h2>ABOUT <span>Apache Spark Performance</span></h2>
-<p>Our goal is to work with the Apache Spark community to further enhance the performance of the Apache Spark. The data available on this site allows community members to closely track performance gains and losses with every week version of the Apache Spark. Ultimately, we hope that this data will result in consistent performance increases.</p>
-<p>Currently, the firstly adopted benchmarks include <b>HiBench</b> (a benchmark suite to evaluate big data framework like Hadoop MR, Spark from Intel&reg;), <b>Spark-perf</b> (a performance testing framework for Apache Spark from Databricks&reg;). In the future, more benchmarks will be added as the further complement.</p>
+<p>Our goal is to work with the Apache Spark community to further enhance the scalability and reliability of the Apache Spark. The data available on this site allows community members and potential Spark customers to closely track performance trend of the Apache Spark. Ultimately, we hope that this project will help community to fix performance regression issue quickly, thus providing better Apache spark code to end customers.</p>
+<p>Currently, the firstly adopted benchmarks include <b>HiBench</b> (a benchmark suite to evaluate big data framework like Hadoop MR, Spark from Intel&reg;), <b>Spark-perf</b> (a performance testing framework for Apache Spark from Databricks&reg;). Additional benchmarks will be added as they become available.</p>
 #include("./WEB/footer.html")
