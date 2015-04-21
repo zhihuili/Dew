@@ -18,7 +18,7 @@ public class DataPrinter {
   public static String print(Properties conf, Map<String, Long> workresult) throws Exception {
     Date date = new Date(System.currentTimeMillis());
     SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
-    String time = sdf.format(date) + "." + getCommitCode(conf);
+    String time = sdf.format(date) + "_" + getCommitCode(conf);
     String output = Util.buildOutputPath(conf);
     FileWriter fw = null;
     try {

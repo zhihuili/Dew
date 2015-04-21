@@ -297,7 +297,7 @@ public class DrawChart {
     try {
       String line;
       while ((line = br.readLine()) != null) {
-        String[] fileName = line.split(".");
+        String[] fileName = line.split("_");
         listFilename.add(fileName[0]);
         listCommitCode.add(fileName[1]);
         listFilePath.add(path + "/" + line);
