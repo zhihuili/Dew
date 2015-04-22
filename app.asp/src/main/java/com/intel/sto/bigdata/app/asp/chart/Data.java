@@ -21,6 +21,10 @@ public class Data {
 
   // List<fileName>
   private List<String> fileList = new ArrayList<String>();
+  // List<fileName[1]>
+  private List<String> listCommitCode = new ArrayList<String>();
+  // List<fileName[0]>
+  private List<String> listTime = new ArrayList<String>();
   // List<Map<groupName,Map<workloadName,performanceValue>>>
   private List<Map<String, Map<String, Float>>> oData =
       new ArrayList<Map<String, Map<String, Float>>>();
@@ -66,7 +70,10 @@ public class Data {
         new BufferedReader(new InputStreamReader(new FileInputStream(new File(dataDir, "list"))));
     String line;
     while ((line = br.readLine()) != null) {
+      String[] fileName = line.split("_");
       fileList.add(line);
+      listCommitCode.add(fileName[1]);
+      listTime.add(fileName[0]);
     }
     br.close();
   }
@@ -271,6 +278,22 @@ public class Data {
 
   public void setNewGroupAvg(Map<String, List<Float>> newGroupAvg) {
     this.newGroupAvg = newGroupAvg;
+  }
+
+  public List<String> getListCommitCode() {
+    return listCommitCode;
+  }
+
+  public void setListCommitCode(List<String> listCommitCode) {
+    this.listCommitCode = listCommitCode;
+  }
+
+  public List<String> getListTime() {
+    return listTime;
+  }
+
+  public void setListTime(List<String> listTime) {
+    this.listTime = listTime;
   }
 
 }

@@ -25,10 +25,15 @@ The lower percent the better performance.</p>
 
 <table id="tWorkLoadData" class="sticky-enabled table">
 	<thead>
-		<tr>
-			<th>JOB</th>
+		<th>JOB</th>
 			#foreach($file in $filelist)
 			<th> $file </th>
+			#end
+		</tr>
+		<tr>
+			<th>Commit Code</th>
+			#foreach($code in $listCommitCode)
+			<th> $code </th>
 			#end
 		</tr>
 	</thead>
