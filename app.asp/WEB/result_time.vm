@@ -31,7 +31,7 @@ The lower percent the better performance.</p>
 			#end
 		</tr>
 		<tr>
-			<th>Commit Code</th>
+			<th>commit</th>
 			#foreach($code in $listCommitCode)
 			<th> $code </th>
 			#end
